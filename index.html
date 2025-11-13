@@ -4,110 +4,353 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BooknSleep – A New Intelligence Is Forming</title>
-
     <meta name="description" content="A next-generation, super-intelligent OTA ecosystem is preparing to awaken." />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="style.css" />
+    <!-- Improved UI Styles -->
+    <style>
+        :root {
+            --gold: #ffd700;
+            --accent: #fbbf24;
+            --bg: #0a0a20;
+            --light-bg: #fcfcfc;
+            --text: #fafaff;
+            --text-dark: #161820;
+            --secondary-text: #e0e4eb;
+            --glass: rgba(30, 30, 48, 0.52);
+            --glass-light: rgba(250, 250, 255, 0.78);
+            --border: 1.5px solid rgba(255,212,55,0.25);
+        }
+        [data-theme="light"] {
+            --bg: var(--light-bg);
+            --glass: var(--glass-light);
+            --text: var(--text-dark);
+            --secondary-text: #3a3f53;
+        }
+        html, body {height:100%;margin:0;padding:0;}
+        body {
+            min-height:100vh;
+            margin:0;padding:0;box-sizing: border-box;
+            font-family:"Roboto", Arial, sans-serif;
+            background: var(--bg);color: var(--text);
+            position: relative;overflow-x: hidden;
+            transition: background 0.5s, color 0.5s;
+        }
+        #aiBackground {
+            position: fixed;top:0;left:0;width:100vw;height:100vh;
+            z-index:0;display:block;
+        }
+        .container {
+            position:relative;z-index:2;
+            max-width:430px;
+            margin:6vh auto 0 auto;
+            background:var(--glass);
+            box-shadow:0 10px 40px 10px #120f3266;
+            border-radius:1.3rem;border:var(--border);
+            padding:2.2rem 2rem 1.3rem 2rem;
+            text-align:center;
+            backdrop-filter:blur(6px);
+            animation:fadeIn 1.1s cubic-bezier(.39,.58,.57,1.08);
+        }
+        @keyframes fadeIn{
+            from{opacity:0;transform:translateY(30px)}
+            to{opacity:1;transform:translateY(0)}
+        }
+        .title {
+            font-size:2.55rem;
+            font-family:"Share Tech Mono", "Roboto Mono", monospace;
+            letter-spacing:1.5px;font-weight:700;
+            margin-bottom:.38em;color:var(--text);
+            text-shadow:0 1px 8px #000a;
+        }
+        .accent {
+            color:var(--gold);font-size:1.08em;
+        }
+        .tagline {min-height:1.7em;}
+        #tagline-animated {
+            color: var(--gold);font-size:1.13rem;
+            font-family:"Share Tech Mono","Roboto Mono",monospace;
+            margin-bottom:1.4rem;opacity:0.89;
+            letter-spacing:0.8px;
+            text-shadow:0 1px 8px #0005;
+        }
+        #countdown {
+            font-family: "Share Tech Mono", "Roboto Mono", monospace;
+            font-size:2.14rem;
+            letter-spacing:1.2px;
+            margin-bottom:1.1rem;
+            color:var(--accent);
+            display:flex;justify-content:center;gap:1.1rem;align-items:center;
+            background:rgba(255,255,255,.04);
+            padding:0.6em 0.5em;border-radius:0.7rem;
+            border:1px solid rgba(251,191,36,0.18);
+            box-shadow:0 2px 9px 2px #0002 inset;
+        }
+        #countdown span {
+            color:var(--gold);
+            min-width:2.2em;display:inline-block;
+            text-align:center;font-weight:700;
+        }
+        /* Email Subscription Form */
+        .notify-form {margin:1em auto 0 auto;text-align:center;}
+        .notify-input {
+            padding:0.65em 1em;border-radius:2em;
+            border:1.5px solid var(--accent);background:rgba(251,191,36,0.05);
+            font-size:1rem;width:68%;
+            max-width:240px;outline:none;
+            margin-bottom:0.36em;
+            transition:border 0.2s;
+            color:var(--text)
+        }
+        .notify-input:focus {border-color:var(--gold);}
+        .notify-btn {
+            padding:0.65em 1.4em;
+            border-radius:2em;border:none;
+            background:var(--accent);color:#18120d;
+            font-weight:700;cursor:pointer;
+            font-size:1.08em;transition:background 0.22s;
+            margin-left:.6em;
+        }
+        .notify-btn:hover {background:var(--gold);}
+        .notify-success, .notify-error {
+            margin:0.5em auto 0 auto;color:var(--accent);font-size:1em;
+        }
+        .notify-error {color:#ff4444;}
+
+        .contact {
+            font-size:1.02rem; margin:1.33rem 0 0.7rem 0;
+            color:var(--secondary-text);word-break:break-all;
+        }
+        .contact span {
+            color:var(--accent);
+            font-family:"Share Tech Mono",monospace;
+            font-size:1.01em;user-select:all;cursor:pointer;
+        }
+        .contact span:hover {text-decoration:underline;color:var(--gold);}
+        .footer-note {
+            font-size:0.96rem;color:#909fc7;
+            margin-top:2.1em;letter-spacing:0.34px;opacity:0.7;
+        }
+        .socials {margin-top:0.5em;margin-bottom:0.6em;}
+        .socials a {
+            display:inline-block;
+            margin: 0 0.38em;
+            color:var(--accent);
+            font-size:1.28em;
+            transition: color 0.2s;
+        }
+        .socials a:hover {color:var(--gold);}
+        /* Theme Toggle */
+        .toggle-theme {
+            position: absolute;top: 1.2em;right: 1.55em;
+            background:none;border:none;cursor:pointer;
+            font-size:1.48em;z-index:12;
+            color: var(--gold);
+        }
+        /* Learn More ("modal") */
+        .learn-btn {
+            color:var(--gold);
+            background:none;border:1.2px solid var(--gold);
+            border-radius:1.2em;
+            padding:0.36em 1.12em;
+            margin-top:0.7em;font-size:1.05em;cursor:pointer;
+            transition: background 0.18s, color 0.19s, border 0.18s;
+        }
+        .learn-btn:hover {background:var(--accent);color:#12130e;}
+        .modal-bg {
+            display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;
+            background:rgba(20,20,20,0.52);z-index:100;align-items:center;justify-content:center;
+        }
+        .modal-bg.active {display:flex;}
+        .modal-content {
+            background:var(--glass);
+            border-radius:1.2em;padding:2em 2em 1.3em 2em;
+            box-shadow:0 7px 35px 3px #1a193955;
+            text-align:left; max-width:420px; width:96vw;
+            color:var(--text);
+            border:var(--border);position: relative;
+            animation:fadeIn .44s cubic-bezier(.39,.58,.57,1.08);
+        }
+        .close-modal {
+            position:absolute;right:19px;top:19px;
+            font-size:1.38em;cursor:pointer;background:none;border:none;
+            color:var(--accent);
+        }
+        .modal-content h2 {margin:0 0 .7em 0; color:var(--gold);}
+        .modal-content ul {margin:0 0 0.8em 0;}
+        @media (max-width:600px) {.container{max-width:99vw;padding:1.1em 0.45em 1em 0.45em;}.title{font-size:1.25rem;}#countdown{font-size:1.13rem;}}
+    </style>
 </head>
+<body aria-label="BooknSleep landing page" data-theme="dark">
+    <!-- Theme Toggle -->
+    <button class="toggle-theme" aria-label="Toggle theme" title="Switch light/dark theme" onclick="
+        const theme = document.body.getAttribute('data-theme')==='dark'?'light':'dark';
+        document.body.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+        this.innerHTML = theme==='dark' ? '🌙' : '☀️';
+    ">🌙</button>
 
-<body>
     <!-- AI BACKGROUND -->
     <canvas id="aiBackground"></canvas>
 
-    <main class="container">
+    <main class="container" role="main">
         <h1 class="title">
             Bookn<span class="accent">Sleep</span>.com
         </h1>
 
-        <p class="tagline">
-            A super-intelligent OTA ecosystem is forming…
-        </p>
+        <!-- Animated Slogan -->
+        <div class="tagline" id="tagline-animated">A super-intelligent OTA ecosystem is forming…</div>
 
         <!-- COUNTDOWN TIMER -->
-        <div id="countdown" class="countdown"></div>
+        <div id="countdown" class="countdown" aria-live="polite"></div>
+
+        <!-- Notify Me / Email Signup -->
+        <form class="notify-form" autocomplete="off" onsubmit="event.preventDefault();const input=this.email;const msg=this.querySelector('.notify-success'),err=this.querySelector('.notify-error');msg.textContent='';err.textContent='';if(!/^[\w\-+.]+@[\w\-]+[.][\w.]+$/.test(input.value)){err.textContent='Please enter a valid email.';return;}msg.textContent='You’ll be notified!'; input.value='';">
+            <input class="notify-input" type="email" name="email" placeholder="Your email for early access…" aria-label="email for notification" required />
+            <button class="notify-btn" type="submit">Notify Me</button>
+            <div class="notify-success" style="color:var(--accent);"></div>
+            <div class="notify-error" style="color:#ff4444;"></div>
+        </form>
+
+        <!-- Learn More / FAQ Button -->
+        <button class="learn-btn" onclick="document.getElementById('modal-bg').classList.add('active')">Learn more</button>
+
+        <!-- Social Share Links -->
+        <div class="socials" aria-label="Social links">
+            <a href="https://twitter.com/" target="_blank" rel="noopener" aria-label="Twitter"><span>🐦</span></a>
+            <a href="https://linkedin.com/" target="_blank" rel="noopener" aria-label="LinkedIn"><span>🔗</span></a>
+            <a href="https://github.com/kwadwopoku212/booknsleep" target="_blank" rel="noopener" aria-label="GitHub"><span>💻</span></a>
+        </div>
 
         <!-- CONTACT SECTION -->
         <p class="contact">
-            Contact: <span>support@booknsleep.com</span>
+            Contact: <span tabindex="0" role="link" onclick="window.location='mailto:support@booknsleep.com'">support@booknsleep.com</span>
         </p>
-
         <p class="footer-note">© 2025 — Something new is emerging.</p>
     </main>
 
+    <!-- Modal / Learn More -->
+    <div class="modal-bg" id="modal-bg" role="dialog" aria-modal="true" tabindex="-1">
+        <div class="modal-content">
+            <button class="close-modal" title="Close" aria-label="Close" onclick="document.getElementById('modal-bg').classList.remove('active')">×</button>
+            <h2>What is BooknSleep?</h2>
+            <p><strong>BooknSleep</strong> is a next-gen, super-intelligent Online Travel Agency (OTA) ecosystem being designed to dramatically reshape your travel booking experience. A few of the things we’re cooking up:</p>
+            <ul>
+                <li>AI-powered recommendations and booking for hotels & stays.</li>
+                <li>Transparent, personalized itineraries.</li>
+                <li>Zero-hassle customer support with real AI.</li>
+                <li>Early adopters are <b>first to unlock</b> the new experience!</li>
+            </ul>
+            <p><small>Want early access? Drop your email above – and watch this space…</small></p>
+        </div>
+    </div>
+    <!-- END Modal -->
+
     <!-- COUNTDOWN SCRIPT -->
     <script>
-        const targetDate = new Date();
-        targetDate.setDate(targetDate.getDate() + 125);
-
+        // Launch date – edit to your real target!
+        const launchDate = new Date("2025-03-18T12:00:00Z");
         function updateCountdown() {
-            const now = new Date().getTime();
-            const distance = targetDate - now;
-
-            if (distance < 0) {
-                document.getElementById("countdown").innerHTML = "The system is awakening…";
-                return;
-            }
-
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            document.getElementById("countdown").innerHTML =
-                `<span>${days}d</span> : <span>${hours}h</span> : <span>${minutes}m</span> : <span>${seconds}s</span>`;
+            const now = new Date().getTime(), target = launchDate.getTime(), distance = target - now;
+            const countdownEl = document.getElementById("countdown");
+            if (distance < 0) {countdownEl.innerHTML="<span>The system is awakening…</span>"; return;}
+            const days = Math.floor(distance / (1000*60*60*24)),
+                hours = Math.floor((distance % (1000*60*60*24)) / (1000*60*60)),
+                minutes = Math.floor((distance % (1000*60*60)) / (1000*60)),
+                seconds = Math.floor((distance % (1000*60)) / 1000);
+            countdownEl.innerHTML =
+                `<span>${String(days).padStart(2,"0")}d</span> : <span>${String(hours).padStart(2,"0")}h</span> : <span>${String(minutes).padStart(2,"0")}m</span> : <span>${String(seconds).padStart(2,"0")}s</span>`;
         }
-
-        setInterval(updateCountdown, 1000);
-        updateCountdown();
+        setInterval(updateCountdown, 1000); updateCountdown();
     </script>
 
-    <!-- FLOATING PARTICLES + AI NETWORK -->
+    <!-- Tagline Typewriter Animation -->
+    <script>
+        const taglines = [
+            "A super-intelligent OTA ecosystem is forming…",
+            "Let AI plan your stay, perfectly tailored for you.",
+            "Get ready for the future of travel booking."
+        ];
+        let tagIndex = 0, typeIndex = 0, isDeleting = false, speed = 38, pause = 1800;
+        function typeIt() {
+            const el = document.getElementById("tagline-animated");
+            if (!el) return;
+            const text = taglines[tagIndex];
+            if (isDeleting) {
+                el.textContent = text.substring(0, typeIndex--);
+            } else {
+                el.textContent = text.substring(0, ++typeIndex);
+            }
+            if (!isDeleting && typeIndex === text.length) {
+                isDeleting = true;
+                setTimeout(typeIt, pause);
+            } else if (isDeleting && typeIndex === 0) {
+                isDeleting = false;tagIndex = (tagIndex + 1) % taglines.length;
+                setTimeout(typeIt, 750);
+            } else {
+                setTimeout(typeIt, isDeleting ? 25 : speed);
+            }
+        }
+        setTimeout(typeIt, 900);
+    </script>
+
+    <!-- FLOATING PARTICLES + AI NETWORK lines -->
     <script>
         const canvas = document.getElementById("aiBackground");
         const ctx = canvas.getContext("2d");
-
         function resizeCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         }
-
         resizeCanvas();
         window.addEventListener("resize", resizeCanvas);
-
-        const particles = [];
-        const count = 60;
-
-        for (let i = 0; i < count; i++) {
-            particles.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                vx: (Math.random() - 0.5) * 0.3,
-                vy: (Math.random() - 0.5) * 0.3,
-                r: Math.random() * 2 + 1
-            });
+        // Particle and connection network
+        const particles = [], count = 77;
+        function randClamped(v=1){return (Math.random()-0.5)*v;}
+        for(let i=0;i<count;i++) particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,vx:randClamped(.5),vy:randClamped(.5),r:Math.random()*2+1.4});
+        function drawNetwork(){
+            ctx.save();
+            for(let i=0;i<count;i++)for(let j=i+1;j<count;j++){
+                const dx=particles[i].x-particles[j].x,dy=particles[i].y-particles[j].y,dist=Math.sqrt(dx*dx+dy*dy);
+                if(dist<85){
+                    ctx.strokeStyle=`rgba(255,215,0,${0.15-dist/610})`;ctx.lineWidth=1.1-dist/120;
+                    ctx.beginPath();ctx.moveTo(particles[i].x,particles[i].y);ctx.lineTo(particles[j].x,particles[j].y);ctx.stroke();
+                }
+            }
+            ctx.restore();
         }
-
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            particles.forEach(p => {
-                p.x += p.vx;
-                p.y += p.vy;
-
-                if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
-                if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
-
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-                ctx.fillStyle = "rgba(255, 215, 0, 0.6)"; /* GOLD */
-                ctx.fill();
-            });
-
-            requestAnimationFrame(animate);
+        function animate(){
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            for(const p of particles){
+                p.x+=p.vx;p.y+=p.vy;
+                if(p.x<0||p.x>canvas.width) p.vx*=-1;
+                if(p.y<0||p.y>canvas.height) p.vy*=-1;
+                ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+                ctx.fillStyle="rgba(255,215,0,0.7)";ctx.shadowBlur=9;ctx.shadowColor="#ffd70088";ctx.fill();
+            }
+            drawNetwork();requestAnimationFrame(animate);
         }
-
         animate();
     </script>
-
+    <script>
+        // THEME PERSISTENCE
+        (() => {
+            try {
+                const theme = localStorage.getItem('theme');
+                if(theme){
+                    document.body.setAttribute('data-theme', theme);
+                    document.querySelector('.toggle-theme').innerHTML = theme==='dark' ? '🌙' : '☀️';
+                }
+            } catch {}
+        })();
+        // Modal close with background click or Escape key
+        document.getElementById('modal-bg').onclick = (e) => {
+            if(e.target.id==='modal-bg') e.target.classList.remove('active');
+        };
+        window.addEventListener('keydown', (e)=>{
+            if(e.key==='Escape') document.getElementById('modal-bg').classList.remove('active');
+        });
+    </script>
 </body>
 </html>
