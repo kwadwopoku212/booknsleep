@@ -1,20 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BooknSleep – Coming Soon</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BooknSleep – A New Intelligence Is Forming</title>
+
+    <meta name="description" content="A next-generation, super-intelligent OTA ecosystem is preparing to awaken." />
+
+    <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
-<div class="overlay"></div>
-<div class="content">
-    <h1>BooknSleep<span class="accent">.com</span></h1>
-    <p>Your next‑generation stay & experience platform is loading…</p>
-    <div class="qr-section">
-        <img src="assets/qr/qr.png" class="qr" alt="QR Code">
-        <p>Scan to follow development updates</p>
-    </div>
-</div>
+    <!-- AI BACKGROUND -->
+    <canvas id="aiBackground"></canvas>
+
+    <main class="container">
+        <h1 class="title">
+            Bookn<span class="accent">Sleep</span>.com
+        </h1>
+
+        <p class="tagline">
+            A super-intelligent OTA ecosystem is forming…
+        </p>
+
+        <!-- COUNTDOWN TIMER -->
+        <div id="countdown" class="countdown"></div>
+
+        <!-- QR -->
+        <div class="qr-box">
+            <img src="assets/qr/qr.png" alt="QR Code" class="qr" />
+            <p class="qr-note">Scan to follow private development updates</p>
+        </div>
+
+        <p class="footer-note">© 2025 — Something new is emerging.</p>
+    </main>
+
+    <!-- COUNTDOWN SCRIPT -->
+    <script>
+        const targetDate = new Date();
+        targetDate.setDate(targetDate.getDate() + 125);
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            if (distance < 0) {
+                document.getElementById("countdown").innerHTML = "The system is awakening…";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("countdown").innerHTML =
+                `<span>${days}d</span> : <span>${hours}h</span> : <span>${minutes}m</span> : <span>${seconds}s</span>`;
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
+
+    <!-- FLOATING PARTICLES + AI NETWORK -->
+    <script>
+        const canvas = document.getElementById("aiBackground");
+        const ctx = canvas.getContext("2d");
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        resizeCanvas();
+        window.addEventListener("resize", resizeCanvas);
+
+        const particles = [];
+        const count = 60;
+
+        for (let i = 0; i < count; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                vx: (Math.random() - 0.5) * 0.3,
+                vy: (Math.random() - 0.5) * 0.3,
+                r: Math.random() * 2 + 1
+            });
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            particles.forEach(p => {
+                p.x += p.vx;
+                p.y += p.vy;
+
+                if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                ctx.fillStyle = "rgba(255, 215, 0, 0.6)"; /* GOLD */
+                ctx.fill();
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    </script>
+
 </body>
 </html>
