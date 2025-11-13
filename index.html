@@ -241,25 +241,34 @@
         function updateCountdown() {
             const now = new Date().getTime(), target = launchDate.getTime(), distance = target - now;
             const countdownEl = document.getElementById("countdown");
-            if (distance < 0) {countdownEl.innerHTML="<span>The system is awakening…</span>"; return;}
+            if (distance < 0) {
+                countdownEl.innerHTML = "<span>The system is awakening…</span>";
+                return;
+            }
             const days = Math.floor(distance / (1000*60*60*24)),
-                hours = Math.floor((distance % (1000*60*60*24)) / (1000*60*60)),
-                minutes = Math.floor((distance % (1000*60*60)) / (1000*60)),
-                seconds = Math.floor((distance % (1000*60)) / 1000);
+                  hours = Math.floor((distance % (1000*60*60*24)) / (1000*60*60)),
+                  minutes = Math.floor((distance % (1000*60*60)) / (1000*60)),
+                  seconds = Math.floor((distance % (1000*60)) / 1000);
+            let daysLabel = days === 1 ? "day" : "days";
+            // Output e.g. "124days: 21:59:44"
             countdownEl.innerHTML =
-                `<span>${String(days).padStart(2,"0")}d</span> : <span>${String(hours).padStart(2,"0")}h</span> : <span>${String(minutes).padStart(2,"0")}m</span> : <span>${String(seconds).padStart(2,[...]
+                `<span>${days}${daysLabel}:</span> <span>${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}</span>`;
         }
         setInterval(updateCountdown, 1000); updateCountdown();
     </script>
 
-    <!-- Tagline Typewriter Animation -->
+    <!-- Tagline Typewriter Animation (SLOWER) -->
     <script>
         const taglines = [
             "A super-intelligent OTA ecosystem is forming…",
             "Let AI plan your stay, perfectly tailored for you.",
             "Get ready for the future of travel booking."
         ];
-        let tagIndex = 0, typeIndex = 0, isDeleting = false, speed = 38, pause = 1800;
+        let tagIndex = 0, typeIndex = 0, isDeleting = false;
+        const typeSpeed = 80;   // Slower typing speed (ms per char)
+        const deleteSpeed = 40; // Slower deleting speed
+        const pause = 1800;
+
         function typeIt() {
             const el = document.getElementById("tagline-animated");
             if (!el) return;
@@ -273,10 +282,11 @@
                 isDeleting = true;
                 setTimeout(typeIt, pause);
             } else if (isDeleting && typeIndex === 0) {
-                isDeleting = false;tagIndex = (tagIndex + 1) % taglines.length;
-                setTimeout(typeIt, 750);
+                isDeleting = false;
+                tagIndex = (tagIndex + 1) % taglines.length;
+                setTimeout(typeIt, 900);
             } else {
-                setTimeout(typeIt, isDeleting ? 25 : speed);
+                setTimeout(typeIt, isDeleting ? deleteSpeed : typeSpeed);
             }
         }
         setTimeout(typeIt, 900);
