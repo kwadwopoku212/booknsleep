@@ -132,15 +132,7 @@
             font-size:0.96rem;color:#909fc7;
             margin-top:2.1em;letter-spacing:0.34px;opacity:0.7;
         }
-        .socials {margin-top:0.5em;margin-bottom:0.6em;}
-        .socials a {
-            display:inline-block;
-            margin: 0 0.38em;
-            color:var(--accent);
-            font-size:1.28em;
-            transition: color 0.2s;
-        }
-        .socials a:hover {color:var(--gold);}
+        /* Removed .socials styles and related code */
         /* Theme Toggle */
         .toggle-theme {
             position: absolute;top: 1.2em;right: 1.55em;
@@ -206,7 +198,7 @@
         <div id="countdown" class="countdown" aria-live="polite"></div>
 
         <!-- Notify Me / Email Signup -->
-        <form class="notify-form" autocomplete="off" onsubmit="event.preventDefault();const input=this.email;const msg=this.querySelector('.notify-success'),err=this.querySelector('.notify-error');msg.textContent='';err.textContent='';if(!/^[\w\-+.]+@[\w\-]+[.][\w.]+$/.test(input.value)){err.textContent='Please enter a valid email.';return;}msg.textContent='You’ll be notified!'; input.value='';">
+        <form class="notify-form" autocomplete="off" onsubmit="event.preventDefault();const input=this.email;const msg=this.querySelector('.notify-success'),err=this.querySelector('.notify-error');msg[...]
             <input class="notify-input" type="email" name="email" placeholder="Your email for early access…" aria-label="email for notification" required />
             <button class="notify-btn" type="submit">Notify Me</button>
             <div class="notify-success" style="color:var(--accent);"></div>
@@ -216,13 +208,8 @@
         <!-- Learn More / FAQ Button -->
         <button class="learn-btn" onclick="document.getElementById('modal-bg').classList.add('active')">Learn more</button>
 
-        <!-- Social Share Links -->
-        <div class="socials" aria-label="Social links">
-            <a href="https://twitter.com/" target="_blank" rel="noopener" aria-label="Twitter"><span>🐦</span></a>
-            <a href="https://linkedin.com/" target="_blank" rel="noopener" aria-label="LinkedIn"><span>🔗</span></a>
-            <a href="https://github.com/kwadwopoku212/booknsleep" target="_blank" rel="noopener" aria-label="GitHub"><span>💻</span></a>
-        </div>
-
+        <!-- REMOVED SOCIAL SHARE LINKS FOR SECURITY -->
+        
         <!-- CONTACT SECTION -->
         <p class="contact">
             Contact: <span tabindex="0" role="link" onclick="window.location='mailto:support@booknsleep.com'">support@booknsleep.com</span>
@@ -235,7 +222,7 @@
         <div class="modal-content">
             <button class="close-modal" title="Close" aria-label="Close" onclick="document.getElementById('modal-bg').classList.remove('active')">×</button>
             <h2>What is BooknSleep?</h2>
-            <p><strong>BooknSleep</strong> is a next-gen, super-intelligent Online Travel Agency (OTA) ecosystem being designed to dramatically reshape your travel booking experience. A few of the things we’re cooking up:</p>
+            <p><strong>BooknSleep</strong> is a next-gen, super-intelligent Online Travel Agency (OTA) ecosystem being designed to dramatically reshape your travel booking experience. A few of the thi[...]
             <ul>
                 <li>AI-powered recommendations and booking for hotels & stays.</li>
                 <li>Transparent, personalized itineraries.</li>
@@ -260,7 +247,7 @@
                 minutes = Math.floor((distance % (1000*60*60)) / (1000*60)),
                 seconds = Math.floor((distance % (1000*60)) / 1000);
             countdownEl.innerHTML =
-                `<span>${String(days).padStart(2,"0")}d</span> : <span>${String(hours).padStart(2,"0")}h</span> : <span>${String(minutes).padStart(2,"0")}m</span> : <span>${String(seconds).padStart(2,"0")}s</span>`;
+                `<span>${String(days).padStart(2,"0")}d</span> : <span>${String(hours).padStart(2,"0")}h</span> : <span>${String(minutes).padStart(2,"0")}m</span> : <span>${String(seconds).padStart(2,[...]
         }
         setInterval(updateCountdown, 1000); updateCountdown();
     </script>
