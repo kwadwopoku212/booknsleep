@@ -1,149 +1,123 @@
-// scripts.js — BooknSleep interactive logic
-
-// =====================
-// COUNTDOWN TIMER
-// =====================
-const launchDate = new Date("2025-03-18T12:00:00Z");
-
-function updateCountdown() {
-  const now = new Date().getTime();
-  const target = launchDate.getTime();
-  const distance = target - now;
-  const countdownEl = document.getElementById("countdown");
-
-  if (!countdownEl) return; // Prevent errors if element not found
-
-  if (distance < 0) {
-    countdownEl.innerHTML = "<span>The system is awakening…</span>";
-    return;
-  }
-
-  const days = Math.floor(distance / (1000*60*60*24));
-  const hours = Math.floor((distance % (1000*60*60*24)) / (1000*60*60));
-  const minutes = Math.floor((distance % (1000*60*60)) / (1000*60));
-  const seconds = Math.floor((distance % (1000*60)) / 1000);
-
-  let daysLabel = days === 1 ? "day" : "days";
-  countdownEl.innerHTML =
-    `<span>${days} ${daysLabel}:</span> <span>${String(hours).padStart(2,"0")}:${String(minutes).padStart(2,"0")}:${String(seconds).padStart(2,"0")}</span>`;
+/* JOIN THE TEAM SECTION */
+.join-team {
+    margin-top: 2.5rem;
+    padding: 1.5rem;
+    background: var(--glass);
+    border: var(--border);
+    border-radius: 1.2em;
+    box-shadow: 0 6px 25px rgba(0,0,0,0.35);
+    text-align: left;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+    backdrop-filter: blur(6px);
 }
-setInterval(updateCountdown, 1000);
-updateCountdown();
 
-// =====================
-// TAGLINE TYPEWRITER
-// =====================
-const taglines = [
-  "A super-intelligent OTA ecosystem is forming…",
-  "Let AI plan your stay, perfectly tailored for you.",
-  "Get ready for the future of travel booking."
-];
-let tagIndex = 0, typeIndex = 0, isDeleting = false;
-const typeSpeed = 80, deleteSpeed = 40, pause = 1800;
-
-function typeIt() {
-  const el = document.getElementById("tagline-animated");
-  if (!el) return;
-  const text = taglines[tagIndex];
-  if (isDeleting) {
-    el.textContent = text.substring(0, typeIndex--);
-  } else {
-    el.textContent = text.substring(0, ++typeIndex);
-  }
-  if (!isDeleting && typeIndex === text.length) {
-    isDeleting = true;
-    setTimeout(typeIt, pause);
-  } else if (isDeleting && typeIndex === 0) {
-    isDeleting = false;
-    tagIndex = (tagIndex + 1) % taglines.length;
-    setTimeout(typeIt, 900);
-  } else {
-    setTimeout(typeIt, isDeleting ? deleteSpeed : typeSpeed);
-  }
+.join-team h2 {
+    color: var(--gold);
+    font-family: "Share Tech Mono", monospace;
+    font-size: 1.4rem;
+    margin-bottom: 0.6rem;
 }
-setTimeout(typeIt, 900);
 
-// =====================
-// PARTICLE BACKGROUND
-// =====================
-const canvas = document.getElementById("aiBackground");
-if (canvas && canvas.getContext) {
-  const ctx = canvas.getContext("2d");
+.join-team p {
+    color: var(--secondary-text);
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
 
-  function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
-  resizeCanvas();
-  window.addEventListener("resize", resizeCanvas);
+/* APPLY FORM */
+.apply-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
 
-  const particles = [], count = 77;
-  function randClamped(v=1){return (Math.random()-0.5)*v;}
-  for(let i=0;i<count;i++) particles.push({
-    x:Math.random()*canvas.width,
-    y:Math.random()*canvas.height,
-    vx:randClamped(.5),
-    vy:randClamped(.5),
-    r:Math.random()*2+1.4
-  });
+.apply-form input,
+.apply-form textarea {
+    padding: 0.7em 1em;
+    border-radius: 0.8em;
+    border: 1.5px solid var(--accent);
+    background: rgba(251,191,36,0.05);
+    font-size: 1rem;
+    color: var(--text);
+    outline: none;
+    transition: border 0.2s;
+}
 
-  function drawNetwork(){
-    ctx.save();
-    for(let i=0;i<count;i++)for(let j=i+1;j<count;j++){
-      const dx=particles[i].x-particles[j].x,
-            dy=particles[i].y-particles[j].y,
-            dist=Math.sqrt(dx*dx+dy*dy);
-      if(dist<85){
-        ctx.strokeStyle=`rgba(255,215,0,${0.15-dist/610})`;
-        ctx.lineWidth=1.1-dist/120;
-        ctx.beginPath();
-        ctx.moveTo(particles[i].x,particles[i].y);
-        ctx.lineTo(particles[j].x,particles[j].y);
-        ctx.stroke();
-      }
+.apply-form input:focus,
+.apply-form textarea:focus {
+    border-color: var(--gold);
+}
+
+.apply-form textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.apply-form button {
+    align-self: flex-start;
+    padding: 0.65em 1.4em;
+    border-radius: 2em;
+    border: none;
+    background: var(--accent);
+    color: #18120d;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 1.08em;
+    transition: background 0.22s;
+}
+
+.apply-form button:hover {
+    background: var(--gold);
+}
+
+/* MOBILE OPTIMIZATION */
+@media (max-width: 600px) {
+    .join-team {
+        padding: 1rem;
+        max-width: 95vw;
     }
-    ctx.restore();
-  }
-
-  function animate(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    for(const p of particles){
-      p.x+=p.vx;p.y+=p.vy;
-      if(p.x<0||p.x>canvas.width) p.vx*=-1;
-      if(p.y<0||p.y>canvas.height) p.vy*=-1;
-      ctx.beginPath();
-      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-      ctx.fillStyle="rgba(255,215,0,0.7)";
-      ctx.shadowBlur=9;
-      ctx.shadowColor="#ffd70088";
-      ctx.fill();
+    .join-team h2 {
+        font-size: 1.2rem;
     }
-    drawNetwork();
-    requestAnimationFrame(animate);
-  }
-  animate();
 }
+:root {
+  --bg: #0a0a20;
+  --text: #fafaff;
+  --card: rgba(30, 30, 48, 0.52);
+  --accent: #fbbf24;
+  --gold: #ffd700;
+  --border: 1.5px solid rgba(255,212,55,0.25);
+}
+body { background: var(--bg); color: var(--text); font-family: system-ui, Segoe UI, Roboto, Arial, sans-serif; }
+.main { max-width: 1100px; margin: 40px auto; padding: 0 20px; }
+.card { background: var(--card); border: var(--border); border-radius: 16px; padding: 16px; }
+.header { display: flex; gap: 8px; align-items: center; justify-content: space-between; }
+.token { padding: 6px 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.18); background: rgba(255,255,255,0.06); color: var(--text); }
+.table { width: 100%; border-collapse: collapse; }
+.table th, .table td { border-bottom: 1px solid rgba(255,255,255,0.08); padding: 10px; text-align: left; font-size: 14px; }
+.badge { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 12px; color: #18120d; }
+.badge.industry_watch { background: #ffd700; }
+.badge.high_interest { background: #fbbf24; }
+.badge.medium_interest { background: #d1fae5; }
+.badge.low_interest { background: #e5e7eb; }
+/* Add to style.css */
+.consent-banner {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: var(--glass);
+  border-top: var(--border);
+  backdrop-filter: blur(6px);
+  color: var(--text);
+  padding: 0.9rem 1rem;
+  display: flex; gap: 1rem; align-items: center; justify-content: center;
+  z-index: 1000;
+}
+.consent-banner p { margin: 0; font-size: 0.95rem; color: var(--secondary-text); }
+.consent-banner button {
+  padding: 0.4em 0.9em; border-radius: 1.2em; border: 1px solid var(--accent);
+  background: var(--accent); color: #18120d; cursor: pointer; font-weight: 600;
+}
+.consent-banner .decline { background: transparent; color: var(--text); }
 
-// =====================
-// THEME TOGGLE & MODAL
-// =====================
-const themeBtn = document.querySelector('.toggle-theme');
-if (themeBtn) {
-  themeBtn.addEventListener('click', () => {
-    const theme = document.body.getAttribute('data-theme')==='dark' ? 'light' : 'dark';
-    document.body.setAttribute('data-theme', theme);
-    localStorage.setItem('theme', theme);
-    themeBtn.innerHTML = theme==='dark' ? '🌙' : '☀️';
-  });
-}
 
-// Modal close with background click or Escape key
-const modalBg = document.getElementById('modal-bg');
-if (modalBg) {
-  modalBg.onclick = (e) => {
-    if(e.target.id==='modal-bg') e.target.classList.remove('active');
-  };
-  window.addEventListener('keydown', (e)=>{
-    if(e.key==='Escape') modalBg.classList.remove('active');
-  });
-}
