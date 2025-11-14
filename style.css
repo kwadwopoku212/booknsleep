@@ -143,3 +143,41 @@ body {
   background: var(--accent);
   color: #18120d;
   font-weight:
+/* Place this after .container { ... } in your CSS file */
+
+/* Card container flex */
+.card-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  align-items: stretch;
+  margin-top: 3rem;
+}
+
+.card-group > .early-access,
+.card-group > .join-team {
+  flex: 1 1 300px;
+  max-width: 480px;
+  min-width: 280px;
+}
+
+/* On small screens, stack vertically */
+@media (max-width: 900px) {
+  .card-group {
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+}
+
+/* Optionally, add some vertical space between title and cards */
+.container .title {
+  margin-bottom: 1.5rem;
+}
+
+/* You may want to remove top margin from individual cards since spacing is handled by gap */
+.early-access,
+.join-team {
+  margin-top: 0;
+}
