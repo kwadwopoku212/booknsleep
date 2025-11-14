@@ -4,8 +4,35 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>BooknSleep – A New Intelligence Is Forming</title>
-  <meta name="description" content="A next-generation, super-intelligent OTA ecosystem is preparing to awaken." />
+
+  <!-- SEO Meta Tags -->
+  <meta name="title" content="BooknSleep – A New Intelligence Is Forming">
+  <meta name="description" content="BooknSleep is a next-gen, AI-powered OTA ecosystem offering personalized travel booking and host dashboards.">
+  <meta name="keywords" content="BooknSleep, OTA, travel booking, AI travel, intelligent itinerary, host dashboard, dispute resolution, early access">
+  <meta name="author" content="BooknSleep.com">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://booknsleep.com">
+  <meta property="og:title" content="BooknSleep – A New Intelligence Is Forming">
+  <meta property="og:description" content="Join the future of travel booking. AI-powered recommendations, host dashboards, and brand-safe independence.">
+  <meta property="og:image" content="https://booknsleep.com/assets/og-preview.png">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://booknsleep.com">
+  <meta name="twitter:title" content="BooknSleep – A New Intelligence Is Forming">
+  <meta name="twitter:description" content="A super-intelligent OTA ecosystem is forming. Get early access and join the build.">
+  <meta name="twitter:image" content="https://booknsleep.com/assets/og-preview.png">
+
+  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+  <!-- Favicon -->
+  <link rel="icon" href="/assets/favicon-32x32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="/assets/favicon-16x16.png" sizes="16x16" type="image/png">
+
+  <!-- Styles -->
   <link rel="stylesheet" href="style.css" />
 </head>
 <body data-theme="dark">
@@ -20,12 +47,14 @@
   <main class="container" role="main">
     <h1 class="title">Bookn<span class="accent">Sleep</span>.com</h1>
     <div class="tagline" id="tagline-animated">A super-intelligent OTA ecosystem is forming…</div>
+
+    <!-- Countdown -->
     <div id="countdown" class="countdown" aria-live="polite"></div>
 
     <!-- Early Access Section -->
     <section class="early-access">
       <h2>Get Early Access</h2>
-      <form class="notify-form" autocomplete="off" action="https://formspree.io/f/{your_form_id1}" method="POST">
+      <form class="notify-form" autocomplete="off" onsubmit="event.preventDefault();">
         <input class="notify-input" type="email" name="email" placeholder="Your email for early access…" required />
         <button class="notify-btn" type="submit">Notify Me</button>
         <div class="notify-success"></div>
@@ -38,7 +67,7 @@
     <section class="join-team">
       <h2>Join Our Development Team</h2>
       <p>We’re building the future of intelligent travel booking. If you’re a programmer or AI engineer, apply below.</p>
-      <form class="apply-form" action="https://formspree.io/f/{your_form_id2}" method="POST">
+      <form class="apply-form" action="mailto:careers@booknsleep.com" method="post" enctype="text/plain">
         <input type="text" name="name" placeholder="Your Name" required />
         <input type="email" name="email" placeholder="Your Email" required />
         <textarea name="skills" placeholder="Tell us about your skills…" required></textarea>
