@@ -1,353 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BooknSleep – A New Intelligence Is Forming</title>
-    <meta name="description" content="A next-generation, super-intelligent OTA ecosystem is preparing to awaken." />
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BooknSleep – A New Intelligence Is Forming</title>
+  <meta name="description" content="A next-generation, super-intelligent OTA ecosystem is preparing to awaken." />
 
-    <!-- Improved UI Styles -->
-    <style>
-        :root {
-            --gold: #ffd700;
-            --accent: #fbbf24;
-            --bg: #0a0a20;
-            --light-bg: #fcfcfc;
-            --text: #fafaff;
-            --text-dark: #161820;
-            --secondary-text: #e0e4eb;
-            --glass: rgba(30, 30, 48, 0.52);
-            --glass-light: rgba(250, 250, 255, 0.78);
-            --border: 1.5px solid rgba(255,212,55,0.25);
-        }
-        [data-theme="light"] {
-            --bg: var(--light-bg);
-            --glass: var(--glass-light);
-            --text: var(--text-dark);
-            --secondary-text: #3a3f53;
-        }
-        html, body {height:100%;margin:0;padding:0;}
-        body {
-            min-height:100vh;
-            margin:0;padding:0;box-sizing: border-box;
-            font-family:"Roboto", Arial, sans-serif;
-            background: var(--bg);color: var(--text);
-            position: relative;overflow-x: hidden;
-            transition: background 0.5s, color 0.5s;
-        }
-        #aiBackground {
-            position: fixed;top:0;left:0;width:100vw;height:100vh;
-            z-index:0;display:block;
-        }
-        .container {
-            position:relative;z-index:2;
-            max-width:430px;
-            margin:6vh auto 0 auto;
-            background:var(--glass);
-            box-shadow:0 10px 40px 10px #120f3266;
-            border-radius:1.3rem;border:var(--border);
-            padding:2.2rem 2rem 1.3rem 2rem;
-            text-align:center;
-            backdrop-filter:blur(6px);
-            animation:fadeIn 1.1s cubic-bezier(.39,.58,.57,1.08);
-        }
-        @keyframes fadeIn{
-            from{opacity:0;transform:translateY(30px)}
-            to{opacity:1;transform:translateY(0)}
-        }
-        .title {
-            font-size:2.55rem;
-            font-family:"Share Tech Mono", "Roboto Mono", monospace;
-            letter-spacing:1.5px;font-weight:700;
-            margin-bottom:.38em;color:var(--text);
-            text-shadow:0 1px 8px #000a;
-        }
-        .accent {
-            color:var(--gold);font-size:1.08em;
-        }
-        .tagline {min-height:1.7em;}
-        #tagline-animated {
-            color: var(--gold);font-size:1.13rem;
-            font-family:"Share Tech Mono","Roboto Mono",monospace;
-            margin-bottom:1.4rem;opacity:0.89;
-            letter-spacing:0.8px;
-            text-shadow:0 1px 8px #0005;
-        }
-        #countdown {
-            font-family: "Share Tech Mono", "Roboto Mono", monospace;
-            font-size:2.14rem;
-            letter-spacing:1.2px;
-            margin-bottom:1.1rem;
-            color:var(--accent);
-            display:flex;justify-content:center;gap:1.1rem;align-items:center;
-            background:rgba(255,255,255,.04);
-            padding:0.6em 0.5em;border-radius:0.7rem;
-            border:1px solid rgba(251,191,36,0.18);
-            box-shadow:0 2px 9px 2px #0002 inset;
-        }
-        #countdown span {
-            color:var(--gold);
-            min-width:2.2em;display:inline-block;
-            text-align:center;font-weight:700;
-        }
-        /* Email Subscription Form */
-        .notify-form {margin:1em auto 0 auto;text-align:center;}
-        .notify-input {
-            padding:0.65em 1em;border-radius:2em;
-            border:1.5px solid var(--accent);background:rgba(251,191,36,0.05);
-            font-size:1rem;width:68%;
-            max-width:240px;outline:none;
-            margin-bottom:0.36em;
-            transition:border 0.2s;
-            color:var(--text)
-        }
-        .notify-input:focus {border-color:var(--gold);}
-        .notify-btn {
-            padding:0.65em 1.4em;
-            border-radius:2em;border:none;
-            background:var(--accent);color:#18120d;
-            font-weight:700;cursor:pointer;
-            font-size:1.08em;transition:background 0.22s;
-            margin-left:.6em;
-        }
-        .notify-btn:hover {background:var(--gold);}
-        .notify-success, .notify-error {
-            margin:0.5em auto 0 auto;color:var(--accent);font-size:1em;
-        }
-        .notify-error {color:#ff4444;}
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 
-        .contact {
-            font-size:1.02rem; margin:1.33rem 0 0.7rem 0;
-            color:var(--secondary-text);word-break:break-all;
-        }
-        .contact span {
-            color:var(--accent);
-            font-family:"Share Tech Mono",monospace;
-            font-size:1.01em;user-select:all;cursor:pointer;
-        }
-        .contact span:hover {text-decoration:underline;color:var(--gold);}
-        .footer-note {
-            font-size:0.96rem;color:#909fc7;
-            margin-top:2.1em;letter-spacing:0.34px;opacity:0.7;
-        }
-        /* Removed .socials styles and related code */
-        /* Theme Toggle */
-        .toggle-theme {
-            position: absolute;top: 1.2em;right: 1.55em;
-            background:none;border:none;cursor:pointer;
-            font-size:1.48em;z-index:12;
-            color: var(--gold);
-        }
-        /* Learn More ("modal") */
-        .learn-btn {
-            color:var(--gold);
-            background:none;border:1.2px solid var(--gold);
-            border-radius:1.2em;
-            padding:0.36em 1.12em;
-            margin-top:0.7em;font-size:1.05em;cursor:pointer;
-            transition: background 0.18s, color 0.19s, border 0.18s;
-        }
-        .learn-btn:hover {background:var(--accent);color:#12130e;}
-        .modal-bg {
-            display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;
-            background:rgba(20,20,20,0.52);z-index:100;align-items:center;justify-content:center;
-        }
-        .modal-bg.active {display:flex;}
-        .modal-content {
-            background:var(--glass);
-            border-radius:1.2em;padding:2em 2em 1.3em 2em;
-            box-shadow:0 7px 35px 3px #1a193955;
-            text-align:left; max-width:420px; width:96vw;
-            color:var(--text);
-            border:var(--border);position: relative;
-            animation:fadeIn .44s cubic-bezier(.39,.58,.57,1.08);
-        }
-        .close-modal {
-            position:absolute;right:19px;top:19px;
-            font-size:1.38em;cursor:pointer;background:none;border:none;
-            color:var(--accent);
-        }
-        .modal-content h2 {margin:0 0 .7em 0; color:var(--gold);}
-        .modal-content ul {margin:0 0 0.8em 0;}
-        @media (max-width:600px) {.container{max-width:99vw;padding:1.1em 0.45em 1em 0.45em;}.title{font-size:1.25rem;}#countdown{font-size:1.13rem;}}
-    </style>
+  <!-- External Styles -->
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body aria-label="BooknSleep landing page" data-theme="dark">
-    <!-- Theme Toggle -->
-    <button class="toggle-theme" aria-label="Toggle theme" title="Switch light/dark theme" onclick="
-        const theme = document.body.getAttribute('data-theme')==='dark'?'light':'dark';
-        document.body.setAttribute('data-theme', theme);
-        localStorage.setItem('theme', theme);
-        this.innerHTML = theme==='dark' ? '🌙' : '☀️';
-    ">🌙</button>
 
-    <!-- AI BACKGROUND -->
-    <canvas id="aiBackground"></canvas>
+  <!-- Theme Toggle -->
+  <button class="toggle-theme" aria-label="Toggle theme" title="Switch light/dark theme">🌙</button>
 
-    <main class="container" role="main">
-        <h1 class="title">
-            Bookn<span class="accent">Sleep</span>.com
-        </h1>
+  <!-- AI BACKGROUND -->
+  <canvas id="aiBackground"></canvas>
 
-        <!-- Animated Slogan -->
-        <div class="tagline" id="tagline-animated">A super-intelligent OTA ecosystem is forming…</div>
+  <!-- MAIN CONTAINER -->
+  <main class="container" role="main">
+    <h1 class="title">
+      Bookn<span class="accent">Sleep</span>.com
+    </h1>
 
-        <!-- COUNTDOWN TIMER -->
-        <div id="countdown" class="countdown" aria-live="polite"></div>
+    <!-- Animated Slogan -->
+    <div class="tagline" id="tagline-animated">A super-intelligent OTA ecosystem is forming…</div>
 
-        <!-- Notify Me / Email Signup -->
-        <form class="notify-form" autocomplete="off" onsubmit="event.preventDefault();const input=this.email;const msg=this.querySelector('.notify-success'),err=this.querySelector('.notify-error');msg[...]
-            <input class="notify-input" type="email" name="email" placeholder="Your email for early access…" aria-label="email for notification" required />
-            <button class="notify-btn" type="submit">Notify Me</button>
-            <div class="notify-success" style="color:var(--accent);"></div>
-            <div class="notify-error" style="color:#ff4444;"></div>
-        </form>
+    <!-- COUNTDOWN TIMER -->
+    <div id="countdown" class="countdown" aria-live="polite"></div>
 
-        <!-- Learn More / FAQ Button -->
-        <button class="learn-btn" onclick="document.getElementById('modal-bg').classList.add('active')">Learn more</button>
+    <!-- Notify Me / Email Signup -->
+    <form class="notify-form" autocomplete="off" onsubmit="event.preventDefault();">
+      <input class="notify-input" type="email" name="email" placeholder="Your email for early access…" aria-label="email for notification" required />
+      <button class="notify-btn" type="submit">Notify Me</button>
+      <div class="notify-success"></div>
+      <div class="notify-error"></div>
+    </form>
 
-        <!-- REMOVED SOCIAL SHARE LINKS FOR SECURITY -->
-        
-        <!-- CONTACT SECTION -->
-        <p class="contact">
-            Contact: <span tabindex="0" role="link" onclick="window.location='mailto:support@booknsleep.com'">support@booknsleep.com</span>
-        </p>
-        <p class="footer-note">© 2025 — Something new is emerging.</p>
-    </main>
+    <!-- Learn More / FAQ Button -->
+    <button class="learn-btn" onclick="document.getElementById('modal-bg').classList.add('active')">Learn more</button>
 
-    <!-- Modal / Learn More -->
-    <div class="modal-bg" id="modal-bg" role="dialog" aria-modal="true" tabindex="-1">
-        <div class="modal-content">
-            <button class="close-modal" title="Close" aria-label="Close" onclick="document.getElementById('modal-bg').classList.remove('active')">×</button>
-            <h2>What is BooknSleep?</h2>
-            <p><strong>BooknSleep</strong> is a next-gen, super-intelligent Online Travel Agency (OTA) ecosystem being designed to dramatically reshape your travel booking experience. A few of the thi[...]
-            <ul>
-                <li>AI-powered recommendations and booking for hotels & stays.</li>
-                <li>Transparent, personalized itineraries.</li>
-                <li>Zero-hassle customer support with real AI.</li>
-                <li>Early adopters are <b>first to unlock</b> the new experience!</li>
-            </ul>
-            <p><small>Want early access? Drop your email above – and watch this space…</small></p>
-        </div>
+    <!-- CONTACT SECTION -->
+    <p class="contact">
+      Contact: <span tabindex="0" role="link" onclick="window.location='mailto:support@booknsleep.com'">support@booknsleep.com</span>
+    </p>
+
+    <!-- JOIN THE TEAM SECTION -->
+    <section class="join-team">
+      <h2>Join Our Development Team</h2>
+      <p>We’re building the future of intelligent travel booking. If you’re a programmer or AI engineer, apply below.</p>
+      <form class="apply-form" action="mailto:careers@booknsleep.com" method="post" enctype="text/plain">
+        <input type="text" name="name" placeholder="Your Name" required />
+        <input type="email" name="email" placeholder="Your Email" required />
+        <textarea name="skills" placeholder="Tell us about your skills…" required></textarea>
+        <button type="submit">Apply Now</button>
+      </form>
+    </section>
+
+    <!-- FOOTER -->
+    <p class="footer-note">© 2025 — Something new is emerging.</p>
+  </main>
+
+  <!-- Modal / Learn More -->
+  <div class="modal-bg" id="modal-bg" role="dialog" aria-modal="true" tabindex="-1">
+    <div class="modal-content">
+      <button class="close-modal" title="Close" aria-label="Close" onclick="document.getElementById('modal-bg').classList.remove('active')">×</button>
+      <h2>What is BooknSleep?</h2>
+      <p><strong>BooknSleep</strong> is a next-gen, super-intelligent Online Travel Agency (OTA) ecosystem being designed to dramatically reshape your travel booking experience.</p>
+      <ul>
+        <li>AI-powered recommendations and booking for hotels & stays.</li>
+        <li>Transparent, personalized itineraries.</li>
+        <li>Zero-hassle customer support with real AI.</li>
+        <li>Early adopters are <b>first to unlock</b> the new experience!</li>
+      </ul>
+      <p><small>Want early access? Drop your email above – and watch this space…</small></p>
     </div>
-    <!-- END Modal -->
+  </div>
 
-    <!-- COUNTDOWN SCRIPT -->
-    <script>
-        // Launch date – edit to your real target!
-        const launchDate = new Date("2025-03-18T12:00:00Z");
-        function updateCountdown() {
-            const now = new Date().getTime(), target = launchDate.getTime(), distance = target - now;
-            const countdownEl = document.getElementById("countdown");
-            if (distance < 0) {
-                countdownEl.innerHTML = "<span>The system is awakening…</span>";
-                return;
-            }
-            const days = Math.floor(distance / (1000*60*60*24)),
-                  hours = Math.floor((distance % (1000*60*60*24)) / (1000*60*60)),
-                  minutes = Math.floor((distance % (1000*60*60)) / (1000*60)),
-                  seconds = Math.floor((distance % (1000*60)) / 1000);
-            let daysLabel = days === 1 ? "day" : "days";
-            // Output e.g. "124days: 21:59:44"
-            countdownEl.innerHTML =
-                `<span>${days}${daysLabel}:</span> <span>${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}</span>`;
-        }
-        setInterval(updateCountdown, 1000); updateCountdown();
-    </script>
-
-    <!-- Tagline Typewriter Animation (SLOWER) -->
-    <script>
-        const taglines = [
-            "A super-intelligent OTA ecosystem is forming…",
-            "Let AI plan your stay, perfectly tailored for you.",
-            "Get ready for the future of travel booking."
-        ];
-        let tagIndex = 0, typeIndex = 0, isDeleting = false;
-        const typeSpeed = 80;   // Slower typing speed (ms per char)
-        const deleteSpeed = 40; // Slower deleting speed
-        const pause = 1800;
-
-        function typeIt() {
-            const el = document.getElementById("tagline-animated");
-            if (!el) return;
-            const text = taglines[tagIndex];
-            if (isDeleting) {
-                el.textContent = text.substring(0, typeIndex--);
-            } else {
-                el.textContent = text.substring(0, ++typeIndex);
-            }
-            if (!isDeleting && typeIndex === text.length) {
-                isDeleting = true;
-                setTimeout(typeIt, pause);
-            } else if (isDeleting && typeIndex === 0) {
-                isDeleting = false;
-                tagIndex = (tagIndex + 1) % taglines.length;
-                setTimeout(typeIt, 900);
-            } else {
-                setTimeout(typeIt, isDeleting ? deleteSpeed : typeSpeed);
-            }
-        }
-        setTimeout(typeIt, 900);
-    </script>
-
-    <!-- FLOATING PARTICLES + AI NETWORK lines -->
-    <script>
-        const canvas = document.getElementById("aiBackground");
-        const ctx = canvas.getContext("2d");
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        resizeCanvas();
-        window.addEventListener("resize", resizeCanvas);
-        // Particle and connection network
-        const particles = [], count = 77;
-        function randClamped(v=1){return (Math.random()-0.5)*v;}
-        for(let i=0;i<count;i++) particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,vx:randClamped(.5),vy:randClamped(.5),r:Math.random()*2+1.4});
-        function drawNetwork(){
-            ctx.save();
-            for(let i=0;i<count;i++)for(let j=i+1;j<count;j++){
-                const dx=particles[i].x-particles[j].x,dy=particles[i].y-particles[j].y,dist=Math.sqrt(dx*dx+dy*dy);
-                if(dist<85){
-                    ctx.strokeStyle=`rgba(255,215,0,${0.15-dist/610})`;ctx.lineWidth=1.1-dist/120;
-                    ctx.beginPath();ctx.moveTo(particles[i].x,particles[i].y);ctx.lineTo(particles[j].x,particles[j].y);ctx.stroke();
-                }
-            }
-            ctx.restore();
-        }
-        function animate(){
-            ctx.clearRect(0,0,canvas.width,canvas.height);
-            for(const p of particles){
-                p.x+=p.vx;p.y+=p.vy;
-                if(p.x<0||p.x>canvas.width) p.vx*=-1;
-                if(p.y<0||p.y>canvas.height) p.vy*=-1;
-                ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-                ctx.fillStyle="rgba(255,215,0,0.7)";ctx.shadowBlur=9;ctx.shadowColor="#ffd70088";ctx.fill();
-            }
-            drawNetwork();requestAnimationFrame(animate);
-        }
-        animate();
-    </script>
-    <script>
-        // THEME PERSISTENCE
-        (() => {
-            try {
-                const theme = localStorage.getItem('theme');
-                if(theme){
-                    document.body.setAttribute('data-theme', theme);
-                    document.querySelector('.toggle-theme').innerHTML = theme==='dark' ? '🌙' : '☀️';
-                }
-            } catch {}
-        })();
-        // Modal close with background click or Escape key
-        document.getElementById('modal-bg').onclick = (e) => {
-            if(e.target.id==='modal-bg') e.target.classList.remove('active');
-        };
-        window.addEventListener('keydown', (e)=>{
-            if(e.key==='Escape') document.getElementById('modal-bg').classList.remove('active');
-        });
-    </script>
+  <!-- External Scripts -->
+  <script src="scripts.js"></script>
 </body>
 </html>
