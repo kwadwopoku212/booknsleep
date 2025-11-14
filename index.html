@@ -5,50 +5,38 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>BooknSleep – A New Intelligence Is Forming</title>
   <meta name="description" content="A next-generation, super-intelligent OTA ecosystem is preparing to awaken." />
-
-  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
-
-  <!-- External Styles -->
   <link rel="stylesheet" href="style.css" />
 </head>
-<body aria-label="BooknSleep landing page" data-theme="dark">
+<body data-theme="dark">
 
   <!-- Theme Toggle -->
   <button class="toggle-theme" aria-label="Toggle theme" title="Switch light/dark theme">🌙</button>
 
-  <!-- AI BACKGROUND -->
+  <!-- AI Background -->
   <canvas id="aiBackground"></canvas>
 
-  <!-- MAIN CONTAINER -->
+  <!-- Main Container -->
   <main class="container" role="main">
-    <h1 class="title">
-      Bookn<span class="accent">Sleep</span>.com
-    </h1>
-
-    <!-- Animated Slogan -->
+    <h1 class="title">Bookn<span class="accent">Sleep</span>.com</h1>
     <div class="tagline" id="tagline-animated">A super-intelligent OTA ecosystem is forming…</div>
 
-    <!-- COUNTDOWN TIMER -->
+    <!-- Countdown -->
     <div id="countdown" class="countdown" aria-live="polite"></div>
 
-    <!-- Notify Me / Email Signup -->
-    <form class="notify-form" autocomplete="off" onsubmit="event.preventDefault();">
-      <input class="notify-input" type="email" name="email" placeholder="Your email for early access…" aria-label="email for notification" required />
-      <button class="notify-btn" type="submit">Notify Me</button>
-      <div class="notify-success"></div>
-      <div class="notify-error"></div>
-    </form>
+    <!-- Early Access Section -->
+    <section class="early-access">
+      <h2>Get Early Access</h2>
+      <form class="notify-form" autocomplete="off" onsubmit="event.preventDefault();">
+        <input class="notify-input" type="email" name="email" placeholder="Your email for early access…" required />
+        <button class="notify-btn" type="submit">Notify Me</button>
+        <div class="notify-success"></div>
+        <div class="notify-error"></div>
+      </form>
+      <button class="learn-btn" onclick="document.getElementById('modal-bg').classList.add('active')">Learn more</button>
+    </section>
 
-    <!-- Learn More / FAQ Button -->
-    <button class="learn-btn" onclick="document.getElementById('modal-bg').classList.add('active')">Learn more</button>
-
-    <!-- CONTACT SECTION -->
-    <p class="contact">
-      Contact: <span tabindex="0" role="link" onclick="window.location='mailto:support@booknsleep.com'">support@booknsleep.com</span>
-    </p>
-
-    <!-- JOIN THE TEAM SECTION -->
+    <!-- Join the Team Section -->
     <section class="join-team">
       <h2>Join Our Development Team</h2>
       <p>We’re building the future of intelligent travel booking. If you’re a programmer or AI engineer, apply below.</p>
@@ -60,7 +48,12 @@
       </form>
     </section>
 
-    <!-- FOOTER -->
+    <!-- Contact -->
+    <p class="contact">
+      Contact: <span onclick="window.location='mailto:support@booknsleep.com'">support@booknsleep.com</span>
+    </p>
+
+    <!-- Footer -->
     <p class="footer-note">© 2025 — Something new is emerging.</p>
   </main>
 
@@ -80,7 +73,7 @@
     </div>
   </div>
 
-  <!-- External Scripts -->
+  <!-- Scripts -->
   <script src="scripts.js"></script>
 </body>
 </html>
