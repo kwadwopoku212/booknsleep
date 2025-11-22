@@ -3,104 +3,645 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BooknSleep – A New Intelligence Is Forming</title>
-
-  <!-- SEO Meta Tags -->
-  <meta name="title" content="BooknSleep – A New Intelligence Is Forming">
-  <meta name="description" content="BooknSleep is a next-gen, AI-powered OTA ecosystem offering personalized travel booking and host dashboards.">
-  <meta name="keywords" content="BooknSleep, OTA, travel booking, AI travel, intelligent itinerary, host dashboard, dispute resolution, early access">
-  <meta name="author" content="BooknSleep.com">
-
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://booknsleep.com">
-  <meta property="og:title" content="BooknSleep – A New Intelligence Is Forming">
-  <meta property="og:description" content="Join the future of travel booking. AI-powered recommendations, host dashboards, and brand-safe independence.">
-  <meta property="og:image" content="https://booknsleep.com/assets/og-preview.png">
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:url" content="https://booknsleep.com">
-  <meta name="twitter:title" content="BooknSleep – A New Intelligence Is Forming">
-  <meta name="twitter:description" content="A super-intelligent OTA ecosystem is forming. Get early access and join the build.">
-  <meta name="twitter:image" content="https://booknsleep.com/assets/og-preview.png">
+  <title>BooknSleep – A Quiet Evolution Is Underway</title>
 
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
 
-  <!-- Favicon -->
-  <link rel="icon" href="/assets/favicon-32x32.png" sizes="32x32" type="image/png">
-  <link rel="icon" href="/assets/favicon-16x16.png" sizes="16x16" type="image/png">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-  <!-- Styles -->
-  <link rel="stylesheet" href="style.css" />
+    body {
+      font-family: "Roboto", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #0d0d0d;
+      color: #ffffff;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+    }
+
+    .title {
+      font-size: 3rem;
+      font-weight: 700;
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .accent {
+      color: #c5a356;
+    }
+
+    .tagline {
+      text-align: center;
+      margin-top: 10px;
+      font-size: 1.15rem;
+      opacity: 0.9;
+    }
+
+    #countdown {
+      margin-top: 20px;
+      text-align: center;
+      font-family: "Share Tech Mono", monospace;
+      letter-spacing: 1px;
+      color: #f7f1df;
+    }
+
+    h2 {
+      margin-top: 55px;
+      margin-bottom: 8px;
+      font-size: 1.6rem;
+      color: #c5a356;
+    }
+
+    p {
+      margin-bottom: 14px;
+      line-height: 1.55rem;
+      opacity: 0.92;
+      font-size: 0.98rem;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 6px;
+      border: 1px solid #333;
+      background: #181818;
+      color: #ffffff;
+      font-size: 0.95rem;
+    }
+
+    button {
+      background: #c5a356;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: 0.15s ease;
+    }
+
+    button:hover {
+      background: #b08d47;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45);
+    }
+
+    .contact {
+      margin-top: 45px;
+      text-align: center;
+      font-size: 0.95rem;
+    }
+
+    .contact span {
+      color: #c5a356;
+      cursor: pointer;
+    }
+
+    .footer-note {
+      text-align: center;
+      margin-top: 10px;
+      margin-bottom: 20px;
+      opacity: 0.6;
+      font-size: 0.9rem;
+    }
+
+    /* Zone Snapshot / Map Box */
+    .map-box {
+      margin-top: 18px;
+      border-radius: 14px;
+      padding: 18px 18px 22px;
+      background:
+        radial-gradient(circle at 10% 10%, #273142, transparent 55%),
+        radial-gradient(circle at 90% 80%, #3b2e2b, transparent 55%),
+        #111319;
+      border: 1px solid #232634;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+    }
+
+    .map-title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      font-size: 0.9rem;
+    }
+
+    .map-grid {
+      position: relative;
+      height: 220px;
+      border-radius: 12px;
+      overflow: hidden;
+      background-image:
+        linear-gradient(to right, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+
+    .price-tag {
+      position: absolute;
+      min-width: 90px;
+      padding: 8px 10px;
+      border-radius: 9px;
+      font-size: 0.8rem;
+      background: rgba(7, 10, 18, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.65);
+    }
+
+    .price-tag .city {
+      font-weight: 600;
+      font-size: 0.78rem;
+      opacity: 0.95;
+    }
+
+    .price-tag .rate {
+      font-size: 0.8rem;
+      color: #f7e2a4;
+    }
+
+    .price-tag.la {
+      left: 16%;
+      top: 42%;
+    }
+
+    .price-tag.ny {
+      right: 14%;
+      top: 26%;
+    }
+
+    .price-tag.london {
+      right: 22%;
+      bottom: 20%;
+    }
+
+    .price-tag.accra {
+      left: 32%;
+      bottom: 15%;
+    }
+
+    .map-note {
+      margin-top: 10px;
+      font-size: 0.78rem;
+      opacity: 0.7;
+    }
+
+    /* --------------------------- */
+    /* Help Center Demo – full width */
+    /* --------------------------- */
+    #bns-help-full {
+      width: 100%;
+      background: #050505;
+      padding: 70px 20px 110px;
+      border-top: 1px solid #181818;
+      margin-top: 40px;
+      opacity: 0;
+      transform: translateY(80px);
+      transition: all 1s ease;
+    }
+
+    #bns-help-full.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .help-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .help-heading {
+      text-align: center;
+      font-size: 2rem;
+      color: #c5a356;
+      margin-bottom: 8px;
+    }
+
+    .help-sub {
+      text-align: center;
+      font-size: 1.02rem;
+      opacity: 0.82;
+      margin-bottom: 6px;
+    }
+
+    .help-meta-line {
+      text-align: center;
+      font-size: 0.85rem;
+      opacity: 0.65;
+      margin-bottom: 28px;
+    }
+
+    .help-chat-card {
+      background: #121212;
+      padding: 30px;
+      border-radius: 18px;
+      border: 1px solid #242424;
+      box-shadow: 0 26px 60px rgba(0, 0, 0, 0.55);
+    }
+
+    .help-meta {
+      margin-bottom: 18px;
+      opacity: 0.65;
+      font-size: 0.85rem;
+    }
+
+    .msg-bubble {
+      max-width: 70%;
+      padding: 14px 16px;
+      border-radius: 12px;
+      font-size: 0.93rem;
+      margin-bottom: 14px;
+      line-height: 1.45rem;
+    }
+
+    .msg-guest {
+      background: #1f1f1f;
+    }
+
+    .msg-agent-main,
+    .msg-agent-secondary,
+    .msg-agent-final {
+      margin-left: auto;
+      position: relative;
+      overflow: hidden;
+      background: radial-gradient(circle at 0% 0%, rgba(255,255,255,0.12), transparent 55%), #c5a356;
+      color: #000;
+      animation: auraPulse 3.2s infinite ease-in-out;
+    }
+
+    .msg-agent-secondary {
+      background: radial-gradient(circle at 0% 0%, rgba(255,255,255,0.14), transparent 55%), #e8d6a5;
+    }
+
+    .msg-agent-final {
+      background: radial-gradient(circle at 0% 0%, rgba(255,255,255,0.19), transparent 55%), #fff3c3;
+    }
+
+    .msg-small-label {
+      font-weight: 600;
+      font-size: 0.8rem;
+      display: block;
+      margin-bottom: 3px;
+      opacity: 0.9;
+    }
+
+    .help-voice {
+      margin-top: 32px;
+      text-align: center;
+      padding-top: 8px;
+      border-top: 1px solid #222;
+    }
+
+    .help-mic {
+      font-size: 40px;
+      margin-bottom: 6px;
+    }
+
+    .waveform {
+      display: flex;
+      gap: 5px;
+      justify-content: center;
+      align-items: flex-end;
+    }
+
+    .wave-bar {
+      width: 5px;
+      height: 14px;
+      background: #c5a356;
+      border-radius: 3px;
+      animation: wavePulse 1.2s infinite ease-in-out;
+    }
+
+    .wave-bar:nth-child(2) {
+      animation-delay: 0.15s;
+    }
+
+    .wave-bar:nth-child(3) {
+      animation-delay: 0.3s;
+    }
+
+    .wave-bar:nth-child(4) {
+      animation-delay: 0.45s;
+    }
+
+    .wave-bar:nth-child(5) {
+      animation-delay: 0.6s;
+    }
+
+    .help-voice p {
+      margin-top: 10px;
+      font-size: 0.9rem;
+      opacity: 0.75;
+    }
+
+    .help-disclaimer {
+      margin-top: 8px;
+      font-size: 0.78rem;
+      opacity: 0.6;
+    }
+
+    /* Typing effect for chat text */
+    .tw {
+      border-right: 2px solid rgba(255, 255, 255, 0.5);
+      white-space: nowrap;
+      overflow: hidden;
+      display: inline-block;
+      width: 0;
+      animation: typing 3s steps(40) forwards, cursorBlink 0.7s infinite;
+      animation-play-state: paused;
+    }
+
+    @keyframes typing {
+      to {
+        width: 100%;
+      }
+    }
+
+    @keyframes cursorBlink {
+      0%,
+      50% {
+        border-color: rgba(255, 255, 255, 0.5);
+      }
+      51%,
+      100% {
+        border-color: transparent;
+      }
+    }
+
+    @keyframes auraPulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(197, 163, 86, 0.05);
+      }
+      50% {
+        box-shadow: 0 0 28px 0 rgba(197, 163, 86, 0.6);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(197, 163, 86, 0.05);
+      }
+    }
+
+    @keyframes wavePulse {
+      0%,
+      100% {
+        height: 10px;
+        opacity: 0.4;
+      }
+      50% {
+        height: 26px;
+        opacity: 1;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .title {
+        font-size: 2.4rem;
+      }
+      .msg-bubble {
+        max-width: 100%;
+      }
+      .help-chat-card {
+        padding: 22px;
+      }
+    }
+  </style>
 </head>
-<body data-theme="dark">
 
-  <!-- Theme Toggle -->
-  <button class="toggle-theme" aria-label="Toggle theme" title="Switch light/dark theme">🌙</button>
-
-  <!-- AI Background -->
-  <canvas id="aiBackground"></canvas>
-
-  <!-- Main Container -->
-  <main class="container" role="main">
+<body>
+  <main class="container">
     <h1 class="title">Bookn<span class="accent">Sleep</span>.com</h1>
-    <div class="tagline" id="tagline-animated">A super-intelligent OTA ecosystem is forming…</div>
+    <div class="tagline">
+      A new kind of travel intelligence is quietly taking shape…
+    </div>
 
-    <!-- Countdown -->
-    <div id="countdown" class="countdown" aria-live="polite"></div>
+    <div id="countdown">Launch window: loading…</div>
 
-    <!-- Early Access Section -->
-    <section class="early-access">
+    <!-- Get Early Access -->
+    <section>
       <h2>Get Early Access</h2>
-      <form class="notify-form" autocomplete="off" onsubmit="event.preventDefault();">
-        <input class="notify-input" type="email" name="email" placeholder="Your email for early access…" required />
-        <button class="notify-btn" type="submit">Notify Me</button>
-        <div class="notify-success"></div>
-        <div class="notify-error"></div>
-      </form>
-      <button class="learn-btn" onclick="document.getElementById('modal-bg').classList.add('active')">Learn more</button>
+      <p>
+        BooknSleep is preparing to introduce an intelligent travel experience that adapts to real behavior,
+        not generic trends. Early members will be the first to explore the system before the world even sees it.
+      </p>
+      <input type="email" placeholder="Your email for early access…" />
+      <button>Notify Me</button>
+      <p>No newsletters. No drip campaigns. We only email when it actually matters.</p>
     </section>
 
-    <!-- Join the Team Section -->
-    <section class="join-team">
-      <h2>Join Our Development Team</h2>
-      <p>We’re building the future of intelligent travel booking. If you’re a programmer or AI engineer, apply below.</p>
-      <form class="apply-form" action="mailto:careers@booknsleep.com" method="post" enctype="text/plain">
+    <!-- Zone Snapshot -->
+    <section>
+      <h2>Zone Snapshot</h2>
+      <p>
+        A preview of how BooknSleep thinks about the world: zones, demand, and fair nightly ranges.
+        This is a static glimpse — the live system will respond to real signals in real time.
+      </p>
+
+      <div class="map-box">
+        <div class="map-title-row">
+          <strong>Live Pricing Radar (Preview)</strong>
+          <span>Sample ranges · per night</span>
+        </div>
+
+        <div class="map-grid">
+          <div class="price-tag la">
+            <div class="city">Los Angeles</div>
+            <div class="rate">$32 – $45</div>
+          </div>
+          <div class="price-tag ny">
+            <div class="city">New York</div>
+            <div class="rate">$48 – $70</div>
+          </div>
+          <div class="price-tag london">
+            <div class="city">London</div>
+            <div class="rate">£38 – £55</div>
+          </div>
+          <div class="price-tag accra">
+            <div class="city">Accra</div>
+            <div class="rate">₵210 – ₵320</div>
+          </div>
+        </div>
+
+        <p class="map-note">
+          Data here is illustrative only. The production engine will learn from live booking, demand, and
+          local signals before suggesting any ranges.
+        </p>
+      </div>
+    </section>
+
+    <!-- Build With Us -->
+    <section>
+      <h2>Build With Us</h2>
+      <p>
+        We’re assembling a lean, highly focused team to help shape the next chapter of intelligent travel systems.
+        BooknSleep is not relying on off-the-shelf AI — we are building our own internal intelligence layer
+        designed specifically for travel behavior, pricing logic, and system reasoning.
+      </p>
+      <p>
+        If you’re a <strong>Data Engineer</strong>, <strong>Machine Learning Engineer</strong>,
+        <strong>Backend Engineer</strong>, or systems builder who enjoys clean pipelines, resilient services,
+        and trustworthy decision logic — we’d like to hear from you.
+      </p>
+
+      <form class="apply-form" action="mailto:careers@booknsleep.com" method="post">
         <input type="text" name="name" placeholder="Your Name" required />
         <input type="email" name="email" placeholder="Your Email" required />
-        <textarea name="skills" placeholder="Tell us about your skills…" required></textarea>
+        <textarea name="skills" placeholder="Tell us about your skills…" rows="4" required></textarea>
         <button type="submit">Apply Now</button>
       </form>
     </section>
 
-    <!-- Contact -->
+    <!-- Contact / Footer -->
     <p class="contact">
-      Contact: <span onclick="window.location='mailto:support@booknsleep.com'">support@booknsleep.com</span>
+      Have a question or want to collaborate?<br />
+      <span onclick="window.location='mailto:support@booknsleep.com'">support@booknsleep.com</span>
     </p>
 
-    <!-- Footer -->
-    <p class="footer-note">© 2025 — Something new is emerging.</p>
+    <p class="footer-note">© 2025 — A quiet evolution is underway.</p>
   </main>
 
-  <!-- Modal / Learn More -->
-  <div class="modal-bg" id="modal-bg" role="dialog" aria-modal="true" tabindex="-1">
-    <div class="modal-content">
-      <button class="close-modal" title="Close" aria-label="Close" onclick="document.getElementById('modal-bg').classList.remove('active')">×</button>
-      <h2>What is BooknSleep?</h2>
-      <p><strong>BooknSleep</strong> is a next-gen, super-intelligent Online Travel Agency (OTA) ecosystem being designed to dramatically reshape your travel booking experience.</p>
-      <ul>
-        <li>AI-powered recommendations and booking for hotels & stays.</li>
-        <li>Transparent, personalized itineraries.</li>
-        <li>Zero-hassle customer support with real AI.</li>
-        <li>Early adopters are <b>first to unlock</b> the new experience!</li>
-      </ul>
-      <p><small>Want early access? Drop your email above – and watch this space…</small></p>
-    </div>
-  </div>
+  <!-- Full-width Help Center Demo -->
+  <section id="bns-help-full">
+    <div class="help-inner">
+      <h2 class="help-heading">Help Center Preview</h2>
+      <p class="help-sub">
+        A cinematic glimpse of how BooknSleep’s internal agents could handle a real guest incident — calmly and in sequence.
+      </p>
+      <p class="help-meta-line">
+        Simulated flow · Not a live system · For concept illustration only
+      </p>
 
-  <!-- Scripts -->
-  <script src="scripts.js"></script>
+      <div class="help-chat-card">
+        <div class="help-meta">
+          Scenario: Guest arrives late, access code fails, corridor is quiet. The internal stack spins up to resolve it.
+        </div>
+
+        <!-- Guest -->
+        <div class="msg-bubble msg-guest">
+          <span class="msg-small-label">Guest</span>
+          <span class="tw" data-text="Hi… I’m at the door and my code isn’t working. It’s late and I can’t get into my room."></span>
+        </div>
+
+        <!-- Agent Kojo -->
+        <div class="msg-bubble msg-agent-main">
+          <span class="msg-small-label">BNS Agent Kojo · System Ops</span>
+          <span class="tw" data-text="I’m here. I’ve located your booking, confirmed your payment, and checked the lock status. I’ve triggered a secure fallback code and notified your host. Are you safe where you are right now?"></span>
+        </div>
+
+        <!-- Agent Yaa -->
+        <div class="msg-bubble msg-agent-secondary">
+          <span class="msg-small-label">BNS Agent Yaa · Local Dispatch</span>
+          <span class="tw" data-text="I’m contacting your host and the on-call property contact at the same time. If they don’t respond within a few minutes, I’ll escalate to our backup support channel so you’re not left waiting."></span>
+        </div>
+
+        <!-- Agent Sika -->
+        <div class="msg-bubble msg-agent-final">
+          <span class="msg-small-label">BNS Agent Sika · Safety & Calm Response</span>
+          <span class="tw" data-text="Please stay near the main corridor or lobby where there’s light and cameras. Once your door opens successfully, I’ll close the incident and log a safety review so this doesn’t repeat. How are you feeling right now?"></span>
+        </div>
+
+        <!-- Guest final -->
+        <div class="msg-bubble msg-guest" style="margin-top: 8px;">
+          <span class="msg-small-label">Guest</span>
+          <span class="tw" data-text="The new code worked — I’m inside now. Thank you for handling that so quickly."></span>
+        </div>
+
+        <!-- Voice Preview -->
+        <div class="help-voice">
+          <div class="help-mic">🎤</div>
+          <div class="waveform">
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+          </div>
+          <p>
+            Will Kojo, Yaa, and Sika handle this by text only… or by voice as well?  
+            We’re not saying yes. We’re not saying no. We’re saying: stay close.
+          </p>
+          <p class="help-disclaimer">
+            Simulation only. The production system will be supervised, rate-limited, and aligned with host and guest safety policies.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // 125-day countdown
+    (function () {
+      const el = document.getElementById("countdown");
+      const launch = new Date();
+      launch.setDate(launch.getDate() + 125);
+
+      function pad(n) {
+        return n.toString().padStart(2, "0");
+      }
+
+      function tick() {
+        const now = new Date();
+        const diff = launch - now;
+
+        if (diff <= 0) {
+          el.textContent = "Launch window: now boarding.";
+          return;
+        }
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const mins = Math.floor((diff / (1000 * 60)) % 60);
+        const secs = Math.floor((diff / 1000) % 60);
+
+        el.textContent =
+          "Launch window: " +
+          days +
+          " days · " +
+          pad(hours) +
+          ":" +
+          pad(mins) +
+          ":" +
+          pad(secs);
+      }
+
+      tick();
+      setInterval(tick, 1000);
+    })();
+
+    // Typing cascade for help-center messages
+    document.addEventListener("DOMContentLoaded", () => {
+      const spans = document.querySelectorAll(".tw");
+      let delay = 600;
+      spans.forEach((span) => {
+        setTimeout(() => {
+          span.style.animationPlayState = "running";
+        }, delay);
+        delay += 2600;
+      });
+    });
+
+    // Scroll reveal for Help Center section
+    const helpSection = document.getElementById("bns-help-full");
+
+    function revealHelpSection() {
+      const rect = helpSection.getBoundingClientRect();
+      if (rect.top < window.innerHeight - 100) {
+        helpSection.classList.add("visible");
+        window.removeEventListener("scroll", revealHelpSection);
+      }
+    }
+
+    window.addEventListener("scroll", revealHelpSection);
+    // In case it's already visible on load (small screens)
+    revealHelpSection();
+  </script>
 </body>
 </html>
