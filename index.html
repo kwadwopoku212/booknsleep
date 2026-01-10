@@ -1,697 +1,619 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BooknSleep – A Quiet Evolution Is Underway</title>
-
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BooknSleep — Intelligent Travel, Human First</title>
+  <meta name="description" content="BooknSleep builds travel intelligence that adapts to real behavior — fair nightly ranges, calm guest response, and trustworthy decision logic." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    /*
+      BooknSleep — modern, professional landing page
+      - Mobile-first responsive layout
+      - CSS variables for easy theming
+      - Accessible colors and spacing
+    */
+
+    :root{
+      --bg: #0b0b0c;
+      --card: #0f1112;
+      --muted: #9aa3ab;
+      --accent: #c7a55a;
+      --accent-600:#b08943;
+      --glass: rgba(255,255,255,0.04);
+      --glass-2: rgba(255,255,255,0.02);
+      --text: #eef0f2;
+      --mono: "Share Tech Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace;
+      --radius: 12px;
+      --max-width: 1100px;
+      --flow: 20px;
+      --shadow: 0 18px 40px rgba(0,0,0,0.6);
+      --transition: 220ms cubic-bezier(.2,.9,.2,1);
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
     }
 
-    body {
-      font-family: "Roboto", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-      background: #0d0d0d;
-      color: #ffffff;
-      overflow-x: hidden;
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background:linear-gradient(180deg,var(--bg),#060606 70%);
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      overflow-x:hidden;
+      line-height:1.45;
+      padding:28px;
     }
 
-    .container {
-      max-width: 780px;
-      margin: 0 auto;
-      padding: 40px 20px 80px;
+    .page {
+      max-width:var(--max-width);
+      margin:0 auto;
+      padding:28px;
     }
 
-    .title {
-      font-size: 3rem;
-      font-weight: 700;
-      text-align: center;
-      margin-top: 30px;
+    header.site-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding:6px 0 18px;
     }
 
-    .accent {
-      color: #c5a356;
+    .brand {
+      display:flex;
+      gap:12px;
+      align-items:center;
     }
 
-    .tagline {
-      text-align: center;
-      margin-top: 10px;
-      font-size: 1.15rem;
-      opacity: 0.9;
+    .logo {
+      display:inline-grid;
+      place-items:center;
+      width:52px;height:52px;
+      border-radius:12px;
+      background:linear-gradient(135deg,var(--accent),var(--accent-600));
+      color:#121212;font-weight:800;
+      box-shadow: 0 6px 18px rgba(184,137,67,0.14);
+      font-family: Inter, sans-serif;
+      font-size:18px;
     }
 
-    #countdown {
-      margin-top: 20px;
-      text-align: center;
-      font-family: "Share Tech Mono", monospace;
-      letter-spacing: 1px;
-      color: #f7f1df;
+    .brand h1{
+      font-size:1.05rem;
+      margin:0;
+      letter-spacing: -0.01em;
+    }
+    .brand p{
+      margin:0;
+      font-size:0.82rem;
+      color:var(--muted);
     }
 
-    h2 {
-      margin-top: 55px;
-      margin-bottom: 8px;
-      font-size: 1.6rem;
-      color: #c5a356;
+    nav.actions{
+      display:flex;
+      gap:10px;
+      align-items:center;
     }
 
-    p {
-      margin-bottom: 14px;
-      line-height: 1.55rem;
-      opacity: 0.92;
-      font-size: 0.98rem;
+    .btn{
+      background:var(--accent);
+      color:#091014;
+      padding:10px 14px;
+      border-radius:10px;
+      font-weight:700;
+      border:none;
+      cursor:pointer;
+      transition:transform var(--transition), box-shadow var(--transition);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+    }
+    .btn.secondary{
+      background:transparent;
+      color:var(--text);
+      border:1px solid var(--glass);
+      box-shadow:none;
+      font-weight:600;
+    }
+    .btn:focus{outline:3px solid rgba(199,165,90,0.12)}
+    .btn:hover{transform:translateY(-3px)}
+
+    /* Hero */
+    .hero{
+      display:grid;
+      gap:var(--flow);
+      grid-template-columns:1fr;
+      align-items:start;
+      margin-top:12px;
     }
 
-    input,
-    textarea {
-      width: 100%;
-      padding: 12px;
-      margin: 10px 0;
-      border-radius: 6px;
-      border: 1px solid #333;
-      background: #181818;
-      color: #ffffff;
-      font-size: 0.95rem;
+    .hero-inner{
+      background:linear-gradient(180deg,var(--card),rgba(12,12,12,0.6));
+      border-radius:16px;
+      padding:22px;
+      box-shadow:var(--shadow);
+      border:1px solid var(--glass-2);
+      display:flex;
+      flex-direction:column;
+      gap:18px;
     }
 
-    button {
-      background: #c5a356;
-      border: none;
-      padding: 12px 20px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: 600;
-      font-size: 0.95rem;
-      transition: 0.15s ease;
+    .hero-grid{
+      display:grid;
+      gap:18px;
     }
 
-    button:hover {
-      background: #b08d47;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45);
+    .eyebrow{
+      font-size:0.84rem;
+      color:var(--muted);
+      letter-spacing:0.06em;
+      font-weight:600;
     }
 
-    .contact {
-      margin-top: 45px;
-      text-align: center;
-      font-size: 0.95rem;
+    .hero h2{
+      margin:0;
+      font-size:clamp(1.4rem,2.6vw,2.2rem);
+      line-height:1.03;
+      letter-spacing:-0.01em;
     }
 
-    .contact span {
-      color: #c5a356;
-      cursor: pointer;
+    .lead{
+      color:var(--muted);
+      margin-top:6px;
+      font-size:0.98rem;
     }
 
-    .footer-note {
-      text-align: center;
-      margin-top: 10px;
-      margin-bottom: 20px;
-      opacity: 0.6;
-      font-size: 0.9rem;
+    .hero-cta{
+      display:flex;
+      gap:12px;
+      margin-top:6px;
+      flex-wrap:wrap;
     }
 
-    /* Zone Snapshot / Map Box */
-    .map-box {
-      margin-top: 18px;
-      border-radius: 14px;
-      padding: 18px 18px 22px;
+    /* Email form card */
+    .signup-card{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      padding:12px;
+      border-radius:12px;
+      border:1px solid var(--glass);
+    }
+    .signup-card input[type="email"]{
+      flex:1;
+      background:transparent;
+      border:1px solid transparent;
+      color:var(--text);
+      padding:10px 12px;
+      border-radius:8px;
+      font-size:0.95rem;
+    }
+    .signup-card input::placeholder{color: #868b90}
+    .note{
+      font-size:0.86rem;color:var(--muted)
+    }
+
+    /* Two-column feature area */
+    .columns{
+      display:grid;
+      gap:18px;
+      grid-template-columns:1fr;
+      margin-top:18px;
+    }
+
+    .panel{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border:1px solid var(--glass);
+      padding:18px;
+      border-radius:12px;
+    }
+
+    .map-preview{
+      height:220px;
+      border-radius:10px;
+      position:relative;
+      overflow:hidden;
       background:
-        radial-gradient(circle at 10% 10%, #273142, transparent 55%),
-        radial-gradient(circle at 90% 80%, #3b2e2b, transparent 55%),
-        #111319;
-      border: 1px solid #232634;
-      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+        radial-gradient(circle at 8% 12%, rgba(39,49,66,0.8), transparent 40%),
+        linear-gradient(90deg,#0c0f12, #111317);
+      border:1px solid rgba(255,255,255,0.03);
     }
 
-    .map-title-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-      font-size: 0.9rem;
+    .price {
+      position:absolute;
+      padding:8px 12px;
+      border-radius:10px;
+      background:rgba(7,7,8,0.7);
+      border:1px solid rgba(255,255,255,0.06);
+      color:var(--text);
+      font-weight:700;
+      font-size:0.92rem;
+      box-shadow:0 8px 22px rgba(0,0,0,0.6);
+    }
+    .price.la{left:9%; top:38%}
+    .price.ny{right:8%; top:22%}
+    .price.ldn{right:18%; bottom:18%}
+    .price.acc{left:36%; bottom:14%}
+
+    /* Help Center demo - refined */
+    .help {
+      padding:14px;
+      border-radius:12px;
+      background:linear-gradient(180deg,#0d0f10,#0b0c0d);
+      border:1px solid var(--glass-2);
+    }
+    .chat-card {
+      background:linear-gradient(180deg, #0b0b0c, rgba(255,255,255,0.01));
+      padding:16px;
+      border-radius:12px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
     }
 
-    .map-grid {
-      position: relative;
-      height: 220px;
-      border-radius: 12px;
-      overflow: hidden;
-      background-image:
-        linear-gradient(to right, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
-      background-size: 40px 40px;
+    .bubble {
+      max-width:78%;
+      padding:12px 14px;
+      border-radius:12px;
+      font-size:0.95rem;
+      line-height:1.4;
+    }
+    .guest { background:#0f1112; color:var(--text); align-self:flex-start; border:1px solid rgba(255,255,255,0.03); }
+    .agent { background:linear-gradient(180deg,#f2e6b9,#e6cf8e); color:#000; align-self:flex-end; border:1px solid rgba(0,0,0,0.06); box-shadow:0 8px 28px rgba(197,163,86,0.06) }
+
+    .label { display:block; font-weight:700; font-size:0.78rem; margin-bottom:6px; opacity:0.95; }
+    .typing {
+      border-right:2px solid rgba(0,0,0,0.25);
+      white-space:nowrap;
+      overflow:hidden;
+      display:inline-block;
+      width:0;
+      animation:typing 2.4s steps(40) forwards;
+      animation-play-state:paused;
+    }
+    @keyframes typing{ to{ width:100% } }
+
+    /* Footer */
+    footer{ margin-top:28px; color:var(--muted); font-size:0.9rem; display:flex; justify-content:space-between; gap:14px; align-items:center; flex-wrap:wrap; }
+
+    /* Utilities */
+    .muted{color:var(--muted)}
+    .kicker{font-size:0.76rem;color:var(--muted);font-weight:600}
+    .sr-only{position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap}
+    .success{background:linear-gradient(90deg,#1b2f16,#16321e); color:#a4f7b1; padding:8px 10px;border-radius:8px;font-weight:700}
+
+    /* Responsiveness */
+    @media(min-width:880px){
+      .hero{grid-template-columns: 1fr 420px}
+      .hero-inner{padding:28px}
+      .hero-grid{grid-template-columns: 1fr}
+      .columns{grid-template-columns: 1fr 360px}
     }
 
-    .price-tag {
-      position: absolute;
-      min-width: 90px;
-      padding: 8px 10px;
-      border-radius: 9px;
-      font-size: 0.8rem;
-      background: rgba(7, 10, 18, 0.9);
-      border: 1px solid rgba(255, 255, 255, 0.22);
-      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.65);
-    }
-
-    .price-tag .city {
-      font-weight: 600;
-      font-size: 0.78rem;
-      opacity: 0.95;
-    }
-
-    .price-tag .rate {
-      font-size: 0.8rem;
-      color: #f7e2a4;
-    }
-
-    .price-tag.la {
-      left: 16%;
-      top: 42%;
-    }
-
-    .price-tag.ny {
-      right: 14%;
-      top: 26%;
-    }
-
-    .price-tag.london {
-      right: 22%;
-      bottom: 20%;
-    }
-
-    .price-tag.accra {
-      left: 32%;
-      bottom: 15%;
-    }
-
-    .map-note {
-      margin-top: 10px;
-      font-size: 0.78rem;
-      opacity: 0.7;
-    }
-
-    /* --------------------------- */
-    /* Help Center Demo – full width */
-    /* --------------------------- */
-    #bns-help-full {
-      width: 100%;
-      background: #050505;
-      padding: 70px 20px 110px;
-      border-top: 1px solid #181818;
-      margin-top: 40px;
-      opacity: 0;
-      transform: translateY(80px);
-      transition: all 1s ease;
-    }
-
-    #bns-help-full.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .help-inner {
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .help-heading {
-      text-align: center;
-      font-size: 2rem;
-      color: #c5a356;
-      margin-bottom: 8px;
-    }
-
-    .help-sub {
-      text-align: center;
-      font-size: 1.02rem;
-      opacity: 0.82;
-      margin-bottom: 6px;
-    }
-
-    .help-meta-line {
-      text-align: center;
-      font-size: 0.85rem;
-      opacity: 0.65;
-      margin-bottom: 28px;
-    }
-
-    .help-chat-card {
-      background: #121212;
-      padding: 30px;
-      border-radius: 18px;
-      border: 1px solid #242424;
-      box-shadow: 0 26px 60px rgba(0, 0, 0, 0.55);
-    }
-
-    .help-meta {
-      margin-bottom: 18px;
-      opacity: 0.65;
-      font-size: 0.85rem;
-    }
-
-    .msg-bubble {
-      max-width: 70%;
-      padding: 14px 16px;
-      border-radius: 12px;
-      font-size: 0.93rem;
-      margin-bottom: 14px;
-      line-height: 1.45rem;
-    }
-
-    .msg-guest {
-      background: #1f1f1f;
-    }
-
-    .msg-agent-main,
-    .msg-agent-secondary,
-    .msg-agent-final {
-      margin-left: auto;
-      position: relative;
-      overflow: hidden;
-      background: radial-gradient(circle at 0% 0%, rgba(255,255,255,0.12), transparent 55%), #c5a356;
-      color: #000;
-      animation: auraPulse 3.2s infinite ease-in-out;
-    }
-
-    .msg-agent-secondary {
-      background: radial-gradient(circle at 0% 0%, rgba(255,255,255,0.14), transparent 55%), #e8d6a5;
-    }
-
-    .msg-agent-final {
-      background: radial-gradient(circle at 0% 0%, rgba(255,255,255,0.19), transparent 55%), #fff3c3;
-    }
-
-    .msg-small-label {
-      font-weight: 600;
-      font-size: 0.8rem;
-      display: block;
-      margin-bottom: 3px;
-      opacity: 0.9;
-    }
-
-    .help-voice {
-      margin-top: 32px;
-      text-align: center;
-      padding-top: 8px;
-      border-top: 1px solid #222;
-    }
-
-    .help-mic {
-      font-size: 40px;
-      margin-bottom: 6px;
-    }
-
-    .waveform {
-      display: flex;
-      gap: 5px;
-      justify-content: center;
-      align-items: flex-end;
-    }
-
-    .wave-bar {
-      width: 5px;
-      height: 14px;
-      background: #c5a356;
-      border-radius: 3px;
-      animation: wavePulse 1.2s infinite ease-in-out;
-    }
-
-    .wave-bar:nth-child(2) {
-      animation-delay: 0.15s;
-    }
-
-    .wave-bar:nth-child(3) {
-      animation-delay: 0.3s;
-    }
-
-    .wave-bar:nth-child(4) {
-      animation-delay: 0.45s;
-    }
-
-    .wave-bar:nth-child(5) {
-      animation-delay: 0.6s;
-    }
-
-    .help-voice p {
-      margin-top: 10px;
-      font-size: 0.9rem;
-      opacity: 0.75;
-    }
-
-    .help-disclaimer {
-      margin-top: 8px;
-      font-size: 0.78rem;
-      opacity: 0.6;
-    }
-
-    /* Typing effect for chat text */
-    .tw {
-      border-right: 2px solid rgba(255, 255, 255, 0.5);
-      white-space: nowrap;
-      overflow: hidden;
-      display: inline-block;
-      width: 0;
-      animation: typing 3s steps(40) forwards, cursorBlink 0.7s infinite;
-      animation-play-state: paused;
-    }
-
-    @keyframes typing {
-      to {
-        width: 100%;
-      }
-    }
-
-    @keyframes cursorBlink {
-      0%,
-      50% {
-        border-color: rgba(255, 255, 255, 0.5);
-      }
-      51%,
-      100% {
-        border-color: transparent;
-      }
-    }
-
-    @keyframes auraPulse {
-      0% {
-        box-shadow: 0 0 0 0 rgba(197, 163, 86, 0.05);
-      }
-      50% {
-        box-shadow: 0 0 28px 0 rgba(197, 163, 86, 0.6);
-      }
-      100% {
-        box-shadow: 0 0 0 0 rgba(197, 163, 86, 0.05);
-      }
-    }
-
-    @keyframes wavePulse {
-      0%,
-      100% {
-        height: 10px;
-        opacity: 0.4;
-      }
-      50% {
-        height: 26px;
-        opacity: 1;
-      }
-    }
-
-    @media (max-width: 700px) {
-      .title {
-        font-size: 2.4rem;
-      }
-      .msg-bubble {
-        max-width: 100%;
-      }
-      .help-chat-card {
-        padding: 22px;
-      }
-    }
-
-    /* small helper for accessible hidden text if needed */
-    .sr-only {
-      position: absolute !important;
-      height: 1px; width: 1px;
-      overflow: hidden;
-      clip: rect(1px, 1px, 1px, 1px);
-      white-space: nowrap;
-    }
   </style>
 </head>
-
 <body>
-  <main class="container">
-    <h1 class="title">Bookn<span class="accent">Sleep</span>.com</h1>
-    <div class="tagline">
-      A new kind of travel intelligence is quietly taking shape…
-    </div>
-
-    <div id="countdown">Launch window: loading…</div>
-
-    <!-- Get Early Access -->
-    <section>
-      <h2>Get Early Access</h2>
-      <p>
-        BooknSleep is preparing to introduce an intelligent travel experience that adapts to real behavior,
-        not generic trends. Early members will be the first to explore the system before the world even sees it.
-      </p>
-      <input id="early-email" type="email" placeholder="Your email for early access…" />
-      <button id="notify-me">Notify Me</button>
-      <p>No newsletters. No drip campaigns. We only email when it actually matters.</p>
-    </section>
-
-    <!-- Zone Snapshot -->
-    <section>
-      <h2>Zone Snapshot</h2>
-      <p>
-        A preview of how BooknSleep thinks about the world: zones, demand, and fair nightly ranges.
-        This is a static glimpse — the live system will respond to real signals in real time.
-      </p>
-
-      <div class="map-box">
-        <div class="map-title-row">
-          <strong>Live Pricing Radar (Preview)</strong>
-          <span>Sample ranges · per night</span>
-        </div>
-
-        <div class="map-grid">
-          <div class="price-tag la">
-            <div class="city">Los Angeles</div>
-            <div class="rate">$32 – $45</div>
-          </div>
-          <div class="price-tag ny">
-            <div class="city">New York</div>
-            <div class="rate">$48 – $70</div>
-          </div>
-          <div class="price-tag london">
-            <div class="city">London</div>
-            <div class="rate">£38 – £55</div>
-          </div>
-          <div class="price-tag accra">
-            <div class="city">Accra</div>
-            <div class="rate">₵210 – ₵320</div>
-          </div>
-        </div>
-
-        <p class="map-note">
-          Data here is illustrative only. The production engine will learn from live booking, demand, and
-          local signals before suggesting any ranges.
-        </p>
-      </div>
-    </section>
-
-    <!-- Build With Us -->
-    <section>
-      <h2>Build With Us</h2>
-      <p>
-        We’re assembling a lean, highly focused team to help shape the next chapter of intelligent travel systems.
-        BooknSleep is not relying on off-the-shelf AI — we are building our own internal intelligence layer
-        designed specifically for travel behavior, pricing logic, and system reasoning.
-      </p>
-      <p>
-        If you’re a <strong>Data Engineer</strong>, <strong>Machine Learning Engineer</strong>,
-        <strong>Backend Engineer</strong>, or systems builder who enjoys clean pipelines, resilient services,
-        and trustworthy decision logic — we’d like to hear from you.
-      </p>
-
-      <form class="apply-form" action="mailto:careers@booknsleep.com" method="post">
-        <input type="text" name="name" placeholder="Your Name" required />
-        <input type="email" name="email" placeholder="Your Email" required />
-        <textarea name="skills" placeholder="Tell us about your skills…" rows="4" required></textarea>
-        <button type="submit">Apply Now</button>
-      </form>
-    </section>
-
-    <!-- Contact / Footer -->
-    <p class="contact">
-      Have a question or want to collaborate?<br />
-      <span onclick="window.location='mailto:support@booknsleep.com'">support@booknsleep.com</span>
-    </p>
-
-    <p class="footer-note">© 2025 — A quiet evolution is underway.</p>
-  </main>
-
-  <!-- Full-width Help Center Demo -->
-  <section id="bns-help-full">
-    <div class="help-inner">
-      <h2 class="help-heading">Help Center Preview</h2>
-      <p class="help-sub">
-        A cinematic glimpse of how BooknSleep’s internal agents could handle a real guest incident — calmly and in sequence.
-      </p>
-      <p class="help-meta-line">
-        Simulated flow · Not a live system · For concept illustration only
-      </p>
-
-      <div class="help-chat-card">
-        <div class="help-meta">
-          Scenario: Guest arrives late, access code fails, corridor is quiet. The internal stack spins up to resolve it.
-        </div>
-
-        <!-- Guest -->
-        <div class="msg-bubble msg-guest" aria-live="polite">
-          <span class="msg-small-label">Guest</span>
-          <span class="tw" data-text="Hi… I’m at the door and my code isn’t working. It’s late and I can’t get into my room."></span>
-        </div>
-
-        <!-- Agent Kojo -->
-        <div class="msg-bubble msg-agent-main" aria-live="polite">
-          <span class="msg-small-label">BNS Agent Kojo · System Ops</span>
-          <span class="tw" data-text="I’m here. I’ve located your booking, confirmed your payment, and checked the lock status. I’ve triggered a secure fallback code and notified your host. Are you safe where you are right now?"></span>
-        </div>
-
-        <!-- Agent Yaa -->
-        <div class="msg-bubble msg-agent-secondary" aria-live="polite">
-          <span class="msg-small-label">BNS Agent Yaa · Local Dispatch</span>
-          <span class="tw" data-text="I’m contacting your host and the on-call property contact at the same time. If they don’t respond within a few minutes, I’ll escalate to our backup support channel so you’re not left waiting."></span>
-        </div>
-
-        <!-- Agent Sika -->
-        <div class="msg-bubble msg-agent-final" aria-live="polite">
-          <span class="msg-small-label">BNS Agent Sika · Safety & Calm Response</span>
-          <span class="tw" data-text="Please stay near the main corridor or lobby where there’s light and cameras. Once your door opens successfully, I’ll close the incident and log a safety review so this doesn’t repeat. How are you feeling right now?"></span>
-        </div>
-
-        <!-- Guest final -->
-        <div class="msg-bubble msg-guest" style="margin-top: 8px;" aria-live="polite">
-          <span class="msg-small-label">Guest</span>
-          <span class="tw" data-text="The new code worked — I’m inside now. Thank you for handling that so quickly."></span>
-        </div>
-
-        <!-- Voice Preview -->
-        <div class="help-voice">
-          <div class="help-mic">🎤</div>
-          <div class="waveform">
-            <div class="wave-bar"></div>
-            <div class="wave-bar"></div>
-            <div class="wave-bar"></div>
-            <div class="wave-bar"></div>
-            <div class="wave-bar"></div>
-          </div>
-          <p>
-            Will Kojo, Yaa, and Sika handle this by text only… or by voice as well?  
-            We’re not saying yes. We’re not saying no. We’re saying: stay close.
-          </p>
-          <p class="help-disclaimer">
-            Simulation only. The production system will be supervised, rate-limited, and aligned with host and guest safety policies.
-          </p>
+  <div class="page" id="page">
+    <header class="site-head" role="banner" aria-label="BooknSleep header">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">BnS</div>
+        <div>
+          <h1>BooknSleep</h1>
+          <p>Intelligent travel. Human first.</p>
         </div>
       </div>
-    </div>
-  </section>
+
+      <nav class="actions" role="navigation" aria-label="Top actions">
+        <button class="btn secondary" id="view-product">Features</button>
+        <button class="btn" id="cta-join">Get early access</button>
+      </nav>
+    </header>
+
+    <main role="main">
+      <!-- Hero -->
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-inner" role="region" aria-label="Hero">
+          <div class="hero-grid">
+            <div class="eyebrow">A quieter evolution in travel</div>
+            <h2 id="hero-title">Travel intelligence that learns quietly and acts fairly</h2>
+            <p class="lead">BooknSleep builds specialized decision systems for pricing, guest support, and safety — designed for clarity, local context, and trust.</p>
+
+            <div class="hero-cta" aria-hidden="false">
+              <div class="signup-card" role="form" aria-label="Early access signup">
+                <label for="early-email" class="sr-only">Email address</label>
+                <input id="early-email" type="email" inputmode="email" autocomplete="email" placeholder="john@company.com" aria-describedby="signup-help" />
+                <button id="notify-me" class="btn" type="button">Notify me</button>
+              </div>
+              <div class="note" id="signup-help">No newsletters — only launch updates and important notices.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right column: quick summary / stats / map preview -->
+        <aside aria-label="Summary" class="panel" style="align-self:start">
+          <div class="kicker">Live preview</div>
+          <div style="margin-top:10px; font-weight:700; font-size:1.05rem">Pricing radar — sample ranges</div>
+          <div class="map-preview" aria-hidden="true" style="margin-top:12px">
+            <div class="price la">Los Angeles — $32–$45</div>
+            <div class="price ny">New York — $48–$70</div>
+            <div class="price ldn">London — £38–£55</div>
+            <div class="price acc">Accra — ₵210–₵320</div>
+          </div>
+
+          <p class="muted" style="margin-top:12px; font-size:0.92rem">Illustrative only — the production engine will learn from live booking, demand, and local signals.</p>
+        </aside>
+      </section>
+
+      <!-- Two column area: features + help demo -->
+      <section class="columns" aria-label="Features and help demo" style="margin-top:22px">
+        <div class="panel">
+          <h3 style="margin-top:0">Why BooknSleep</h3>
+          <p class="muted">We combine robust pipelines, principled pricing, and calm incident response to give hosts and guests better outcomes — not noisy optimization.</p>
+
+          <ul style="margin-top:12px; padding-left:20px; color:var(--muted)">
+            <li><strong>Context-aware pricing</strong> — fair nightly ranges, localized to real signals.</li>
+            <li><strong>Supervised automation</strong> — humans in the loop where it matters most.</li>
+            <li><strong>Trust and privacy</strong> — minimal telemetry, explainable decisions.</li>
+          </ul>
+
+          <div style="display:flex; gap:10px; margin-top:16px; align-items:center; flex-wrap:wrap">
+            <button class="btn" id="learn-more">Request a demo</button>
+            <button class="btn secondary" id="read-spec">Engineering notes</button>
+          </div>
+
+          <div style="margin-top:20px; font-size:0.9rem" aria-hidden="false">
+            <div class="kicker">Open roles</div>
+            <p class="muted" style="margin:6px 0 0">Data / ML / Backend engineers — send a note via the apply form below.</p>
+          </div>
+        </div>
+
+        <aside class="panel help" aria-labelledby="help-title">
+          <h4 id="help-title" style="margin-top:0">Help Center simulation</h4>
+          <p class="muted" style="margin-bottom:8px">Concept flow — not a live system. For illustration only.</p>
+
+          <div class="chat-card" role="region" aria-live="polite" aria-label="Help center conversation">
+            <div class="bubble guest" aria-hidden="false">
+              <span class="label">Guest</span>
+              <span class="typing" data-text="Hi—I'm at the door and my access code isn't working. It’s late and I can't get into my room."></span>
+            </div>
+
+            <div class="bubble agent" aria-hidden="false">
+              <span class="label">Kojo · System Ops</span>
+              <span class="typing" data-text="I’m here. I found your booking, confirmed payment, and checked the lock. I’ve issued a secure fallback code and notified your host. Are you in a safe, well-lit area?"></span>
+            </div>
+
+            <div class="bubble agent" aria-hidden="false">
+              <span class="label">Yaa · Local Dispatch</span>
+              <span class="typing" data-text="I’m contacting the host and on-call property contact. If there’s no response, I’ll escalate to backup support so you’re not left waiting."></span>
+            </div>
+
+            <div class="bubble agent" aria-hidden="false">
+              <span class="label">Sika · Safety</span>
+              <span class="typing" data-text="Please remain in the lobby or main corridor where there’s light and cameras. Once your door opens, I���ll close the incident and file a safety review."></span>
+            </div>
+
+            <div class="bubble guest" aria-hidden="false">
+              <span class="label">Guest</span>
+              <span class="typing" data-text="The new code worked — I’m inside now. Thank you for handling that so quickly."></span>
+            </div>
+
+            <!-- small controls -->
+            <div style="display:flex; gap:10px; margin-top:8px; align-items:center">
+              <button class="btn secondary" id="replay">Replay</button>
+              <div class="muted" style="font-size:0.85rem">Animation is decorative; full text is present to assistive tech.</div>
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <!-- Apply form -->
+      <section style="margin-top:22px" aria-label="Apply to join">
+        <div class="panel">
+          <h3 style="margin-top:0">Build with us</h3>
+          <p class="muted">If you're a Data / ML / Backend engineer who loves clear pipelines and resilient systems, we'd like to hear from you.</p>
+
+          <form id="apply-form" class="apply-form" action="mailto:careers@booknsleep.com" method="post" style="margin-top:12px; display:grid; gap:10px">
+            <input name="name" type="text" placeholder="Full name" required />
+            <input name="email" type="email" placeholder="Email" required />
+            <textarea name="skills" rows="4" placeholder="Tell us about your skills and interests" required></textarea>
+
+            <!-- Honeypot to trap spambots -->
+            <input type="text" name="company" placeholder="Company (leave blank)" style="display:none" aria-hidden="true" tabindex="-1">
+
+            <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap">
+              <button type="submit" class="btn">Apply now</button>
+              <div class="muted" style="font-size:0.85rem">Or email <a href="mailto:careers@booknsleep.com" style="color:var(--accent)">careers@booknsleep.com</a></div>
+            </div>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer role="contentinfo">
+      <div>© <span id="year">2025</span> BooknSleep</div>
+      <div class="muted">Privacy · Terms · <a href="#" style="color:var(--accent)">Engineering</a></div>
+    </footer>
+  </div>
 
   <script>
-    // 125-day countdown
-    (function () {
-      const el = document.getElementById("countdown");
+    // Small utility helpers
+    const el = (s) => document.querySelector(s);
+    const els = (s) => Array.from(document.querySelectorAll(s));
+
+    // Countdown: 125 days ahead
+    (function initCountdown() {
+      const display = document.createElement('div');
+      display.className = 'sr-only';
+      display.id = 'countdown-live';
+      document.getElementById('page').prepend(display);
+
       const launch = new Date();
       launch.setDate(launch.getDate() + 125);
 
-      function pad(n) {
-        return n.toString().padStart(2, "0");
-      }
+      function pad(n){ return String(n).padStart(2,'0') }
 
-      function tick() {
+      function tick(){
         const now = new Date();
         const diff = launch - now;
-
         if (diff <= 0) {
-          el.textContent = "Launch window: now boarding.";
+          display.textContent = 'Launch: now boarding.';
           return;
         }
-
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-        const mins = Math.floor((diff / (1000 * 60)) % 60);
+        const days = Math.floor(diff / (1000*60*60*24));
+        const hours = Math.floor((diff / (1000*60*60)) % 24);
+        const mins = Math.floor((diff / (1000*60)) % 60);
         const secs = Math.floor((diff / 1000) % 60);
-
-        el.textContent =
-          "Launch window: " +
-          days +
-          " days · " +
-          pad(hours) +
-          ":" +
-          pad(mins) +
-          ":" +
-          pad(secs);
+        display.textContent = `Launch in ${days} days ${pad(hours)}:${pad(mins)}:${pad(secs)}`;
       }
 
       tick();
       setInterval(tick, 1000);
+
+      // visible countdown in header as small live text (non-intrusive)
+      const visible = document.createElement('div');
+      visible.style.fontFamily = 'var(--mono)';
+      visible.style.color = 'var(--muted)';
+      visible.style.fontSize = '0.86rem';
+      visible.style.marginTop = '6px';
+      visible.id = 'countdown-visible';
+      visible.setAttribute('aria-hidden','true');
+      document.querySelector('.brand').appendChild(visible);
+
+      setInterval(() => visible.textContent = display.textContent.replace('Launch in ','Launch: '), 1000);
+      visible.textContent = display.textContent.replace('Launch in ','Launch: ');
     })();
 
-    // Typing cascade for help-center messages
-    document.addEventListener("DOMContentLoaded", () => {
-      const spans = document.querySelectorAll(".tw");
-      let delay = 600;
-      spans.forEach((span) => {
-        // populate visible text from data-text attribute so the typing animation has content
-        const txt = span.getAttribute("data-text") || "";
-        span.textContent = txt;
+    // Early-access handler (tries POST then falls back to mailto)
+    (function earlyAccess() {
+      const btn = document.getElementById('notify-me');
+      const input = document.getElementById('early-email');
 
-        // start the typing animation in sequence
-        setTimeout(() => {
-          span.style.animationPlayState = "running";
-        }, delay);
-        delay += 2600;
-      });
+      if (!btn || !input) return;
 
-      // small UX: wire the "Notify Me" button to try sending to a backend, with fallback
-      const notifyBtn = document.getElementById("notify-me");
-      const emailInput = document.getElementById("early-email");
-      if (notifyBtn && emailInput) {
-        notifyBtn.addEventListener("click", async () => {
-          const val = emailInput.value.trim();
-          if (!val) {
-            alert("Please enter an email to be notified.");
+      btn.addEventListener('click', async () => {
+        const email = input.value.trim();
+        if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
+          alert('Please enter a valid email address.');
+          input.focus();
+          return;
+        }
+
+        // optimistic UI
+        btn.disabled = true;
+        btn.textContent = 'Sending…';
+
+        try {
+          const res = await fetch('/api/early-access', {
+            method: 'POST',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify({email})
+          });
+
+          if (res.ok) {
+            btn.textContent = 'Thanks — you’re on the list';
+            setTimeout(()=>{ btn.textContent = 'Notify me'; input.value=''; btn.disabled=false }, 2500);
             return;
           }
+        } catch (e) {
+          // network or endpoint not present
+        }
 
-          // Try posting to a minimal endpoint. Replace '/api/early-access' with your real endpoint.
-          try {
-            const res = await fetch("/api/early-access", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ email: val }),
-            });
+        // fallback: mailto
+        const mailto = `mailto:careers@booknsleep.com?subject=Early%20Access%20Signup&body=${encodeURIComponent('Please add me to early access list: ' + email)}`;
+        window.location.href = mailto;
 
-            if (res.ok) {
-              alert("Thanks — we'll notify " + val + " when we launch.");
-              emailInput.value = "";
-              return;
-            }
-            // non-OK response falls through to fallback below
-          } catch (e) {
-            // network error, fall back
-          }
+        btn.textContent = 'Notify me';
+        btn.disabled = false;
+      });
+    })();
 
-          // Fallback: open mail client or show a message (this is safe for static hosting)
-          const mailto = "mailto:careers@booknsleep.com?subject=Early%20Access%20Signup&body=" + encodeURIComponent("Please add me: " + val);
-          // Attempt to open mail client; if popup is blocked user can still copy-paste
-          window.location.href = mailto;
+    // Typing cascade for help demo — accessible: text is always present to screen readers
+    (function typingCascade() {
+      const typers = els('.typing');
+      if (!typers.length) return;
+
+      // ensure text content exists for screen readers (progressive enhancement)
+      typers.forEach(t => {
+        const txt = t.getAttribute('data-text') || '';
+        // Put the full text in a visually-hidden sibling for screen readers if needed
+        t.setAttribute('data-full', txt);
+      });
+
+      // run animation in sequence, but also allow replay
+      function play() {
+        let delay = 350;
+        typers.forEach((t, i) => {
+          // reset
+          t.style.animation = 'none';
+          void t.offsetWidth; // force reflow
+          // set text content (keeps accessible text present)
+          t.textContent = t.getAttribute('data-full') || '';
+          // Prepare: hide by width 0
+          t.style.width = '0';
+          t.style.animation = 'typing 2.4s steps(40) forwards';
+          t.style.animationDelay = delay + 'ms';
+          // run after animation ends - ensure border (cursor) removed
+          delay += 1700;
         });
       }
+
+      // start on DOMContentLoaded and when user presses replay
+      document.getElementById('replay')?.addEventListener('click', () => play());
+      // small delay to ensure layout settled
+      setTimeout(play, 450);
+    })();
+
+    // Apply form: simple validation and mailto fallback
+    (function applyForm() {
+      const form = document.getElementById('apply-form');
+      if (!form) return;
+      form.addEventListener('submit', async (ev) => {
+        // allow default mailto fallback for static hosting but try to POST first
+        ev.preventDefault();
+        const data = new FormData(form);
+        const email = data.get('email');
+        const name = data.get('name');
+        const skills = data.get('skills');
+        const honeypot = data.get('company');
+        if (honeypot) {
+          // spam detected
+          return;
+        }
+        if (!email || !name || !skills) {
+          alert('Please complete all fields.');
+          return;
+        }
+
+        const payload = {name, email, skills};
+        try {
+          const res = await fetch('/api/apply', {
+            method:'POST',
+            headers:{'Content-Type':'application/json'},
+            body: JSON.stringify(payload)
+          });
+          if (res.ok) {
+            alert('Thanks — we received your application.');
+            form.reset();
+            return;
+          }
+        } catch (e) {
+          // fall through
+        }
+
+        // fallback: prepare mailto
+        const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nSkills:\n${skills}`);
+        window.location.href = `mailto:careers@booknsleep.com?subject=Application&body=${body}`;
+      });
+    })();
+
+    // Small UX: jump to signup on top CTA
+    document.getElementById('cta-join')?.addEventListener('click', () => {
+      document.getElementById('early-email').focus();
+      window.scrollTo({top: document.getElementById('early-email').getBoundingClientRect().top + window.scrollY - 80, behavior:'smooth'});
     });
 
-    // Scroll reveal for Help Center section
-    const helpSection = document.getElementById("bns-help-full");
-
-    function revealHelpSection() {
-      const rect = helpSection.getBoundingClientRect();
-      if (rect.top < window.innerHeight - 100) {
-        helpSection.classList.add("visible");
-        window.removeEventListener("scroll", revealHelpSection);
-      }
-    }
-
-    window.addEventListener("scroll", revealHelpSection);
-    // In case it's already visible on load (small screens)
-    revealHelpSection();
+    // Set current year
+    document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
