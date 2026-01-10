@@ -413,6 +413,15 @@
         padding: 22px;
       }
     }
+
+    /* small helper for accessible hidden text if needed */
+    .sr-only {
+      position: absolute !important;
+      height: 1px; width: 1px;
+      overflow: hidden;
+      clip: rect(1px, 1px, 1px, 1px);
+      white-space: nowrap;
+    }
   </style>
 </head>
 
@@ -432,8 +441,8 @@
         BooknSleep is preparing to introduce an intelligent travel experience that adapts to real behavior,
         not generic trends. Early members will be the first to explore the system before the world even sees it.
       </p>
-      <input type="email" placeholder="Your email for early access…" />
-      <button>Notify Me</button>
+      <input id="early-email" type="email" placeholder="Your email for early access…" />
+      <button id="notify-me">Notify Me</button>
       <p>No newsletters. No drip campaigns. We only email when it actually matters.</p>
     </section>
 
@@ -525,31 +534,31 @@
         </div>
 
         <!-- Guest -->
-        <div class="msg-bubble msg-guest">
+        <div class="msg-bubble msg-guest" aria-live="polite">
           <span class="msg-small-label">Guest</span>
           <span class="tw" data-text="Hi… I’m at the door and my code isn’t working. It’s late and I can’t get into my room."></span>
         </div>
 
         <!-- Agent Kojo -->
-        <div class="msg-bubble msg-agent-main">
+        <div class="msg-bubble msg-agent-main" aria-live="polite">
           <span class="msg-small-label">BNS Agent Kojo · System Ops</span>
           <span class="tw" data-text="I’m here. I’ve located your booking, confirmed your payment, and checked the lock status. I’ve triggered a secure fallback code and notified your host. Are you safe where you are right now?"></span>
         </div>
 
         <!-- Agent Yaa -->
-        <div class="msg-bubble msg-agent-secondary">
+        <div class="msg-bubble msg-agent-secondary" aria-live="polite">
           <span class="msg-small-label">BNS Agent Yaa · Local Dispatch</span>
           <span class="tw" data-text="I’m contacting your host and the on-call property contact at the same time. If they don’t respond within a few minutes, I’ll escalate to our backup support channel so you’re not left waiting."></span>
         </div>
 
         <!-- Agent Sika -->
-        <div class="msg-bubble msg-agent-final">
+        <div class="msg-bubble msg-agent-final" aria-live="polite">
           <span class="msg-small-label">BNS Agent Sika · Safety & Calm Response</span>
           <span class="tw" data-text="Please stay near the main corridor or lobby where there’s light and cameras. Once your door opens successfully, I’ll close the incident and log a safety review so this doesn’t repeat. How are you feeling right now?"></span>
         </div>
 
         <!-- Guest final -->
-        <div class="msg-bubble msg-guest" style="margin-top: 8px;">
+        <div class="msg-bubble msg-guest" style="margin-top: 8px;" aria-live="polite">
           <span class="msg-small-label">Guest</span>
           <span class="tw" data-text="The new code worked — I’m inside now. Thank you for handling that so quickly."></span>
         </div>
@@ -621,11 +630,52 @@
       const spans = document.querySelectorAll(".tw");
       let delay = 600;
       spans.forEach((span) => {
+        // populate visible text from data-text attribute so the typing animation has content
+        const txt = span.getAttribute("data-text") || "";
+        span.textContent = txt;
+
+        // start the typing animation in sequence
         setTimeout(() => {
           span.style.animationPlayState = "running";
         }, delay);
         delay += 2600;
       });
+
+      // small UX: wire the "Notify Me" button to try sending to a backend, with fallback
+      const notifyBtn = document.getElementById("notify-me");
+      const emailInput = document.getElementById("early-email");
+      if (notifyBtn && emailInput) {
+        notifyBtn.addEventListener("click", async () => {
+          const val = emailInput.value.trim();
+          if (!val) {
+            alert("Please enter an email to be notified.");
+            return;
+          }
+
+          // Try posting to a minimal endpoint. Replace '/api/early-access' with your real endpoint.
+          try {
+            const res = await fetch("/api/early-access", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ email: val }),
+            });
+
+            if (res.ok) {
+              alert("Thanks — we'll notify " + val + " when we launch.");
+              emailInput.value = "";
+              return;
+            }
+            // non-OK response falls through to fallback below
+          } catch (e) {
+            // network error, fall back
+          }
+
+          // Fallback: open mail client or show a message (this is safe for static hosting)
+          const mailto = "mailto:careers@booknsleep.com?subject=Early%20Access%20Signup&body=" + encodeURIComponent("Please add me: " + val);
+          // Attempt to open mail client; if popup is blocked user can still copy-paste
+          window.location.href = mailto;
+        });
+      }
     });
 
     // Scroll reveal for Help Center section
