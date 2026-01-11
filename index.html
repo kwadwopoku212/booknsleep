@@ -603,8 +603,8 @@
             body: JSON.stringify({email})
           });
 
-if (res.ok) {
-            btn.textContent = 'Thanks — you're on the list';
+          if (res.ok) {
+            btn.textContent = "Thanks — you're on the list";
             signupCount++;
             localStorage.setItem('booknsleep_signup_count', signupCount);
             updateProgress();
