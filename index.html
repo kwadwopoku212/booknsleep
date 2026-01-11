@@ -114,7 +114,7 @@
       box-shadow:none;
       font-weight:600;
     }
-    .btn:focus{outline:3px solid rgba(199,165,90,0.5);outline-offset:2px}
+    .btn:focus{outline:3px solid rgba(199,165,90,0.6);outline-offset:2px}
     .btn:focus-visible{outline:3px solid rgba(199,165,90,0.7);outline-offset:2px}
     a:focus{outline:2px solid var(--accent);outline-offset:2px;border-radius:3px}
     a:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:3px}
@@ -508,9 +508,13 @@
   </div>
 
   <script>
+    // Constants
+    const DEFAULT_LAUNCH_DAYS = 125;
+    const SUCCESS_MESSAGE_DURATION = 3000;
+
     // Site configuration
     const SITE_CONFIG = {
-      launchDate: new Date(new Date().getTime() + (125 * 24 * 60 * 60 * 1000)), // 125 days from now as default
+      launchDate: new Date(new Date().getTime() + (DEFAULT_LAUNCH_DAYS * 24 * 60 * 60 * 1000)),
       signupGoal: 100
     };
 
@@ -526,6 +530,23 @@
       const count = getSignupCount() + 1;
       localStorage.setItem('bns_signup_count', count.toString());
       return count;
+    }
+
+    // Update progress display with current count
+    function updateProgressDisplay(count) {
+      const goal = SITE_CONFIG.signupGoal;
+      const percentage = Math.min((count / goal) * 100, 100);
+      
+      const progressLabel = document.getElementById('progress-label');
+      const progressBarFill = document.getElementById('progress-bar-fill');
+      const progressCount = document.getElementById('progress-count');
+
+      if (progressLabel && progressBarFill && progressCount) {
+        progressLabel.textContent = count > 0 ? "We're making progress" : "Building momentum...";
+        progressBarFill.style.width = percentage + '%';
+        progressBarFill.setAttribute('aria-valuenow', Math.round(percentage));
+        progressCount.textContent = `${count} early access signups`;
+      }
     }
 
     // Countdown with config and accessibility
@@ -574,26 +595,8 @@
       visible.textContent = display.textContent.replace('Launch in ','Launch: ');
     })();
 
-    // Update progress indicator
-    (function updateProgress() {
-      const count = getSignupCount();
-      const goal = SITE_CONFIG.signupGoal;
-      const percentage = Math.min((count / goal) * 100, 100);
-      
-      const progressLabel = document.getElementById('progress-label');
-      const progressBarFill = document.getElementById('progress-bar-fill');
-      const progressCount = document.getElementById('progress-count');
-
-      if (count > 0) {
-        progressLabel.textContent = "We're making progress";
-      } else {
-        progressLabel.textContent = "Building momentum...";
-      }
-
-      progressBarFill.style.width = percentage + '%';
-      progressBarFill.setAttribute('aria-valuenow', Math.round(percentage));
-      progressCount.textContent = `${count} early access signups`;
-    })();
+    // Update progress indicator on page load
+    updateProgressDisplay(getSignupCount());
 
     // Early-access handler (tries POST then falls back to mailto)
     (function earlyAccess() {
@@ -641,22 +644,9 @@
           });
 
           if (res.ok) {
-            // Increment signup count
+            // Increment signup count and update progress
             const newCount = incrementSignupCount();
-            
-            // Update progress
-            const goal = SITE_CONFIG.signupGoal;
-            const percentage = Math.min((newCount / goal) * 100, 100);
-            const progressLabel = document.getElementById('progress-label');
-            const progressBarFill = document.getElementById('progress-bar-fill');
-            const progressCount = document.getElementById('progress-count');
-
-            if (newCount > 0) {
-              progressLabel.textContent = "We're making progress";
-            }
-            progressBarFill.style.width = percentage + '%';
-            progressBarFill.setAttribute('aria-valuenow', Math.round(percentage));
-            progressCount.textContent = `${newCount} early access signups`;
+            updateProgressDisplay(newCount);
             
             // Success message
             const successMsg = document.createElement('div');
@@ -679,7 +669,7 @@
               if (document.getElementById('signup-success')) {
                 document.getElementById('signup-success').remove();
               }
-            }, 3000);
+            }, SUCCESS_MESSAGE_DURATION);
             return;
           }
         } catch (e) {
@@ -692,18 +682,7 @@
 
         // Still increment count for localStorage tracking
         const newCount = incrementSignupCount();
-        const goal = SITE_CONFIG.signupGoal;
-        const percentage = Math.min((newCount / goal) * 100, 100);
-        const progressLabel = document.getElementById('progress-label');
-        const progressBarFill = document.getElementById('progress-bar-fill');
-        const progressCount = document.getElementById('progress-count');
-
-        if (newCount > 0) {
-          progressLabel.textContent = "We're making progress";
-        }
-        progressBarFill.style.width = percentage + '%';
-        progressBarFill.setAttribute('aria-valuenow', Math.round(percentage));
-        progressCount.textContent = `${newCount} early access signups`;
+        updateProgressDisplay(newCount);
 
         btn.textContent = 'Notify me';
         btn.disabled = false;
