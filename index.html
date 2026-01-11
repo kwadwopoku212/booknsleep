@@ -379,7 +379,7 @@
             <p class="lead">BooknSleep builds specialized decision systems for pricing, guest support, and safety — designed for clarity, local context, and trust.</p>
 
             <div class="hero-cta" aria-hidden="false">
-              <form class="signup-card" role="form" aria-label="Early access signup" id="signup-form">
+              <form class="signup-card" aria-label="Early access signup" id="signup-form">
                 <label for="early-email" class="sr-only">Email address for early access</label>
                 <input id="early-email" type="email" inputmode="email" autocomplete="email" placeholder="john@company.com" aria-describedby="signup-help" required />
                 <button id="notify-me" class="btn" type="submit">Notify me</button>
@@ -390,8 +390,8 @@
             <!-- Progress indicator -->
             <div class="progress-container" id="progress-container" role="region" aria-label="Launch progress">
               <div class="progress-label" id="progress-label">Building momentum...</div>
-              <div class="progress-bar-bg" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Signup progress">
-                <div class="progress-bar-fill" id="progress-bar-fill" style="width:0%"></div>
+              <div class="progress-bar-bg" aria-label="Signup progress background">
+                <div class="progress-bar-fill" id="progress-bar-fill" style="width:0%" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Signup progress"></div>
               </div>
               <div class="progress-count" id="progress-count"></div>
             </div>
@@ -574,20 +574,60 @@
       visible.textContent = display.textContent.replace('Launch in ','Launch: ');
     })();
 
+    // Update progress indicator
+    (function updateProgress() {
+      const count = getSignupCount();
+      const goal = SITE_CONFIG.signupGoal;
+      const percentage = Math.min((count / goal) * 100, 100);
+      
+      const progressLabel = document.getElementById('progress-label');
+      const progressBarFill = document.getElementById('progress-bar-fill');
+      const progressCount = document.getElementById('progress-count');
+
+      if (count > 0) {
+        progressLabel.textContent = "We're making progress";
+      } else {
+        progressLabel.textContent = "Building momentum...";
+      }
+
+      progressBarFill.style.width = percentage + '%';
+      progressBarFill.setAttribute('aria-valuenow', Math.round(percentage));
+      progressCount.textContent = `${count} early access signups`;
+    })();
+
     // Early-access handler (tries POST then falls back to mailto)
     (function earlyAccess() {
+      const form = document.getElementById('signup-form');
       const btn = document.getElementById('notify-me');
       const input = document.getElementById('early-email');
 
-      if (!btn || !input) return;
+      if (!form || !btn || !input) return;
 
-      btn.addEventListener('click', async () => {
+      form.addEventListener('submit', async (ev) => {
+        ev.preventDefault();
+        
         const email = input.value.trim();
         if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
-          alert('Please enter a valid email address.');
+          // Create accessible error message
+          const errorMsg = document.createElement('div');
+          errorMsg.id = 'signup-error';
+          errorMsg.setAttribute('role', 'alert');
+          errorMsg.setAttribute('aria-live', 'assertive');
+          errorMsg.style.cssText = 'color:#f87171;font-size:0.85rem;margin-top:8px;font-weight:600';
+          errorMsg.textContent = 'Please enter a valid email address.';
+          
+          const existing = document.getElementById('signup-error');
+          if (existing) existing.remove();
+          
+          form.parentElement.appendChild(errorMsg);
           input.focus();
+          input.setAttribute('aria-invalid', 'true');
           return;
         }
+
+        input.setAttribute('aria-invalid', 'false');
+        const existing = document.getElementById('signup-error');
+        if (existing) existing.remove();
 
         // optimistic UI
         btn.disabled = true;
@@ -601,8 +641,45 @@
           });
 
           if (res.ok) {
-            btn.textContent = 'Thanks — you’re on the list';
-            setTimeout(()=>{ btn.textContent = 'Notify me'; input.value=''; btn.disabled=false }, 2500);
+            // Increment signup count
+            const newCount = incrementSignupCount();
+            
+            // Update progress
+            const goal = SITE_CONFIG.signupGoal;
+            const percentage = Math.min((newCount / goal) * 100, 100);
+            const progressLabel = document.getElementById('progress-label');
+            const progressBarFill = document.getElementById('progress-bar-fill');
+            const progressCount = document.getElementById('progress-count');
+
+            if (newCount > 0) {
+              progressLabel.textContent = "We're making progress";
+            }
+            progressBarFill.style.width = percentage + '%';
+            progressBarFill.setAttribute('aria-valuenow', Math.round(percentage));
+            progressCount.textContent = `${newCount} early access signups`;
+            
+            // Success message
+            const successMsg = document.createElement('div');
+            successMsg.id = 'signup-success';
+            successMsg.setAttribute('role', 'status');
+            successMsg.setAttribute('aria-live', 'polite');
+            successMsg.className = 'success';
+            successMsg.style.cssText = 'margin-top:8px;font-size:0.88rem';
+            successMsg.textContent = "Thanks — you're on the list!";
+            
+            const existingSuccess = document.getElementById('signup-success');
+            if (existingSuccess) existingSuccess.remove();
+            form.parentElement.appendChild(successMsg);
+            
+            btn.textContent = "You're signed up!";
+            setTimeout(()=>{ 
+              btn.textContent = 'Notify me'; 
+              input.value=''; 
+              btn.disabled=false;
+              if (document.getElementById('signup-success')) {
+                document.getElementById('signup-success').remove();
+              }
+            }, 3000);
             return;
           }
         } catch (e) {
@@ -613,10 +690,26 @@
         const mailto = `mailto:careers@booknsleep.com?subject=Early%20Access%20Signup&body=${encodeURIComponent('Please add me to early access list: ' + email)}`;
         window.location.href = mailto;
 
+        // Still increment count for localStorage tracking
+        const newCount = incrementSignupCount();
+        const goal = SITE_CONFIG.signupGoal;
+        const percentage = Math.min((newCount / goal) * 100, 100);
+        const progressLabel = document.getElementById('progress-label');
+        const progressBarFill = document.getElementById('progress-bar-fill');
+        const progressCount = document.getElementById('progress-count');
+
+        if (newCount > 0) {
+          progressLabel.textContent = "We're making progress";
+        }
+        progressBarFill.style.width = percentage + '%';
+        progressBarFill.setAttribute('aria-valuenow', Math.round(percentage));
+        progressCount.textContent = `${newCount} early access signups`;
+
         btn.textContent = 'Notify me';
         btn.disabled = false;
       });
     })();
+
 
     // Typing cascade for help demo — accessible: text is always present to screen readers
     (function typingCascade() {
