@@ -550,7 +550,6 @@
         visible.style.marginTop = '6px';
         visible.id = 'countdown-visible';
         visible.setAttribute('aria-hidden','true');
-        visible.setAttribute('role', 'timer');
         visible.setAttribute('aria-label', 'Launch countdown timer');
         document.querySelector('.brand').appendChild(visible);
 
@@ -604,7 +603,7 @@
           });
 
           if (res.ok) {
-            btn.textContent = "Thanks — you're on the list";
+            btn.textContent = 'Thanks — you\'re on the list';
             signupCount++;
             localStorage.setItem('booknsleep_signup_count', signupCount);
             updateProgress();
