@@ -7,6 +7,7 @@
   <meta name="description" content="BooknSleep builds travel intelligence that adapts to real behavior — fair nightly ranges, calm guest response, and trustworthy decision logic." />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <script src="config.js"></script>
 
   <style>
     /*
@@ -19,7 +20,7 @@
     :root{
       --bg: #0b0b0c;
       --card: #0f1112;
-      --muted: #9aa3ab;
+      --muted: #b0b8c0;
       --accent: #c7a55a;
       --accent-600:#b08943;
       --glass: rgba(255,255,255,0.04);
@@ -31,6 +32,7 @@
       --flow: 20px;
       --shadow: 0 18px 40px rgba(0,0,0,0.6);
       --transition: 220ms cubic-bezier(.2,.9,.2,1);
+      --focus-ring: 0 0 0 3px rgba(199,165,90,0.4);
       font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
     }
 
@@ -90,6 +92,13 @@
       color:var(--muted);
     }
 
+    /* Focus styles for accessibility */
+    a:focus, button:focus, input:focus, textarea:focus, select:focus {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+      box-shadow: var(--focus-ring);
+    }
+
     nav.actions{
       display:flex;
       gap:10px;
@@ -106,6 +115,8 @@
       cursor:pointer;
       transition:transform var(--transition), box-shadow var(--transition);
       box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+      text-decoration: none;
+      display: inline-block;
     }
     .btn.secondary{
       background:transparent;
@@ -114,7 +125,11 @@
       box-shadow:none;
       font-weight:600;
     }
-    .btn:focus{outline:3px solid rgba(199,165,90,0.12)}
+    .btn:focus{
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+      box-shadow: var(--focus-ring);
+    }
     .btn:hover{transform:translateY(-3px)}
 
     /* Hero */
@@ -182,15 +197,96 @@
     .signup-card input[type="email"]{
       flex:1;
       background:transparent;
-      border:1px solid transparent;
+      border:1px solid rgba(255,255,255,0.1);
       color:var(--text);
       padding:10px 12px;
       border-radius:8px;
       font-size:0.95rem;
     }
-    .signup-card input::placeholder{color: #868b90}
+    .signup-card input::placeholder{color: #b0b8c0}
     .note{
       font-size:0.86rem;color:var(--muted)
+    }
+
+    /* Countdown component */
+    .countdown-display {
+      background:linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+      border:1px solid var(--glass);
+      padding:14px 18px;
+      border-radius:12px;
+      margin-top:12px;
+      text-align:center;
+    }
+    .countdown-display .kicker {
+      margin-bottom:8px;
+    }
+    .countdown-timer {
+      font-family: var(--mono);
+      font-size:1.4rem;
+      font-weight:700;
+      color:var(--accent);
+      letter-spacing:0.05em;
+    }
+    .countdown-timer .unit {
+      font-size:0.75rem;
+      color:var(--muted);
+      font-weight:600;
+      margin-left:2px;
+    }
+
+    /* Progress indicator */
+    .progress-section {
+      margin-top:14px;
+    }
+    .progress-label {
+      font-size:0.88rem;
+      color:var(--muted);
+      margin-bottom:8px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    .progress-bar-container {
+      background:rgba(255,255,255,0.05);
+      border-radius:8px;
+      height:6px;
+      overflow:hidden;
+      position:relative;
+    }
+    .progress-bar {
+      background:linear-gradient(90deg, var(--accent-600), var(--accent));
+      height:100%;
+      border-radius:8px;
+      transition:width 0.5s ease;
+      box-shadow: 0 0 12px rgba(199,165,90,0.3);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.8; }
+    }
+
+    /* Status messages */
+    .status-message {
+      padding:10px 12px;
+      border-radius:8px;
+      font-size:0.92rem;
+      font-weight:600;
+      margin-top:10px;
+      display:none;
+    }
+    .status-message.success {
+      background:linear-gradient(90deg,#1b2f16,#16321e);
+      color:#a4f7b1;
+      border:1px solid rgba(164,247,177,0.2);
+    }
+    .status-message.error {
+      background:linear-gradient(90deg,#2f1616,#321616);
+      color:#f7a4a4;
+      border:1px solid rgba(247,164,164,0.2);
+    }
+    .status-message.show {
+      display:block;
     }
 
     /* Two-column feature area */
@@ -283,11 +379,35 @@
     .success{background:linear-gradient(90deg,#1b2f16,#16321e); color:#a4f7b1; padding:8px 10px;border-radius:8px;font-weight:700}
 
     /* Responsiveness */
-    @media(min-width:880px){
+    @media(min-width:768px){
       .hero{grid-template-columns: 1fr 420px}
       .hero-inner{padding:28px}
       .hero-grid{grid-template-columns: 1fr}
       .columns{grid-template-columns: 1fr 360px}
+    }
+
+    @media(max-width:767px){
+      .hero{
+        grid-template-columns: 1fr;
+      }
+      .hero h2{
+        font-size:clamp(1.6rem,5vw,2rem);
+      }
+      .hero-inner{
+        padding:18px;
+      }
+      .page{
+        padding:18px;
+      }
+      body{
+        padding:18px;
+      }
+      .panel{
+        padding:16px;
+      }
+      .countdown-timer{
+        font-size:1.2rem;
+      }
     }
 
   </style>
@@ -318,12 +438,34 @@
             <h2 id="hero-title">Travel intelligence that learns quietly and acts fairly</h2>
             <p class="lead">BooknSleep builds specialized decision systems for pricing, guest support, and safety — designed for clarity, local context, and trust.</p>
 
-            <div class="hero-cta" aria-hidden="false">
-              <div class="signup-card" role="form" aria-label="Early access signup">
-                <label for="early-email" class="sr-only">Email address</label>
-                <input id="early-email" type="email" inputmode="email" autocomplete="email" placeholder="john@company.com" aria-describedby="signup-help" />
-                <button id="notify-me" class="btn" type="button">Notify me</button>
+            <!-- Countdown and Progress -->
+            <div class="countdown-display" role="timer" aria-live="polite" aria-atomic="true">
+              <div class="kicker">Launching in</div>
+              <div id="countdown-timer" class="countdown-timer" aria-label="Time until launch">
+                <span id="countdown-days">124</span><span class="unit">d</span> 
+                <span id="countdown-hours">00</span><span class="unit">h</span> 
+                <span id="countdown-minutes">00</span><span class="unit">m</span> 
+                <span id="countdown-seconds">00</span><span class="unit">s</span>
               </div>
+            </div>
+
+            <div class="progress-section">
+              <div class="progress-label">
+                <span id="progress-text">We're making progress</span>
+                <span id="progress-count">0 signups</span>
+              </div>
+              <div class="progress-bar-container">
+                <div id="progress-bar" class="progress-bar" style="width:0%" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div>
+
+            <div class="hero-cta" aria-hidden="false">
+              <form id="signup-form" class="signup-card" role="form" aria-label="Early access signup">
+                <label for="early-email" class="sr-only">Email address for early access</label>
+                <input id="early-email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="john@company.com" aria-describedby="signup-help" required />
+                <button id="notify-me" class="btn" type="submit">Notify me</button>
+              </form>
+              <div id="signup-status" class="status-message" role="status" aria-live="polite" aria-atomic="true"></div>
               <div class="note" id="signup-help">No newsletters — only launch updates and important notices.</div>
             </div>
           </div>
@@ -413,9 +555,14 @@
           <p class="muted">If you're a Data / ML / Backend engineer who loves clear pipelines and resilient systems, we'd like to hear from you.</p>
 
           <form id="apply-form" class="apply-form" action="mailto:careers@booknsleep.com" method="post" style="margin-top:12px; display:grid; gap:10px">
-            <input name="name" type="text" placeholder="Full name" required />
-            <input name="email" type="email" placeholder="Email" required />
-            <textarea name="skills" rows="4" placeholder="Tell us about your skills and interests" required></textarea>
+            <label for="apply-name" class="sr-only">Full name</label>
+            <input id="apply-name" name="name" type="text" placeholder="Full name" required aria-required="true" />
+            
+            <label for="apply-email" class="sr-only">Email address</label>
+            <input id="apply-email" name="email" type="email" placeholder="Email" required aria-required="true" />
+            
+            <label for="apply-skills" class="sr-only">Tell us about your skills and interests</label>
+            <textarea id="apply-skills" name="skills" rows="4" placeholder="Tell us about your skills and interests" required aria-required="true"></textarea>
 
             <!-- Honeypot to trap spambots -->
             <input type="text" name="company" placeholder="Company (leave blank)" style="display:none" aria-hidden="true" tabindex="-1">
@@ -442,65 +589,101 @@
 
     // Countdown: 125 days ahead
     (function initCountdown() {
-      const display = document.createElement('div');
-      display.className = 'sr-only';
-      display.id = 'countdown-live';
-      document.getElementById('page').prepend(display);
-
-      const launch = new Date();
-      launch.setDate(launch.getDate() + 125);
+      // Get launch date from config or use default
+      const defaultLaunchDate = '2026-05-15T00:00:00Z';
+      const launchDateStr = (window.siteConfig && window.siteConfig.launchDate) || defaultLaunchDate;
+      const launch = new Date(launchDateStr);
 
       function pad(n){ return String(n).padStart(2,'0') }
 
       function tick(){
         const now = new Date();
         const diff = launch - now;
+        
+        const daysEl = el('#countdown-days');
+        const hoursEl = el('#countdown-hours');
+        const minsEl = el('#countdown-minutes');
+        const secsEl = el('#countdown-seconds');
+        
         if (diff <= 0) {
-          display.textContent = 'Launch: now boarding.';
+          if (daysEl) daysEl.textContent = '0';
+          if (hoursEl) hoursEl.textContent = '00';
+          if (minsEl) minsEl.textContent = '00';
+          if (secsEl) secsEl.textContent = '00';
           return;
         }
+        
         const days = Math.floor(diff / (1000*60*60*24));
         const hours = Math.floor((diff / (1000*60*60)) % 24);
         const mins = Math.floor((diff / (1000*60)) % 60);
         const secs = Math.floor((diff / 1000) % 60);
-        display.textContent = `Launch in ${days} days ${pad(hours)}:${pad(mins)}:${pad(secs)}`;
+        
+        if (daysEl) daysEl.textContent = days;
+        if (hoursEl) hoursEl.textContent = pad(hours);
+        if (minsEl) minsEl.textContent = pad(mins);
+        if (secsEl) secsEl.textContent = pad(secs);
       }
 
       tick();
       setInterval(tick, 1000);
-
-      // visible countdown in header as small live text (non-intrusive)
-      const visible = document.createElement('div');
-      visible.style.fontFamily = 'var(--mono)';
-      visible.style.color = 'var(--muted)';
-      visible.style.fontSize = '0.86rem';
-      visible.style.marginTop = '6px';
-      visible.id = 'countdown-visible';
-      visible.setAttribute('aria-hidden','true');
-      document.querySelector('.brand').appendChild(visible);
-
-      setInterval(() => visible.textContent = display.textContent.replace('Launch in ','Launch: '), 1000);
-      visible.textContent = display.textContent.replace('Launch in ','Launch: ');
     })();
+
+    // Initialize signup count from localStorage
+    let signupCount = parseInt(localStorage.getItem('bns-signup-count') || '0', 10);
+    const SIGNUP_GOAL = (window.siteConfig && window.siteConfig.signupGoal) || 100;
+
+    // Update progress display
+    function updateProgress() {
+      const progressBar = el('#progress-bar');
+      const progressText = el('#progress-text');
+      const progressCountEl = el('#progress-count');
+      
+      if (progressBar && progressCountEl) {
+        const percentage = Math.min((signupCount / SIGNUP_GOAL) * 100, 100);
+        progressBar.style.width = percentage + '%';
+        progressBar.setAttribute('aria-valuenow', Math.round(percentage));
+        
+        const label = signupCount === 1 ? 'signup' : 'signups';
+        progressCountEl.textContent = `${signupCount} ${label}`;
+        
+        if (progressText) {
+          progressText.textContent = signupCount > 0 ? "We are making progress" : "Join us in building something new";
+        }
+      }
+    }
 
     // Early-access handler (tries POST then falls back to mailto)
     (function earlyAccess() {
-      const btn = document.getElementById('notify-me');
+      const form = document.getElementById('signup-form');
       const input = document.getElementById('early-email');
+      const statusEl = document.getElementById('signup-status');
 
-      if (!btn || !input) return;
+      if (!form || !input || !statusEl) return;
 
-      btn.addEventListener('click', async () => {
+      function showStatus(message, type) {
+        statusEl.textContent = message;
+        statusEl.className = 'status-message ' + type + ' show';
+        setTimeout(() => {
+          statusEl.className = 'status-message ' + type;
+        }, 4000);
+      }
+
+      form.addEventListener('submit', async (ev) => {
+        ev.preventDefault();
+        
         const email = input.value.trim();
         if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
-          alert('Please enter a valid email address.');
+          showStatus('Please enter a valid email address.', 'error');
           input.focus();
           return;
         }
 
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        
         // optimistic UI
-        btn.disabled = true;
-        btn.textContent = 'Sending…';
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending…';
 
         try {
           const res = await fetch('/api/early-access', {
@@ -510,23 +693,42 @@
           });
 
           if (res.ok) {
-            btn.textContent = 'Thanks — you’re on the list';
-            setTimeout(()=>{ btn.textContent = 'Notify me'; input.value=''; btn.disabled=false }, 2500);
+            // Increment signup count
+            signupCount++;
+            localStorage.setItem('bns-signup-count', signupCount.toString());
+            updateProgress();
+            
+            showStatus('Thanks - you are on the list!', 'success');
+            input.value = '';
+            setTimeout(() => {
+              submitBtn.textContent = originalText;
+              submitBtn.disabled = false;
+            }, 2500);
             return;
           }
         } catch (e) {
-          // network or endpoint not present
+          // network or endpoint not present - fallback to mailto
         }
 
         // fallback: mailto
         const mailto = `mailto:careers@booknsleep.com?subject=Early%20Access%20Signup&body=${encodeURIComponent('Please add me to early access list: ' + email)}`;
         window.location.href = mailto;
-
-        btn.textContent = 'Notify me';
-        btn.disabled = false;
+        
+        // Still increment count for localStorage tracking
+        signupCount++;
+        localStorage.setItem('bns-signup-count', signupCount.toString());
+        updateProgress();
+        
+        showStatus('Opening email client...', 'success');
+        setTimeout(() => {
+          submitBtn.textContent = originalText;
+          submitBtn.disabled = false;
+        }, 2000);
       });
     })();
 
+    // Initialize progress display
+    updateProgress();
     // Typing cascade for help demo — accessible: text is always present to screen readers
     (function typingCascade() {
       const typers = els('.typing');
@@ -592,7 +794,7 @@
             body: JSON.stringify(payload)
           });
           if (res.ok) {
-            alert('Thanks — we received your application.');
+            alert('Thanks - we received your application.');
             form.reset();
             return;
           }
