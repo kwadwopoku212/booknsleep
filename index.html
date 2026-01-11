@@ -21,7 +21,6 @@
       --bg: #0b0b0c;
       --card: #0f1112;
       --muted: #b0b8c0;
-      --muted-dark: #8a92a0;
       --accent: #c7a55a;
       --accent-600:#b08943;
       --glass: rgba(255,255,255,0.04);
@@ -631,7 +630,7 @@
 
     // Initialize signup count from localStorage
     let signupCount = parseInt(localStorage.getItem('bns-signup-count') || '0', 10);
-    const SIGNUP_GOAL = 100;
+    const SIGNUP_GOAL = (window.siteConfig && window.siteConfig.signupGoal) || 100;
 
     // Update progress display
     function updateProgress() {
