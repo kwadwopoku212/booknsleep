@@ -114,7 +114,12 @@
       box-shadow:none;
       font-weight:600;
     }
-    .btn:focus{outline:3px solid rgba(199,165,90,0.12)}
+    .btn:focus{outline:3px solid rgba(199,165,90,0.5); outline-offset:2px}
+    .btn:focus-visible{outline:3px solid rgba(199,165,90,0.7); outline-offset:2px}
+    a:focus{outline:3px solid rgba(199,165,90,0.5); outline-offset:2px}
+    a:focus-visible{outline:3px solid rgba(199,165,90,0.7); outline-offset:2px}
+    input:focus,textarea:focus,select:focus{outline:3px solid rgba(199,165,90,0.5); outline-offset:1px}
+    input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid rgba(199,165,90,0.7); outline-offset:1px}
     .btn:hover{transform:translateY(-3px)}
 
     /* Hero */
@@ -144,7 +149,7 @@
 
     .eyebrow{
       font-size:0.84rem;
-      color:var(--muted);
+      color:#b0b5ba;
       letter-spacing:0.06em;
       font-weight:600;
     }
@@ -157,7 +162,7 @@
     }
 
     .lead{
-      color:var(--muted);
+      color:#b0b5ba;
       margin-top:6px;
       font-size:0.98rem;
     }
@@ -188,9 +193,37 @@
       border-radius:8px;
       font-size:0.95rem;
     }
-    .signup-card input::placeholder{color: #868b90}
+    .signup-card input::placeholder{color: #a0a5aa}
     .note{
-      font-size:0.86rem;color:var(--muted)
+      font-size:0.86rem;color:#b0b5ba
+    }
+
+    /* Progress indicator */
+    .progress-wrapper{
+      margin-top:12px;
+      display:none;
+    }
+    .progress-wrapper.active{
+      display:block;
+    }
+    .progress-text{
+      font-size:0.84rem;
+      color:#b0b5ba;
+      margin-bottom:6px;
+      font-weight:600;
+    }
+    .progress-bar{
+      height:6px;
+      background:rgba(255,255,255,0.08);
+      border-radius:3px;
+      overflow:hidden;
+    }
+    .progress-fill{
+      height:100%;
+      background:linear-gradient(90deg,var(--accent),var(--accent-600));
+      border-radius:3px;
+      transition:width 600ms ease;
+      width:0%;
     }
 
     /* Two-column feature area */
@@ -277,17 +310,27 @@
     footer{ margin-top:28px; color:var(--muted); font-size:0.9rem; display:flex; justify-content:space-between; gap:14px; align-items:center; flex-wrap:wrap; }
 
     /* Utilities */
-    .muted{color:var(--muted)}
-    .kicker{font-size:0.76rem;color:var(--muted);font-weight:600}
+    .muted{color:#b0b5ba}
+    .kicker{font-size:0.76rem;color:#b0b5ba;font-weight:600}
     .sr-only{position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap}
     .success{background:linear-gradient(90deg,#1b2f16,#16321e); color:#a4f7b1; padding:8px 10px;border-radius:8px;font-weight:700}
 
     /* Responsiveness */
+    @media(min-width:768px){
+      .hero{grid-template-columns: 1fr 1fr}
+      .hero-inner{padding:28px}
+    }
     @media(min-width:880px){
       .hero{grid-template-columns: 1fr 420px}
       .hero-inner{padding:28px}
       .hero-grid{grid-template-columns: 1fr}
       .columns{grid-template-columns: 1fr 360px}
+    }
+    @media(max-width:767px){
+      .hero h2{font-size:1.6rem}
+      .hero-inner{padding:18px}
+      body{padding:16px}
+      .page{padding:16px}
     }
 
   </style>
@@ -321,10 +364,18 @@
             <div class="hero-cta" aria-hidden="false">
               <div class="signup-card" role="form" aria-label="Early access signup">
                 <label for="early-email" class="sr-only">Email address</label>
-                <input id="early-email" type="email" inputmode="email" autocomplete="email" placeholder="john@company.com" aria-describedby="signup-help" />
+                <input id="early-email" type="email" inputmode="email" autocomplete="email" placeholder="john@company.com" aria-describedby="signup-help" required />
                 <button id="notify-me" class="btn" type="button">Notify me</button>
               </div>
               <div class="note" id="signup-help">No newsletters — only launch updates and important notices.</div>
+              
+              <!-- Progress indicator -->
+              <div class="progress-wrapper" id="progress-wrapper" aria-live="polite">
+                <div class="progress-text" id="progress-text">We're making progress — <span id="signup-count">0</span> early signups</div>
+                <div class="progress-bar">
+                  <div class="progress-fill" id="progress-fill"></div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -413,9 +464,12 @@
           <p class="muted">If you're a Data / ML / Backend engineer who loves clear pipelines and resilient systems, we'd like to hear from you.</p>
 
           <form id="apply-form" class="apply-form" action="mailto:careers@booknsleep.com" method="post" style="margin-top:12px; display:grid; gap:10px">
-            <input name="name" type="text" placeholder="Full name" required />
-            <input name="email" type="email" placeholder="Email" required />
-            <textarea name="skills" rows="4" placeholder="Tell us about your skills and interests" required></textarea>
+            <label for="apply-name" class="sr-only">Full name</label>
+            <input id="apply-name" name="name" type="text" placeholder="Full name" required />
+            <label for="apply-email" class="sr-only">Email address</label>
+            <input id="apply-email" name="email" type="email" placeholder="Email" required />
+            <label for="apply-skills" class="sr-only">Skills and interests</label>
+            <textarea id="apply-skills" name="skills" rows="4" placeholder="Tell us about your skills and interests" required></textarea>
 
             <!-- Honeypot to trap spambots -->
             <input type="text" name="company" placeholder="Company (leave blank)" style="display:none" aria-hidden="true" tabindex="-1">
@@ -440,55 +494,94 @@
     const el = (s) => document.querySelector(s);
     const els = (s) => Array.from(document.querySelectorAll(s));
 
-    // Countdown: 125 days ahead
+    // Countdown: reads from site-config.json, fallback to 2026-05-15T00:00:00Z
     (function initCountdown() {
-      const display = document.createElement('div');
-      display.className = 'sr-only';
-      display.id = 'countdown-live';
-      document.getElementById('page').prepend(display);
+      const fallbackDate = '2026-05-15T00:00:00Z';
+      let launchDate = new Date(fallbackDate);
 
-      const launch = new Date();
-      launch.setDate(launch.getDate() + 125);
+      // Try to fetch from site-config.json
+      fetch('/site-config.json')
+        .then(res => res.ok ? res.json() : Promise.reject())
+        .then(config => {
+          if (config.launchDate) {
+            launchDate = new Date(config.launchDate);
+          }
+        })
+        .catch(() => {
+          // Use fallback date
+          console.log('Using fallback launch date');
+        })
+        .finally(() => {
+          startCountdown(launchDate);
+        });
 
-      function pad(n){ return String(n).padStart(2,'0') }
+      function startCountdown(launch) {
+        const display = document.createElement('div');
+        display.className = 'sr-only';
+        display.id = 'countdown-live';
+        display.setAttribute('aria-live', 'polite');
+        display.setAttribute('aria-atomic', 'true');
+        document.getElementById('page').prepend(display);
 
-      function tick(){
-        const now = new Date();
-        const diff = launch - now;
-        if (diff <= 0) {
-          display.textContent = 'Launch: now boarding.';
-          return;
+        function pad(n){ return String(n).padStart(2,'0') }
+
+        function tick(){
+          const now = new Date();
+          const diff = launch - now;
+          if (diff <= 0) {
+            display.textContent = 'Launch: now boarding.';
+            return;
+          }
+          const days = Math.floor(diff / (1000*60*60*24));
+          const hours = Math.floor((diff / (1000*60*60)) % 24);
+          const mins = Math.floor((diff / (1000*60)) % 60);
+          const secs = Math.floor((diff / 1000) % 60);
+          display.textContent = `Launch in ${days} days ${pad(hours)}:${pad(mins)}:${pad(secs)}`;
         }
-        const days = Math.floor(diff / (1000*60*60*24));
-        const hours = Math.floor((diff / (1000*60*60)) % 24);
-        const mins = Math.floor((diff / (1000*60)) % 60);
-        const secs = Math.floor((diff / 1000) % 60);
-        display.textContent = `Launch in ${days} days ${pad(hours)}:${pad(mins)}:${pad(secs)}`;
+
+        tick();
+        setInterval(tick, 1000);
+
+        // visible countdown in header as small live text (non-intrusive)
+        const visible = document.createElement('div');
+        visible.style.fontFamily = 'var(--mono)';
+        visible.style.color = '#b0b5ba';
+        visible.style.fontSize = '0.86rem';
+        visible.style.marginTop = '6px';
+        visible.id = 'countdown-visible';
+        visible.setAttribute('aria-hidden','true');
+        visible.setAttribute('aria-label', 'Launch countdown timer');
+        document.querySelector('.brand').appendChild(visible);
+
+        setInterval(() => visible.textContent = display.textContent.replace('Launch in ','Launch: '), 1000);
+        visible.textContent = display.textContent.replace('Launch in ','Launch: ');
       }
-
-      tick();
-      setInterval(tick, 1000);
-
-      // visible countdown in header as small live text (non-intrusive)
-      const visible = document.createElement('div');
-      visible.style.fontFamily = 'var(--mono)';
-      visible.style.color = 'var(--muted)';
-      visible.style.fontSize = '0.86rem';
-      visible.style.marginTop = '6px';
-      visible.id = 'countdown-visible';
-      visible.setAttribute('aria-hidden','true');
-      document.querySelector('.brand').appendChild(visible);
-
-      setInterval(() => visible.textContent = display.textContent.replace('Launch in ','Launch: '), 1000);
-      visible.textContent = display.textContent.replace('Launch in ','Launch: ');
     })();
 
     // Early-access handler (tries POST then falls back to mailto)
     (function earlyAccess() {
       const btn = document.getElementById('notify-me');
       const input = document.getElementById('early-email');
+      const progressWrapper = document.getElementById('progress-wrapper');
+      const progressFill = document.getElementById('progress-fill');
+      const signupCountEl = document.getElementById('signup-count');
 
       if (!btn || !input) return;
+
+      // Initialize signup count from localStorage
+      let signupCount = parseInt(localStorage.getItem('booknsleep_signup_count') || '0', 10);
+      
+      function updateProgress() {
+        if (signupCount > 0) {
+          progressWrapper.classList.add('active');
+          signupCountEl.textContent = signupCount;
+          // Progress: show as percentage (max 100 signups = 100%)
+          const percentage = Math.min((signupCount / 100) * 100, 100);
+          progressFill.style.width = percentage + '%';
+        }
+      }
+      
+      updateProgress();
 
       btn.addEventListener('click', async () => {
         const email = input.value.trim();
@@ -510,7 +603,10 @@
           });
 
           if (res.ok) {
-            btn.textContent = 'Thanks — you’re on the list';
+            btn.textContent = 'Thanks — you\'re on the list';
+            signupCount++;
+            localStorage.setItem('booknsleep_signup_count', signupCount);
+            updateProgress();
             setTimeout(()=>{ btn.textContent = 'Notify me'; input.value=''; btn.disabled=false }, 2500);
             return;
           }
@@ -521,6 +617,11 @@
         // fallback: mailto
         const mailto = `mailto:careers@booknsleep.com?subject=Early%20Access%20Signup&body=${encodeURIComponent('Please add me to early access list: ' + email)}`;
         window.location.href = mailto;
+
+        // Still count as signup for progress tracking
+        signupCount++;
+        localStorage.setItem('booknsleep_signup_count', signupCount);
+        updateProgress();
 
         btn.textContent = 'Notify me';
         btn.disabled = false;
