@@ -252,6 +252,20 @@
       animation: fadeSlideUp 1s ease-out 0.6s backwards;
     }
 
+    .hero-media {
+      margin-top: 48px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .hero-media img {
+      width: min(100%, 1000px);
+      border-radius: 28px;
+      border: 1px solid var(--glass);
+      box-shadow: var(--shadow);
+      object-fit: cover;
+    }
+
     .waitlist-form {
       display: flex;
       gap: 12px;
@@ -344,6 +358,22 @@
       line-height: 1.6;
     }
 
+    .vision-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      margin-bottom: 60px;
+    }
+
+    .vision-gallery img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 18px;
+      border: 1px solid var(--glass);
+      box-shadow: 0 18px 40px rgba(0,0,0,0.45);
+    }
+
     /* Feature Grid */
     .features {
       display: grid;
@@ -425,11 +455,22 @@
       place-items: center;
     }
 
+    .map-image {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.2;
+      filter: saturate(0.8) contrast(1.15);
+    }
+
     .map-visual {
       width: 100%;
       max-width: 1000px;
       height: 400px;
       position: relative;
+      z-index: 1;
       background: 
         radial-gradient(circle at 15% 25%, rgba(212,175,55,0.1), transparent 30%),
         radial-gradient(circle at 85% 45%, rgba(212,175,55,0.08), transparent 35%),
@@ -737,6 +778,8 @@
       nav.actions .btn { padding: 12px 20px; font-size: 0.9rem; }
       .brand-text h1 { font-size: 1.1rem; }
       .logo { width: 48px; height: 48px; }
+      .hero-media img { border-radius: 20px; }
+      .vision-gallery img { height: 200px; }
     }
 
     /* Accessibility */
@@ -807,6 +850,14 @@
           </form>
         </div>
 
+        <div class="hero-media">
+          <img
+            src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80"
+            alt="A glowing city skyline at night with travel lights"
+            loading="lazy"
+          />
+        </div>
+
         <div class="waitlist-count">
           <strong id="waitlist-number">12,847</strong> visionaries already on the waitlist
         </div>
@@ -842,6 +893,24 @@
           converge to create the most intuitive, fair, and powerful travel experience 
           ever conceived. For everyone. Everywhere.
         </p>
+
+        <div class="vision-gallery" aria-label="Destination highlights">
+          <img
+            src="https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=900&q=80"
+            alt="A tranquil coastal resort at sunrise"
+            loading="lazy"
+          />
+          <img
+            src="https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=900&q=80"
+            alt="Mountain retreat with winding road"
+            loading="lazy"
+          />
+          <img
+            src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=900&q=80"
+            alt="Forest landscape with sunlit valley"
+            loading="lazy"
+          />
+        </div>
 
         <div class="features">
           <div class="feature-card">
@@ -904,6 +973,12 @@
       <!-- Global Map -->
       <section class="map-section" aria-label="Global presence">
         <div class="map-container">
+          <img
+            class="map-image"
+            src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1400&q=80"
+            alt="Earth view from above with clouds and oceans"
+            loading="lazy"
+          />
           <div class="map-visual" aria-hidden="true">
             <div class="map-marker"></div>
             <div class="map-marker"></div>
