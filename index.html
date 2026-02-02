@@ -3,52 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book N Sleep</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="particles.js"></script>
+    <title>BooknSleep</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="scripts.js"></script>
 </head>
 <body>
     <header>
-        <div class="hero animated">
-            <h1>Discover Your Next Adventure with AI at Work</h1>
-            <div id="ai-animation"></div>
-        </div>
+        <h1>Welcome to BooknSleep</h1>
+        <nav>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#destinations">Destinations</a></li>
+            </ul>
+        </nav>
     </header>
-    <main>
-        <section class="carousel">
-            <h2>Travel Gallery</h2>
-            <div class="gallery">
-                <img src="https://source.unsplash.com/featured/?beach,tropical" alt="Tropical Beach">
-                <img src="https://source.unsplash.com/featured/?city,iconic" alt="Iconic City">
-                <img src="https://source.unsplash.com/featured/?mountain,retreat" alt="Mountain Retreat">
-                <img src="https://source.unsplash.com/featured/?culture,architecture" alt="Cultural Site">
-            </div>
-        </section>
-        <section class="features">
-            <div class="feature-card animated">
-                <h3>Feature 1</h3>
-                <p>Description 1</p>
-            </div>
-            <div class="feature-card animated">
-                <h3>Feature 2</h3>
-                <p>Description 2</p>
-            </div>
-            <div class="feature-card animated">
-                <h3>Feature 3</h3>
-                <p>Description 3</p>
-            </div>
-        </section>
-        <section class="ai-work animated">
-            <h2>AI at Work</h2>
-            <div class="data-visual"></div>
-        </section>
-    </main>
-    <script>
-        // Initialize animations and particles
-        particlesJS.load('particles-js', 'particles.json', function() {
-            console.log('callback - particles.js config loaded');
-        });
-        // Additional AI animation code
-    </script>
+    <section id="gallery">
+        <h2>Travel Image Gallery</h2>
+        <div class="carousel">
+            <img src="https://source.unsplash.com/featured/?beach" alt="Beach">
+            <img src="https://source.unsplash.com/featured/?city" alt="City">
+            <img src="https://source.unsplash.com/featured/?mountain" alt="Mountain">
+            <img src="https://source.unsplash.com/featured/?cultural" alt="Cultural Site">
+        </div>
+    </section>
+    <section id="animations">
+        <h2>AI Neural Network Visualizations</h2>
+        <canvas id="neuralCanvas"></canvas>
+    </section>
+    <section id="destinations">
+        <h2>Popular Destinations</h2>
+        <div class="destination">
+            <img src="https://source.unsplash.com/featured/?paris" alt="Paris">
+            <p>Explore the beautiful city of Paris.</p>
+        </div>
+        <div class="destination">
+            <img src="https://source.unsplash.com/featured/?newyork" alt="New York">
+            <p>Discover the vibrant life of New York.</p>
+        </div>
+    </section>
+    <footer>
+        <p>&copy; 2026 BooknSleep. All Rights Reserved.</p>
+    </footer>
+<script>
+    // JavaScript for animations and processing visualizations
+    // Initialize canvas for neural network representation
+    const canvas = document.getElementById('neuralCanvas');
+    const ctx = canvas.getContext('2d');
+    // Add animation logic here
+</script>
 </body>
 </html>
