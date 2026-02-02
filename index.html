@@ -1238,6 +1238,78 @@
         </div>
     </section>
 
+  <script>
+// ====== CONFIG ======
+const API = "https://api.sikasend.com/waitlist";   // CBT endpoint
+const ANALYTICS = "https://api.sikasend.com/bns-analytics";
+
+// ====== CORE FUNCTION ======
+async function joinWaitlist(email, location) {
+  const payload = {
+    email,
+    source: "booknsleep_landing",
+    page: location,
+    timestamp: new Date().toISOString(),
+    device: navigator.userAgent,
+    ref: document.referrer || "direct"
+  };
+
+  const res = await fetch(API, {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(payload)
+  });
+
+  return res.ok;
+}
+
+// ====== ANALYTICS PING ======
+function track(event, data={}) {
+  fetch(ANALYTICS, {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({
+      event,
+      ...data,
+      time: Date.now()
+    })
+  });
+}
+
+// ====== FORM HANDLER ======
+document.querySelectorAll('.waitlist-form').forEach(form => {
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const email = form.querySelector('input').value.trim();
+
+    if(!email.includes("@")) {
+      alert("Real email please, traveler 😄");
+      return;
+    }
+
+    form.querySelector("button").innerText = "Joining...";
+
+    const ok = await joinWaitlist(email, form.id);
+
+    if(ok) {
+      track("signup", {email});
+
+      form.innerHTML = `
+        <div style="padding:16px;color:#d4af37">
+          ✅ You're in. Check your inbox soon.
+        </div>
+      `;
+    } else {
+      alert("Network hiccup. Try again in 10 seconds.");
+    }
+  });
+});
+
+// ====== PAGE VIEW ======
+track("page_view");
+</script>
+  
     <footer>
         <p>&copy; 2026 Book N Sleep - All Rights Reserved</p>
     </footer>
