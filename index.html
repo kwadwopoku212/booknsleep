@@ -684,13 +684,13 @@
     }
 
     .message.agent::before {
-      background-image: linear-gradient(135deg, #ffd700, #d4af37);
+      background-image: linear-gradient(135deg, var(--accent-bright), var(--accent));
       content: '🤖';
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 18px;
-      border-color: #000;
+      border-color: var(--bg);
     }
 
     .message-content {
@@ -1130,35 +1130,35 @@
           </div>
 
           <div class="chat-window" role="region" aria-label="Support conversation">
-            <div class="message guest">
+            <div class="message guest" aria-label="Guest Sarah M. Message">
               <div class="message-content">
                 <div class="message-sender">Guest — Sarah M.</div>
                 Hi—I'm at the door and my access code isn't working. It's late and I can't get into my room. Getting worried here.
               </div>
             </div>
 
-            <div class="message agent">
+            <div class="message agent" aria-label="Kojo System Operations AI Response">
               <div class="message-content">
                 <div class="message-sender">Kojo · System Operations AI</div>
                 I'm here, Sarah. I found your booking, confirmed payment, and checked the smart lock status. I've issued a secure fallback code (sent to your phone) and notified your host. Are you in a safe, well-lit area?
               </div>
             </div>
 
-            <div class="message agent">
+            <div class="message agent" aria-label="Yaa Local Dispatch Response">
               <div class="message-content">
                 <div class="message-sender">Yaa · Local Dispatch</div>
                 I'm contacting the host and on-call property contact right now. If there's no response within 3 minutes, I'll escalate to backup support so you're not left waiting.
               </div>
             </div>
 
-            <div class="message agent">
+            <div class="message agent" aria-label="Sika Safety Coordinator Response">
               <div class="message-content">
                 <div class="message-sender">Sika · Safety Coordinator</div>
                 Please remain in the lobby or main corridor where there's light and cameras for your safety. Once your door opens, I'll close the incident and file a safety report to prevent this from happening again.
               </div>
             </div>
 
-            <div class="message guest">
+            <div class="message guest" aria-label="Guest Sarah M. Message">
               <div class="message-content">
                 <div class="message-sender">Guest — Sarah M.</div>
                 The new code worked — I'm inside now. Thank you for handling that so quickly. Genuinely impressed.
