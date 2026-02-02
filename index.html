@@ -1316,7 +1316,7 @@
 
     // Email validation
     function isValidEmail(email) {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
       return emailRegex.test(email);
     }
 
@@ -1503,7 +1503,14 @@
       if (hasJoinedWaitlist()) {
         const storedEmail = getStoredEmail();
         document.querySelectorAll('input[type="email"]').forEach(input => {
-          input.placeholder = `Already registered: ${storedEmail}`;
+          input.setAttribute('aria-describedby', 'waitlist-registered-msg');
+          const msgId = 'waitlist-registered-msg-' + Math.random().toString(36).substr(2, 9);
+          const helpText = document.createElement('div');
+          helpText.id = msgId;
+          helpText.className = 'sr-only-live';
+          helpText.textContent = `Already registered with email: ${storedEmail}`;
+          input.parentNode.insertBefore(helpText, input.nextSibling);
+          input.setAttribute('aria-describedby', msgId);
         });
       }
     });
@@ -1562,7 +1569,16 @@
 
     // ===== DEVELOPMENT/DEBUG HELPERS =====
     
-    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+    // Check for development environment
+    const isDevelopment = (
+      window.location.hostname === 'localhost' || 
+      window.location.hostname === '127.0.0.1' ||
+      window.location.hostname === '[::1]' ||
+      window.location.hostname.endsWith('.local') ||
+      window.location.port !== ''
+    );
+    
+    if (isDevelopment) {
       console.log('BooknSleep Landing Page - Development Mode');
       console.log('Waitlist joined:', hasJoinedWaitlist());
       console.log('Stored email:', getStoredEmail());
