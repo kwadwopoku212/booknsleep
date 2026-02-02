@@ -252,6 +252,89 @@
       animation: fadeSlideUp 1s ease-out 0.6s backwards;
     }
 
+    .hero-marquee {
+      margin: 48px auto 0;
+      padding: 18px 0;
+      border-radius: 22px;
+      border: 1px solid var(--glass);
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0));
+      position: relative;
+      overflow: hidden;
+      max-width: 1100px;
+    }
+
+    .hero-marquee::before,
+    .hero-marquee::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 80px;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .hero-marquee::before {
+      left: 0;
+      background: linear-gradient(90deg, rgba(0,0,0,0.9), rgba(0,0,0,0));
+    }
+
+    .hero-marquee::after {
+      right: 0;
+      background: linear-gradient(-90deg, rgba(0,0,0,0.9), rgba(0,0,0,0));
+    }
+
+    .hero-marquee-track {
+      display: flex;
+      gap: 16px;
+      width: max-content;
+      animation: heroMarquee 26s linear infinite;
+      padding: 0 24px;
+    }
+
+    .hero-marquee:hover .hero-marquee-track {
+      animation-play-state: paused;
+    }
+
+    .hero-marquee-item {
+      flex: 0 0 auto;
+      width: 220px;
+      height: 140px;
+      border-radius: 16px;
+      border: 1px solid var(--glass);
+      overflow: hidden;
+      position: relative;
+      background: #050505;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.45);
+    }
+
+    .hero-marquee-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.82;
+    }
+
+    .hero-marquee-item span {
+      position: absolute;
+      left: 12px;
+      bottom: 12px;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-family: var(--mono);
+      color: var(--text);
+      background: rgba(0,0,0,0.6);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 6px 10px;
+      border-radius: 999px;
+    }
+
+    @keyframes heroMarquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
     .hero-media {
       margin-top: 48px;
       display: flex;
@@ -780,6 +863,9 @@
       .logo { width: 48px; height: 48px; }
       .hero-media img { border-radius: 20px; }
       .vision-gallery img { height: 200px; }
+      .hero-marquee-item { width: 180px; height: 120px; }
+      .hero-marquee::before,
+      .hero-marquee::after { width: 50px; }
     }
 
     /* Accessibility */
@@ -848,6 +934,59 @@
             />
             <button type="submit" class="btn">Join the Revolution</button>
           </form>
+        </div>
+
+        <div class="hero-marquee" aria-label="Cross-border travel services">
+          <div class="hero-marquee-track">
+            <div class="hero-marquee-item">
+              <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80" alt="Mobile app for cross-border payments" loading="lazy" />
+              <span>Cross-border Payments</span>
+            </div>
+            <div class="hero-marquee-item">
+              <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=800&q=80" alt="Commercial flight in the sky" loading="lazy" />
+              <span>Flights</span>
+            </div>
+            <div class="hero-marquee-item">
+              <img src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=800&q=80" alt="Cargo ships at sea" loading="lazy" />
+              <span>Ships</span>
+            </div>
+            <div class="hero-marquee-item">
+              <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80" alt="High-speed train at a station" loading="lazy" />
+              <span>Trains</span>
+            </div>
+            <div class="hero-marquee-item">
+              <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=800&q=80" alt="Handshake representing travel insurance" loading="lazy" />
+              <span>Insurance</span>
+            </div>
+            <div class="hero-marquee-item">
+              <img src="https://images.unsplash.com/photo-1501117716987-c8e1ecb2107f?auto=format&fit=crop&w=800&q=80" alt="Luxury hotel room" loading="lazy" />
+              <span>Stays</span>
+            </div>
+            <div class="hero-marquee-item" aria-hidden="true">
+              <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80" alt="" loading="lazy" />
+              <span>Cross-border Payments</span>
+            </div>
+            <div class="hero-marquee-item" aria-hidden="true">
+              <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=800&q=80" alt="" loading="lazy" />
+              <span>Flights</span>
+            </div>
+            <div class="hero-marquee-item" aria-hidden="true">
+              <img src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=800&q=80" alt="" loading="lazy" />
+              <span>Ships</span>
+            </div>
+            <div class="hero-marquee-item" aria-hidden="true">
+              <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80" alt="" loading="lazy" />
+              <span>Trains</span>
+            </div>
+            <div class="hero-marquee-item" aria-hidden="true">
+              <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=800&q=80" alt="" loading="lazy" />
+              <span>Insurance</span>
+            </div>
+            <div class="hero-marquee-item" aria-hidden="true">
+              <img src="https://images.unsplash.com/photo-1501117716987-c8e1ecb2107f?auto=format&fit=crop&w=800&q=80" alt="" loading="lazy" />
+              <span>Stays</span>
+            </div>
+          </div>
         </div>
 
         <div class="hero-media">
