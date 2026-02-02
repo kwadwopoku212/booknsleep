@@ -180,6 +180,27 @@
       text-align: center;
       padding: 120px 0 80px;
       position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background-image: url('https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1920&q=80');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.08;
+      z-index: -1;
+      animation: slowZoom 30s ease-in-out infinite alternate;
+    }
+
+    @keyframes slowZoom {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.1); }
     }
 
     .hero-badge {
@@ -317,6 +338,21 @@
     .vision {
       padding: 100px 0;
       text-align: center;
+      position: relative;
+    }
+
+    .vision::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=80');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.02;
+      z-index: -1;
     }
 
     .section-label {
@@ -362,6 +398,48 @@
       overflow: hidden;
     }
 
+    .feature-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      opacity: 0.03;
+      z-index: 0;
+      transition: opacity var(--transition);
+    }
+
+    .feature-card:nth-child(1)::after {
+      background-image: url('https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80');
+    }
+
+    .feature-card:nth-child(2)::after {
+      background-image: url('https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?w=800&q=80');
+    }
+
+    .feature-card:nth-child(3)::after {
+      background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80');
+    }
+
+    .feature-card:nth-child(4)::after {
+      background-image: url('https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=800&q=80');
+    }
+
+    .feature-card:nth-child(5)::after {
+      background-image: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80');
+    }
+
+    .feature-card:nth-child(6)::after {
+      background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80');
+    }
+
+    .feature-card:hover::after {
+      opacity: 0.06;
+    }
+
     .feature-card::before {
       content: '';
       position: absolute;
@@ -393,18 +471,24 @@
       place-items: center;
       font-size: 28px;
       margin-bottom: 24px;
+      position: relative;
+      z-index: 1;
     }
 
     .feature-card h4 {
       font-size: 1.4rem;
       font-weight: 700;
       margin-bottom: 16px;
+      position: relative;
+      z-index: 1;
     }
 
     .feature-card p {
       color: var(--muted);
       line-height: 1.7;
       font-size: 1rem;
+      position: relative;
+      z-index: 1;
     }
 
     /* World Map Visual */
@@ -434,6 +518,21 @@
         radial-gradient(circle at 15% 25%, rgba(212,175,55,0.1), transparent 30%),
         radial-gradient(circle at 85% 45%, rgba(212,175,55,0.08), transparent 35%),
         radial-gradient(circle at 50% 70%, rgba(212,175,55,0.06), transparent 40%);
+    }
+
+    .map-visual::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?w=1200&q=80');
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+      opacity: 0.08;
+      filter: grayscale(100%) brightness(0.6);
     }
 
     .map-marker {
@@ -563,6 +662,39 @@
       border-radius: 16px;
       font-size: 0.95rem;
       line-height: 1.5;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .message::before {
+      content: '';
+      width: 36px;
+      height: 36px;
+      min-width: 36px;
+      border-radius: 50%;
+      background-size: cover;
+      background-position: center;
+      border: 2px solid var(--accent);
+    }
+
+    .message.guest::before {
+      background-image: url('https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&q=80');
+      border-color: var(--glass);
+    }
+
+    .message.agent::before {
+      background-image: linear-gradient(135deg, #ffd700, #d4af37);
+      content: '🤖';
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      border-color: #000;
+    }
+
+    .message-content {
+      flex: 1;
     }
 
     .message.guest {
@@ -605,6 +737,20 @@
       overflow: hidden;
     }
 
+    .cta-box::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1200&q=80');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.03;
+      z-index: 0;
+    }
+
     .cta-box::before {
       content: '';
       position: absolute;
@@ -631,12 +777,16 @@
       font-weight: 900;
       font-family: var(--display);
       margin-bottom: 24px;
+      position: relative;
+      z-index: 2;
     }
 
     .cta-box p {
       font-size: 1.2rem;
       color: var(--text-dim);
       margin-bottom: 40px;
+      position: relative;
+      z-index: 2;
     }
 
     .waitlist-count {
@@ -981,28 +1131,38 @@
 
           <div class="chat-window" role="region" aria-label="Support conversation">
             <div class="message guest">
-              <div class="message-sender">Guest — Sarah M.</div>
-              Hi—I'm at the door and my access code isn't working. It's late and I can't get into my room. Getting worried here.
+              <div class="message-content">
+                <div class="message-sender">Guest — Sarah M.</div>
+                Hi—I'm at the door and my access code isn't working. It's late and I can't get into my room. Getting worried here.
+              </div>
             </div>
 
             <div class="message agent">
-              <div class="message-sender">Kojo · System Operations AI</div>
-              I'm here, Sarah. I found your booking, confirmed payment, and checked the smart lock status. I've issued a secure fallback code (sent to your phone) and notified your host. Are you in a safe, well-lit area?
+              <div class="message-content">
+                <div class="message-sender">Kojo · System Operations AI</div>
+                I'm here, Sarah. I found your booking, confirmed payment, and checked the smart lock status. I've issued a secure fallback code (sent to your phone) and notified your host. Are you in a safe, well-lit area?
+              </div>
             </div>
 
             <div class="message agent">
-              <div class="message-sender">Yaa · Local Dispatch</div>
-              I'm contacting the host and on-call property contact right now. If there's no response within 3 minutes, I'll escalate to backup support so you're not left waiting.
+              <div class="message-content">
+                <div class="message-sender">Yaa · Local Dispatch</div>
+                I'm contacting the host and on-call property contact right now. If there's no response within 3 minutes, I'll escalate to backup support so you're not left waiting.
+              </div>
             </div>
 
             <div class="message agent">
-              <div class="message-sender">Sika · Safety Coordinator</div>
-              Please remain in the lobby or main corridor where there's light and cameras for your safety. Once your door opens, I'll close the incident and file a safety report to prevent this from happening again.
+              <div class="message-content">
+                <div class="message-sender">Sika · Safety Coordinator</div>
+                Please remain in the lobby or main corridor where there's light and cameras for your safety. Once your door opens, I'll close the incident and file a safety report to prevent this from happening again.
+              </div>
             </div>
 
             <div class="message guest">
-              <div class="message-sender">Guest — Sarah M.</div>
-              The new code worked — I'm inside now. Thank you for handling that so quickly. Genuinely impressed.
+              <div class="message-content">
+                <div class="message-sender">Guest — Sarah M.</div>
+                The new code worked — I'm inside now. Thank you for handling that so quickly. Genuinely impressed.
+              </div>
             </div>
           </div>
 
@@ -1187,59 +1347,5 @@
       });
     });
   </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book N Sleep</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <!-- Hero Section -->
-    <header style="background-image: url('https://source.unsplash.com/featured/?travel');">
-        <h1>Welcome to Book N Sleep</h1>
-    </header>
-
-    <!-- Destination Showcase Gallery -->
-    <section class="gallery">
-        <h2>Destination Highlights</h2>
-        <div class="gallery-item" style="background-image: url('https://source.unsplash.com/featured/?beach');"></div>
-        <div class="gallery-item" style="background-image: url('https://source.unsplash.com/featured/?mountains');"></div>
-        <div class="gallery-item" style="background-image: url('https://source.unsplash.com/featured/?city');"></div>
-    </section>
-
-    <!-- Feature Cards -->
-    <section class="features">
-        <h2>Features</h2>
-        <div class="feature-card" style="background-image: url('https://source.unsplash.com/featured/?hotel');">
-            <h3>Best Hotels</h3>
-        </div>
-        <div class="feature-card" style="background-image: url('https://source.unsplash.com/featured/?restaurant');">
-            <h3>Top Restaurants</h3>
-        </div>
-        <div class="feature-card" style="background-image: url('https://source.unsplash.com/featured/?adventure');">
-            <h3>Adventures Await</h3>
-        </div>
-    </section>
-
-    <!-- Testimonial Section -->
-    <section class="testimonials">
-        <h2>What Our Clients Say</h2>
-        <div class="testimonial" style="background-image: url('https://source.unsplash.com/featured/?travel');">
-            <p>"The best travel experience ever!"</p>
-            <p>- Happy Traveler</p>
-        </div>
-        <div class="testimonial" style="background-image: url('https://source.unsplash.com/featured/?exploration');">
-            <p>"I loved every bit of my journey!"</p>
-            <p>- Satisfied Client</p>
-        </div>
-    </section>
-
-    <footer>
-        <p>&copy; 2026 Book N Sleep - All Rights Reserved</p>
-    </footer>
 </body>
 </html>
