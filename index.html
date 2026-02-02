@@ -987,18 +987,30 @@
 
             <div class="message agent">
               <div class="message-sender">Kojo · System Operations AI</div>
-              I'm here, Sarah. I found your booking, confirmed payment, and checked the smart lock status. I've issued a secure fallback code (sent to your phone) and notified your host.
+              I'm here, Sarah. I found your booking, confirmed payment, and checked the smart lock status. I've issued a secure fallback code (sent to your phone) and notified your host. Are you in a safe, well-lit area?
             </div>
 
             <div class="message agent">
               <div class="message-sender">Yaa · Local Dispatch</div>
-              I'm contacting the host and on-call property contact right now. If there's no response within 3 minutes, I'll escalate to backup support.
+              I'm contacting the host and on-call property contact right now. If there's no response within 3 minutes, I'll escalate to backup support so you're not left waiting.
             </div>
 
             <div class="message agent">
               <div class="message-sender">Sika · Safety Coordinator</div>
-              Please remain in the lobby or main corridor where there's light and cameras for your safety. Once your door opens, I'll close the incident and file a safety report.
+              Please remain in the lobby or main corridor where there's light and cameras for your safety. Once your door opens, I'll close the incident and file a safety report to prevent this from happening again.
             </div>
+
+            <div class="message guest">
+              <div class="message-sender">Guest — Sarah M.</div>
+              The new code worked — I'm inside now. Thank you for handling that so quickly. Genuinely impressed.
+            </div>
+          </div>
+
+          <div style="margin-top:24px; padding:20px; background:rgba(212,175,55,0.05); border-radius:12px; border:1px solid var(--glass)">
+            <p style="color:var(--muted); font-size:0.9rem; margin:0">
+              <strong style="color:var(--accent)">Resolution time: 2m 14s</strong> — 
+              This scenario demonstrates our multi-agent coordination system. Real platform performance may vary, but our commitment to instant support doesn't.
+            </p>
           </div>
         </div>
       </section>
@@ -1008,24 +1020,25 @@
         <div class="cta-box">
           <div class="cta-box-content">
             <h3 id="cta-title">Be Part of Something Massive</h3>
-            <p>The travel industry is about to change forever. Join the waitlist and get exclusive early access when we launch.</p>
+            <p>
+              The travel industry is about to change forever. 
+              Join the waitlist and get exclusive early access when we launch.
+            </p>
 
-            <div class="hero-cta">
-              <form class="waitlist-form" id="final-waitlist">
-                <input 
-                  type="email" 
-                  id="final-email" 
-                  placeholder="your.email@example.com" 
-                  required 
-                  aria-label="Email address"
-                />
-                <button type="submit" class="btn">Join the Revolution</button>
-              </form>
-            </div>
+            <form class="waitlist-form" id="final-waitlist" style="margin:0 auto; max-width:500px">
+              <input 
+                type="email" 
+                id="final-email" 
+                placeholder="your.email@example.com" 
+                required 
+                aria-label="Email address"
+              />
+              <button type="submit" class="btn">Secure My Spot</button>
+            </form>
 
-            <div class="waitlist-count">
+            <p class="waitlist-count">
               Priority access granted in order of signup. Don't miss the revolution.
-            </div>
+            </p>
           </div>
         </div>
       </section>
@@ -1036,7 +1049,10 @@
       <div class="footer-content">
         <div class="footer-brand">
           <h4>BooknSleep</h4>
-          <p>Building the future of intelligent travel. One breakthrough at a time.</p>
+          <p>
+            Building the future of intelligent travel. 
+            A global platform for hosts, travelers, and everyone in between.
+          </p>
         </div>
 
         <div class="footer-links">
@@ -1044,7 +1060,7 @@
           <ul>
             <li><a href="#vision">Vision</a></li>
             <li><a href="#features">Features</a></li>
-            <li><a href="#timeline">Timeline</a></li>
+            <li><a href="#timeline">Roadmap</a></li>
             <li><a href="#waitlist">Join Waitlist</a></li>
           </ul>
         </div>
@@ -1052,114 +1068,377 @@
         <div class="footer-links">
           <h5>Company</h5>
           <ul>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Careers</a></li>
-            <li><a href="#">Press</a></li>
-            <li><a href="#">Contact</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="mailto:careers@booknsleep.com">Careers</a></li>
+            <li><a href="#press">Press</a></li>
+            <li><a href="mailto:hello@booknsleep.com">Contact</a></li>
           </ul>
         </div>
 
         <div class="footer-links">
           <h5>Legal</h5>
           <ul>
-            <li><a href="#">Privacy</a></li>
-            <li><a href="#">Terms</a></li>
-            <li><a href="#">Security</a></li>
+            <li><a href="#privacy">Privacy Policy</a></li>
+            <li><a href="#terms">Terms of Service</a></li>
+            <li><a href="#cookies">Cookie Policy</a></li>
           </ul>
         </div>
       </div>
 
       <div class="footer-bottom">
-        <div>&copy; 2026 BooknSleep. All rights reserved.</div>
+        <div>© <span id="year">2026</span> BooknSleep. All rights reserved.</div>
         <div class="social-links">
-          <a href="#" aria-label="Twitter">Twitter</a>
-          <a href="#" aria-label="LinkedIn">LinkedIn</a>
-          <a href="#" aria-label="Instagram">Instagram</a>
+          <a href="#twitter" aria-label="Twitter">Twitter</a>
+          <a href="#linkedin" aria-label="LinkedIn">LinkedIn</a>
+          <a href="#instagram" aria-label="Instagram">Instagram</a>
         </div>
       </div>
     </footer>
   </div>
 
   <script>
-    // ====== GOOGLE SHEET BACKEND (FREE) ======
-    const FORM_URL = "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE";
+    // Waitlist counter animation
+    function animateCounter() {
+      const counter = document.getElementById('waitlist-number');
+      const target = 12847;
+      const duration = 2000;
+      const step = target / (duration / 16);
+      let current = 0;
 
-    // ====== SIMPLE ANALYTICS (LOCAL) ======
-    function track(event, data={}) {
-      console.log("TRACK:", event, data);
-    }
-
-    // ====== WAITLIST HANDLER ======
-    async function submitWaitlist(formId) {
-      const form = document.getElementById(formId);
-      const emailInput = form.querySelector("input[type=email]");
-      const btn = form.querySelector("button");
-      
-      const email = emailInput.value.trim();
-      
-      if (!email || !email.includes("@")) {
-        alert("Enter a real email please 😊");
-        return;
-      }
-
-      btn.innerText = "Joining...";
-      btn.disabled = true;
-
-      const payload = {
-        email: email,
-        source: "booknsleep",
-        form: formId,
-        page: window.location.href,
-        device: navigator.userAgent,
-        ref: document.referrer || "direct",
-        timestamp: new Date().toISOString()
-      };
-
-      try {
-        await fetch(FORM_URL, {
-          method: "POST",
-          mode: "no-cors",
-          body: JSON.stringify(payload)
-        });
-
-        track("signup", { email });
-
-        form.innerHTML = `
-          <div style="padding:16px;color:#d4af37;text-align:center">
-            ✅ You're on the waitlist.<br>
-            Big things coming.
-          </div>
-        `;
-
-        // bump counter visually
-        const c = document.getElementById("waitlist-number");
-        if (c) {
-          const cur = parseInt(c.innerText.replace(/,/g,'') ) || 12000;
-          c.innerText = (cur + 1).toLocaleString();
+      const timer = setInterval(() => {
+        current += step;
+        if (current >= target) {
+          counter.textContent = target.toLocaleString();
+          clearInterval(timer);
+        } else {
+          counter.textContent = Math.floor(current).toLocaleString();
         }
-
-      } catch (err) {
-        alert("Network hiccup — try again in 5 seconds.");
-        btn.innerText = "Join the Revolution";
-        btn.disabled = false;
-      }
+      }, 16);
     }
 
-    // ====== BIND FORMS ======
-    document.getElementById("hero-waitlist")
-      ?.addEventListener("submit", e => {
-        e.preventDefault();
-        submitWaitlist("hero-waitlist");
-      });
+    // Intersection Observer for animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -100px 0px'
+    };
 
-    document.getElementById("final-waitlist")
-      ?.addEventListener("submit", e => {
-        e.preventDefault();
-        submitWaitlist("final-waitlist");
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
       });
+    }, observerOptions);
 
-    // ====== page view ======
-    track("page_view");
+    // Observe all feature cards
+    document.querySelectorAll('.feature-card').forEach((card, index) => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(30px)';
+      card.style.transition = `all 0.6s ease-out ${index * 0.1}s`;
+      observer.observe(card);
+    });
+
+    // Waitlist form handlers
+    function handleWaitlistSubmit(e) {
+      e.preventDefault();
+      const email = e.target.querySelector('input[type="email"]').value;
+      const button = e.target.querySelector('button');
+      
+      button.textContent = 'Adding you...';
+      button.disabled = true;
+
+      // Simulate API call
+      setTimeout(() => {
+        button.textContent = '✓ You\'re on the list!';
+        e.target.querySelector('input[type="email"]').value = '';
+        
+        // Increment counter
+        const counter = document.getElementById('waitlist-number');
+        const current = parseInt(counter.textContent.replace(/,/g, ''));
+        counter.textContent = (current + 1).toLocaleString();
+
+        setTimeout(() => {
+          button.textContent = 'Join the Revolution';
+          button.disabled = false;
+        }, 2500);
+      }, 1200);
+    }
+
+    document.getElementById('hero-waitlist')?.addEventListener('submit', handleWaitlistSubmit);
+    document.getElementById('final-waitlist')?.addEventListener('submit', handleWaitlistSubmit);
+
+    // Set current year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Start counter animation on load
+    window.addEventListener('load', () => {
+      setTimeout(animateCounter, 500);
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
   </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book N Sleep</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Hero Section -->
+    <header style="background-image: url('https://source.unsplash.com/featured/?travel');">
+        <h1>Welcome to Book N Sleep</h1>
+    </header>
+
+    <!-- Destination Showcase Gallery -->
+    <section class="gallery">
+        <h2>Destination Highlights</h2>
+        <div class="gallery-item" style="background-image: url('https://source.unsplash.com/featured/?beach');"></div>
+        <div class="gallery-item" style="background-image: url('https://source.unsplash.com/featured/?mountains');"></div>
+        <div class="gallery-item" style="background-image: url('https://source.unsplash.com/featured/?city');"></div>
+    </section>
+
+    <!-- Feature Cards -->
+    <section class="features">
+        <h2>Features</h2>
+        <div class="feature-card" style="background-image: url('https://source.unsplash.com/featured/?hotel');">
+            <h3>Best Hotels</h3>
+        </div>
+        <div class="feature-card" style="background-image: url('https://source.unsplash.com/featured/?restaurant');">
+            <h3>Top Restaurants</h3>
+        </div>
+        <div class="feature-card" style="background-image: url('https://source.unsplash.com/featured/?adventure');">
+            <h3>Adventures Await</h3>
+        </div>
+    </section>
+
+    <!-- Testimonial Section -->
+    <section class="testimonials">
+        <h2>What Our Clients Say</h2>
+        <div class="testimonial" style="background-image: url('https://source.unsplash.com/featured/?travel');">
+            <p>"The best travel experience ever!"</p>
+            <p>- Happy Traveler</p>
+        </div>
+        <div class="testimonial" style="background-image: url('https://source.unsplash.com/featured/?exploration');">
+            <p>"I loved every bit of my journey!"</p>
+            <p>- Satisfied Client</p>
+        </div>
+    </section>
+
+  <script>
+// ====== CONFIG ======
+const API = "https://api.sikasend.com/waitlist";   // CBT endpoint
+const ANALYTICS = "https://api.sikasend.com/bns-analytics";
+
+// ====== CORE FUNCTION ======
+async function joinWaitlist(email, location) {
+  const payload = {
+    email,
+    source: "booknsleep_landing",
+    page: location,
+    timestamp: new Date().toISOString(),
+    device: navigator.userAgent,
+    ref: document.referrer || "direct"
+  };
+
+  const res = await fetch(API, {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(payload)
+  });
+
+  return res.ok;
+}
+
+// ====== ANALYTICS PING ======
+function track(event, data={}) {
+  fetch(ANALYTICS, {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({
+      event,
+      ...data,
+      time: Date.now()
+    })
+  });
+}
+
+// ====== FORM HANDLER ======
+document.querySelectorAll('.waitlist-form').forEach(form => {
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const email = form.querySelector('input').value.trim();
+
+    if(!email.includes("@")) {
+      alert("Real email please, traveler 😄");
+      return;
+    }
+
+    form.querySelector("button").innerText = "Joining...";
+
+    const ok = await joinWaitlist(email, form.id);
+
+    if(ok) {
+      track("signup", {email});
+
+      form.innerHTML = `
+        <div style="padding:16px;color:#d4af37">
+          ✅ You're in. Check your inbox soon.
+        </div>
+      `;
+    } else {
+      alert("Network hiccup. Try again in 10 seconds.");
+    }
+  });
+});
+
+// ====== PAGE VIEW ======
+track("page_view");
+</script>
+
+<script>
+// ====== GOOGLE SHEET BACKEND (FREE) ======
+const FORM_URL =
+"https://script.google.com/macros/s/AKfycbxp4Ntx_jCeB3M6f0MsyFNTMIMvI7fHraP6ng0ZuQUxF5tPTRz5FjMduq5N7_MnTSa5/exec";
+
+// ====== SIMPLE ANALYTICS (LOCAL) ======
+function track(event, data={}) {
+  console.log("TRACK:", event, data);
+}
+
+// ====== WAITLIST HANDLER ======
+async function submitWaitlist(formId) {
+  const form = document.getElementById(formId);
+  const emailInput = form.querySelector("input[type=email]");
+  const btn = form.querySelector("button");
+
+  const email = emailInput.value.trim();
+
+  if (!email || !email.includes("@")) {
+    alert("Enter a real email please 😄");
+    return;
+  }
+
+  btn.innerText = "Joining...";
+  btn.disabled = true;
+
+  const payload = {
+    email: email,
+    source: "booknsleep",
+    form: formId,
+    page: window.location.href,
+    device: navigator.userAgent,
+    ref: document.referrer || "direct",
+    timestamp: new Date().toISOString()
+  };
+
+  try {
+    await fetch(FORM_URL, {
+      method: "POST",
+      mode: "no-cors",
+      body: JSON.stringify(payload)
+    });
+
+    track("signup", { email });
+
+    form.innerHTML = `
+      <div style="padding:16px;color:#d4af37;text-align:center">
+        ✅ You're on the waitlist.  
+        Big things coming.
+      </div>
+    `;
+
+    // bump counter visually
+    const c = document.getElementById("waitlist-number");
+    if (c) {
+      const cur = parseInt(c.innerText.replace(/,/g,'')) || 12000;
+      c.innerText = (cur + 1).toLocaleString();
+    }
+
+  } catch (err) {
+    alert("Network hiccup — try again in 5 seconds.");
+    btn.innerText = "Join the Revolution";
+    btn.disabled = false;
+  }
+}
+
+// ====== BIND FORMS ======
+document.getElementById("hero-waitlist")
+  ?.addEventListener("submit", e => {
+    e.preventDefault();
+    submitWaitlist("hero-waitlist");
+});
+
+document.getElementById("final-waitlist")
+  ?.addEventListener("submit", e => {
+    e.preventDefault();
+    submitWaitlist("final-waitlist");
+});
+
+// page view
+track("page_view");
+</script>
+
+<script>
+  const FORM_URL = "https://script.google.com/macros/s/AKfycbzfuSsPvXuOCxKwIsiuwfCweoxiYFMMdxf5dn7-pOIRAFa6VUVlGxibh-Tw-ntOsN72/exec";
+
+  const form = document.getElementById("waitlistForm");
+  const emailInput = document.getElementById("email");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const email = (emailInput?.value || "").trim();
+    if (!email || !email.includes("@")) {
+      alert("Enter a valid email");
+      return;
+    }
+
+    const payload = {
+      email,
+      source: "booknsleep",
+      page: window.location.href,
+      device: navigator.userAgent,
+      ref: document.referrer || "",
+      timestamp: new Date().toISOString()
+    };
+
+    // Apps Script + GitHub Pages = CORS drama.
+    // "no-cors" makes the request succeed, but you won't be able to read the response.
+    try {
+      await fetch(FORM_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+
+      // treat as success (because we can't read response in no-cors mode)
+      form.reset();
+      alert("✅ You’re on the waitlist!");
+    } catch (err) {
+      console.error(err);
+      alert("❌ Failed. Try again.");
+    }
+  });
+</script>
+  
+    <footer>
+        <p>&copy; 2026 Book N Sleep - All Rights Reserved</p>
+    </footer>
 </body>
 </html>
