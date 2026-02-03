@@ -5,15 +5,53 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>BooknSleep — The Future of Intelligent Travel</title>
   <meta name="description" content="A global travel intelligence platform that's redefining how millions will discover, book, and experience stays worldwide. Join the revolution." />
-  
+  <link rel="canonical" href="https://booknsleep.com/" />
+
   <!-- Open Graph / Social -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="BooknSleep — The Future of Intelligent Travel" />
   <meta property="og:description" content="Join the waitlist for the most ambitious travel platform ever built." />
   <meta property="og:image" content="https://booknsleep.com/og-image.jpg" />
-  
+  <meta property="og:url" content="https://booknsleep.com/" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="BooknSleep — The Future of Intelligent Travel" />
+  <meta name="twitter:description" content="Join the waitlist for the most ambitious travel platform ever built." />
+  <meta name="twitter:image" content="https://booknsleep.com/og-image.jpg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=1600&q=80" imagesrcset="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=800&q=80 800w, https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=1200&q=80 1200w, https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=1600&q=80 1600w" imagesizes="(max-width: 900px) 100vw, 1000px" />
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "BooknSleep",
+      "url": "https://booknsleep.com/",
+      "logo": "https://booknsleep.com/og-image.jpg",
+      "sameAs": [
+        "https://twitter.com/",
+        "https://www.linkedin.com/",
+        "https://www.instagram.com/"
+      ]
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "BooknSleep",
+      "url": "https://booknsleep.com/",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://booknsleep.com/?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+  </script>
 
   <style>
     /*
@@ -55,6 +93,23 @@
       position: relative;
     }
 
+    .skip-link {
+      position: absolute;
+      left: -999px;
+      top: 16px;
+      background: var(--accent);
+      color: #000;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-weight: 700;
+      z-index: 1000;
+      text-decoration: none;
+    }
+
+    .skip-link:focus {
+      left: 16px;
+    }
+
     /* Animated background grid */
     body::before {
       content: '';
@@ -83,6 +138,53 @@
       padding: 0 24px;
       position: relative;
       z-index: 1;
+    }
+
+    /* Sidebar navigation */
+    .side-nav {
+      position: fixed;
+      left: 24px;
+      top: 120px;
+      width: 190px;
+      display: none;
+      flex-direction: column;
+      gap: 12px;
+      padding: 18px;
+      border-radius: 16px;
+      border: 1px solid var(--glass);
+      background: rgba(7,7,7,0.85);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+      z-index: 90;
+    }
+
+    .side-nav span {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .side-nav a {
+      color: var(--text-dim);
+      text-decoration: none;
+      font-size: 0.9rem;
+      padding: 6px 8px;
+      border-radius: 8px;
+      transition: all var(--transition);
+    }
+
+    .side-nav a:hover,
+    .side-nav a:focus-visible {
+      color: var(--text);
+      background: rgba(212,175,55,0.1);
+      outline: none;
+    }
+
+    @media (min-width: 1100px) {
+      .side-nav { display: flex; }
+      .page { padding-left: 240px; }
     }
 
     /* Header */
@@ -122,11 +224,12 @@
       box-shadow: 0 8px 24px rgba(212,175,55,0.3);
     }
 
-    .brand-text h1 {
+    .brand-text .brand-title {
       font-size: 1.3rem;
       font-weight: 800;
       font-family: var(--display);
       letter-spacing: -0.02em;
+      display: block;
     }
 
     .brand-text p {
@@ -175,6 +278,13 @@
       background: rgba(212,175,55,0.05);
     }
 
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+
     /* Massive Hero */
     .hero {
       text-align: center;
@@ -215,7 +325,7 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    .hero h2 {
+    .hero h1 {
       font-size: clamp(2.5rem, 8vw, 6.5rem);
       font-weight: 900;
       line-height: 0.95;
@@ -859,7 +969,7 @@
       .stats { grid-template-columns: 1fr; gap: 40px; }
       .features { grid-template-columns: 1fr; }
       nav.actions .btn { padding: 12px 20px; font-size: 0.9rem; }
-      .brand-text h1 { font-size: 1.1rem; }
+      .brand-text .brand-title { font-size: 1.1rem; }
       .logo { width: 48px; height: 48px; }
       .hero-media img { border-radius: 20px; }
       .vision-gallery img { height: 200px; }
@@ -874,10 +984,22 @@
       width: 1px;
       height: 1px;
       padding: 0;
-      margin: 0;
+      margin: -1px;
       overflow: hidden;
       clip: rect(0,0,0,0);
       border: 0;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      .hero-marquee-track {
+        animation: none !important;
+      }
     }
 
     /* Custom scrollbar */
@@ -888,13 +1010,27 @@
   </style>
 </head>
 <body>
+  <a href="#hero" class="skip-link">Skip to main content</a>
   <div class="page">
+    <!-- Sidebar Navigation -->
+    <aside class="side-nav" aria-label="Section navigation">
+      <span>Navigate</span>
+      <a href="#hero">Overview</a>
+      <a href="#stats">Stats</a>
+      <a href="#vision">Vision</a>
+      <a href="#features">Features</a>
+      <a href="#map">Global Reach</a>
+      <a href="#timeline">Roadmap</a>
+      <a href="#support-demo">Live Support</a>
+      <a href="#final-cta">Join Waitlist</a>
+    </aside>
+
     <!-- Header -->
     <header class="site-head" role="banner">
       <div class="brand">
         <div class="logo" aria-hidden="true">BnS</div>
         <div class="brand-text">
-          <h1>BooknSleep</h1>
+          <span class="brand-title">BooknSleep</span>
           <p>Global Travel Intelligence</p>
         </div>
       </div>
@@ -907,15 +1043,15 @@
 
     <main role="main">
       <!-- Massive Hero -->
-      <section class="hero" aria-labelledby="hero-title">
+      <section class="hero" id="hero" aria-labelledby="hero-title">
         <div class="hero-badge">
           <span class="dot"></span>
           <span>COMING SOON — LAUNCHING 2026</span>
         </div>
 
-        <h2 id="hero-title">
+        <h1 id="hero-title">
           The Future of<br />Intelligent Travel
-        </h2>
+        </h1>
 
         <p class="hero-lead">
           We're building the world's most advanced travel intelligence platform. 
@@ -925,75 +1061,83 @@
 
         <div class="hero-cta">
           <form class="waitlist-form" id="hero-waitlist">
+            <label class="sr-only" for="hero-email">Email address</label>
             <input 
               type="email" 
               id="hero-email" 
               placeholder="Enter your email" 
               required 
               aria-label="Email address"
+              autocomplete="email"
             />
             <button type="submit" class="btn">Join the Revolution</button>
           </form>
         </div>
 
-        <div class="hero-marquee" aria-label="Cross-border travel services">
+        <div class="hero-marquee" aria-label="Travel intelligence highlights">
           <div class="hero-marquee-track">
             <div class="hero-marquee-item">
-              <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80" alt="Mobile app for cross-border payments" loading="lazy" />
-              <span>Cross-border Payments</span>
+              <img src="https://images.unsplash.com/photo-1454165205744-3b78555e5572?auto=format&fit=crop&w=800&q=80" srcset="https://images.unsplash.com/photo-1454165205744-3b78555e5572?auto=format&fit=crop&w=400&q=80 400w, https://images.unsplash.com/photo-1454165205744-3b78555e5572?auto=format&fit=crop&w=800&q=80 800w" sizes="220px" alt="Analytics dashboard representing AI pricing" loading="lazy" decoding="async" width="220" height="140" />
+              <span>AI Pricing</span>
             </div>
             <div class="hero-marquee-item">
-              <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=800&q=80" alt="Commercial flight in the sky" loading="lazy" />
-              <span>Flights</span>
+              <img src="https://images.unsplash.com/photo-1512499617640-c2f999098c01?auto=format&fit=crop&w=800&q=80" srcset="https://images.unsplash.com/photo-1512499617640-c2f999098c01?auto=format&fit=crop&w=400&q=80 400w, https://images.unsplash.com/photo-1512499617640-c2f999098c01?auto=format&fit=crop&w=800&q=80 800w" sizes="220px" alt="Mobile booking experience for smart travel" loading="lazy" decoding="async" width="220" height="140" />
+              <span>Smart Booking</span>
             </div>
             <div class="hero-marquee-item">
-              <img src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=800&q=80" alt="Cargo ships at sea" loading="lazy" />
-              <span>Ships</span>
+              <img src="https://images.unsplash.com/photo-1474302770737-173ee21bab63?auto=format&fit=crop&w=800&q=80" srcset="https://images.unsplash.com/photo-1474302770737-173ee21bab63?auto=format&fit=crop&w=400&q=80 400w, https://images.unsplash.com/photo-1474302770737-173ee21bab63?auto=format&fit=crop&w=800&q=80 800w" sizes="220px" alt="Commercial flight representing global travel" loading="lazy" decoding="async" width="220" height="140" />
+              <span>Global Flights</span>
             </div>
             <div class="hero-marquee-item">
-              <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80" alt="High-speed train at a station" loading="lazy" />
-              <span>Trains</span>
+              <img src="https://images.unsplash.com/photo-1474487548417-781cb71495f3?auto=format&fit=crop&w=800&q=80" srcset="https://images.unsplash.com/photo-1474487548417-781cb71495f3?auto=format&fit=crop&w=400&q=80 400w, https://images.unsplash.com/photo-1474487548417-781cb71495f3?auto=format&fit=crop&w=800&q=80 800w" sizes="220px" alt="High-speed rail network" loading="lazy" decoding="async" width="220" height="140" />
+              <span>Connected Rail</span>
             </div>
             <div class="hero-marquee-item">
-              <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=800&q=80" alt="Handshake representing travel insurance" loading="lazy" />
-              <span>Insurance</span>
+              <img src="https://images.unsplash.com/photo-1525186402429-b4ff38bedbec?auto=format&fit=crop&w=800&q=80" srcset="https://images.unsplash.com/photo-1525186402429-b4ff38bedbec?auto=format&fit=crop&w=400&q=80 400w, https://images.unsplash.com/photo-1525186402429-b4ff38bedbec?auto=format&fit=crop&w=800&q=80 800w" sizes="220px" alt="Support team representing 24/7 assistance" loading="lazy" decoding="async" width="220" height="140" />
+              <span>24/7 Support</span>
             </div>
             <div class="hero-marquee-item">
-              <img src="https://images.unsplash.com/photo-1501117716987-c8e1ecb2107f?auto=format&fit=crop&w=800&q=80" alt="Luxury hotel room" loading="lazy" />
-              <span>Stays</span>
+              <img src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=800&q=80" srcset="https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=400&q=80 400w, https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=800&q=80 800w" sizes="220px" alt="Premium hotel stay" loading="lazy" decoding="async" width="220" height="140" />
+              <span>Premium Stays</span>
             </div>
             <div class="hero-marquee-item" aria-hidden="true">
-              <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80" alt="" loading="lazy" />
-              <span>Cross-border Payments</span>
+              <img src="https://images.unsplash.com/photo-1454165205744-3b78555e5572?auto=format&fit=crop&w=800&q=80" alt="" loading="lazy" decoding="async" width="220" height="140" />
+              <span>AI Pricing</span>
             </div>
             <div class="hero-marquee-item" aria-hidden="true">
-              <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=800&q=80" alt="" loading="lazy" />
-              <span>Flights</span>
+              <img src="https://images.unsplash.com/photo-1512499617640-c2f999098c01?alt="" loading="lazy" decoding="async" width="220" height="140" />
+              <span>Smart Booking</span>
             </div>
             <div class="hero-marquee-item" aria-hidden="true">
-              <img src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=800&q=80" alt="" loading="lazy" />
-              <span>Ships</span>
+              <img src="https://images.unsplash.com/photo-1474302770737-173ee21bab63?alt="" loading="lazy" decoding="async" width="220" height="140" />
+              <span>Global Flights</span>
             </div>
             <div class="hero-marquee-item" aria-hidden="true">
-              <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80" alt="" loading="lazy" />
-              <span>Trains</span>
+              <img src="https://images.unsplash.com/photo-1474487548417-781cb71495f3?alt="" loading="lazy" decoding="async" width="220" height="140" />
+              <span>Connected Rail</span>
             </div>
             <div class="hero-marquee-item" aria-hidden="true">
-              <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=800&q=80" alt="" loading="lazy" />
-              <span>Insurance</span>
+              <img src="https://images.unsplash.com/photo-1525186402429-b4ff38bedbec?alt="" loading="lazy" decoding="async" width="220" height="140" />
+              <span>24/7 Support</span>
             </div>
             <div class="hero-marquee-item" aria-hidden="true">
-              <img src="https://images.unsplash.com/photo-1501117716987-c8e1ecb2107f?auto=format&fit=crop&w=800&q=80" alt="" loading="lazy" />
-              <span>Stays</span>
+              <img src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?alt="" loading="lazy" decoding="async" width="220" height="140" />
+              <span>Premium Stays</span>
             </div>
           </div>
         </div>
 
         <div class="hero-media">
           <img
-            src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80"
-            alt="A glowing city skyline at night with travel lights"
-            loading="lazy"
+            src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=1600&q=80"
+            srcset="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=800&q=80 800w, https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=1200&q=80 1200w, https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=1600&q=80 1600w"
+            sizes="(max-width: 900px) 100vw, 1000px"
+            width="1000"
+            height="560"
+            alt="Night skyline with glowing connections representing intelligent travel"
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
           />
         </div>
 
@@ -1003,7 +1147,7 @@
       </section>
 
       <!-- Stats -->
-      <section class="stats" aria-label="Platform statistics">
+      <section class="stats" id="stats" aria-label="Platform statistics">
         <div class="stat">
           <div class="stat-number">195+</div>
           <div class="stat-label">Countries Ready</div>
@@ -1035,23 +1179,38 @@
 
         <div class="vision-gallery" aria-label="Destination highlights">
           <img
-            src="https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=900&q=80"
-            alt="A tranquil coastal resort at sunrise"
+            src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80"
+            srcset="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=600&q=80 600w, https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80 900w"
+            sizes="(max-width: 900px) 100vw, 300px"
+            width="900"
+            height="600"
+            alt="City lights representing global travel intelligence"
             loading="lazy"
+            decoding="async"
           />
           <img
-            src="https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=900&q=80"
-            alt="Mountain retreat with winding road"
+            src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=900&q=80"
+            srcset="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=600&q=80 600w, https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=900&q=80 900w"
+            sizes="(max-width: 900px) 100vw, 300px"
+            width="900"
+            height="600"
+            alt="Aerial travel view highlighting global mobility"
             loading="lazy"
+            decoding="async"
           />
           <img
-            src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=900&q=80"
-            alt="Forest landscape with sunlit valley"
+            src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=900&q=80"
+            srcset="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=600&q=80 600w, https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=900&q=80 900w"
+            sizes="(max-width: 900px) 100vw, 300px"
+            width="900"
+            height="600"
+            alt="Modern city skyline showcasing premium stays"
             loading="lazy"
+            decoding="async"
           />
         </div>
 
-        <div class="features">
+        <div class="features" id="features">
           <div class="feature-card">
             <div class="feature-icon">🧠</div>
             <h4>Adaptive Pricing Intelligence</h4>
@@ -1110,13 +1269,18 @@
       </section>
 
       <!-- Global Map -->
-      <section class="map-section" aria-label="Global presence">
+      <section class="map-section" id="map" aria-label="Global presence">
         <div class="map-container">
           <img
             class="map-image"
-            src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1400&q=80"
-            alt="Earth view from above with clouds and oceans"
+            src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1400&q=80"
+            srcset="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80 800w, https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80 1200w, https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1400&q=80 1400w"
+            sizes="100vw"
+            width="1400"
+            height="900"
+            alt="Digital world map showing global connectivity"
             loading="lazy"
+            decoding="async"
           />
           <div class="map-visual" aria-hidden="true">
             <div class="map-marker"></div>
@@ -1133,7 +1297,7 @@
       </section>
 
       <!-- Timeline -->
-      <section class="timeline" aria-labelledby="timeline-title">
+      <section class="timeline" id="timeline" aria-labelledby="timeline-title">
         <div style="text-align:center; margin-bottom:60px">
           <div class="section-label">The Journey</div>
           <h3 id="timeline-title" style="font-size:clamp(2rem,4vw,3rem); font-weight:800; font-family:var(--display)">
@@ -1175,7 +1339,7 @@
       </section>
 
       <!-- Help Demo -->
-      <section class="help-demo" aria-labelledby="demo-title">
+      <section class="help-demo" id="support-demo" aria-labelledby="demo-title">
         <div style="text-align:center; margin-bottom:40px">
           <div class="section-label">Real-Time Intelligence</div>
           <h3 id="demo-title" style="font-size:clamp(2rem,4vw,3rem); font-weight:800; font-family:var(--display)">
@@ -1228,12 +1392,14 @@
             </p>
 
             <form class="waitlist-form" id="final-waitlist" style="max-width: 500px; margin: 0 auto;">
+              <label class="sr-only" for="final-email">Email address for final waitlist</label>
               <input 
                 type="email" 
                 id="final-email" 
                 placeholder="Enter your email" 
                 required 
                 aria-label="Email address for final waitlist"
+                autocomplete="email"
               />
               <button type="submit" class="btn">Join the Revolution</button>
             </form>
