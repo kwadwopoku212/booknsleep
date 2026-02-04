@@ -943,6 +943,124 @@
       background: rgba(255,255,255,0.03);
     }
 
+    /* Swarm Interface */
+    .swarm-interface {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: left;
+      background: linear-gradient(180deg, var(--card), var(--card-2));
+      border: 1px solid var(--glass);
+      border-radius: 20px;
+      padding: 32px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .swarm-interface::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent-bright), transparent);
+      opacity: 0.6;
+    }
+
+    .swarm-message {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 20px;
+      animation: slideIn 0.5s ease both;
+      opacity: 0;
+    }
+
+    .swarm-message:nth-child(1) { animation-delay: 0.1s; }
+    .swarm-message:nth-child(2) { animation-delay: 0.2s; }
+    .swarm-message:nth-child(3) { animation-delay: 0.3s; }
+    .swarm-message:nth-child(4) { animation-delay: 0.4s; }
+    .swarm-message:nth-child(5) { animation-delay: 0.5s; }
+    .swarm-message:nth-child(6) { animation-delay: 0.6s; }
+    .swarm-message:nth-child(7) { animation-delay: 0.7s; }
+    .swarm-message:nth-child(8) { animation-delay: 0.8s; }
+    .swarm-message:nth-child(9) { animation-delay: 0.9s; }
+
+    @keyframes slideIn {
+      from { 
+        opacity: 0; 
+        transform: translateX(-20px);
+      }
+      to { 
+        opacity: 1; 
+        transform: translateX(0);
+      }
+    }
+
+    .swarm-avatar {
+      width: 42px;
+      height: 42px;
+      min-width: 42px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      font-family: var(--display);
+      color: #000;
+      font-size: 1.1rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+
+    .swarm-content {
+      flex: 1;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 12px 16px;
+    }
+
+    .swarm-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+
+    .swarm-name {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+
+    .swarm-role {
+      font-size: 0.8rem;
+      color: var(--muted);
+      opacity: 0.8;
+    }
+
+    .swarm-text {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: var(--text-dim);
+    }
+
+    @media (max-width: 768px) {
+      .swarm-interface {
+        padding: 24px 20px;
+      }
+      
+      .swarm-avatar {
+        width: 36px;
+        height: 36px;
+        min-width: 36px;
+        font-size: 0.95rem;
+      }
+      
+      .swarm-content {
+        padding: 10px 14px;
+      }
+    }
+
     /* CTA Section */
     .final-cta {
       padding: 120px 0;
@@ -1486,68 +1604,134 @@
         </div>
       </section>
 
-      <!-- AI Collaboration -->
+      <!-- Swarm Agents -->
       <section class="ai-collab" id="ai-collab" aria-labelledby="ai-collab-title">
-        <div class="section-label">AI Collaboration</div>
+        <div class="section-label">Swarm Intelligence</div>
         <h3 id="ai-collab-title" style="font-size:clamp(2rem,4vw,3rem); font-weight:800; font-family:var(--display)">
-          Agents Align to Resolve Every Issue
+          5 Agents, One Mission: Flawless Resolution
         </h3>
         <p class="ai-lead">
-          Our multi-agent system collaborates in real time—triaging, validating, and deploying solutions before a guest ever feels stuck.
+          Watch our AI swarm collaborate in real-time—analyzing, coordinating, and deploying solutions with precision intelligence.
         </p>
 
-        <div class="ai-interface" role="region" aria-label="AI agents collaborating on a guest issue">
-          <div class="ai-card">
-            <div class="ai-header">
-              <div class="ai-avatar">K</div>
-              <div>
-                <div class="ai-title">Kojo · Resolution AI</div>
-                <div class="ai-subtitle">Analyzing ticket #4821</div>
+        <div class="swarm-interface" role="region" aria-label="AI swarm agents collaborating on a guest issue">
+          <!-- Message 1 -->
+          <div class="swarm-message">
+            <div class="swarm-avatar" style="background: linear-gradient(135deg, #ffd700, #d4af37);">K</div>
+            <div class="swarm-content">
+              <div class="swarm-header">
+                <span class="swarm-name">Kojo</span>
+                <span class="swarm-role">Resolution AI</span>
               </div>
-            </div>
-            <p>Detected lock failure at 11:42 PM. Issuing secure fallback and alerting host. Estimated resolution: 2 minutes.</p>
-            <div class="ai-status">
-              <span class="typing-dots" aria-hidden="true"><span></span><span></span><span></span></span>
-              Coordinating fallback access
+              <div class="swarm-text">🔍 Detected lock failure at property #4821. Analyzing root cause...</div>
             </div>
           </div>
 
-          <div class="ai-card">
-            <div class="ai-header">
-              <div class="ai-avatar">Y</div>
-              <div>
-                <div class="ai-title">Yaa · Dispatch AI</div>
-                <div class="ai-subtitle">Escalation monitor</div>
+          <!-- Message 2 -->
+          <div class="swarm-message">
+            <div class="swarm-avatar" style="background: linear-gradient(135deg, #60a5fa, #3b82f6);">T</div>
+            <div class="swarm-content">
+              <div class="swarm-header">
+                <span class="swarm-name">Tano</span>
+                <span class="swarm-role">Diagnostics AI</span>
               </div>
-            </div>
-            <p>Contacting property manager and standby support. If no response in 180 seconds, auto-deploy backup host.</p>
-            <div class="ai-status">
-              <span class="typing-dots" aria-hidden="true"><span></span><span></span><span></span></span>
-              Activating regional support
+              <div class="swarm-text">⚡ Battery level critical. Lock firmware v2.1.3 logged error code E47.</div>
             </div>
           </div>
 
-          <div class="ai-card">
-            <div class="ai-header">
-              <div class="ai-avatar">S</div>
-              <div>
-                <div class="ai-title">Sika · Safety AI</div>
-                <div class="ai-subtitle">Guest wellbeing</div>
+          <!-- Message 3 -->
+          <div class="swarm-message">
+            <div class="swarm-avatar" style="background: linear-gradient(135deg, #ffd700, #d4af37);">K</div>
+            <div class="swarm-content">
+              <div class="swarm-header">
+                <span class="swarm-name">Kojo</span>
+                <span class="swarm-role">Resolution AI</span>
               </div>
+              <div class="swarm-text">✅ Confirmed. Initiating backup access protocol. @Yaa deploy emergency code.</div>
             </div>
-            <p>Confirmed guest location and safety corridor. Monitoring updates and preparing post-incident report.</p>
-            <div class="ai-status">
-              <span class="typing-dots" aria-hidden="true"><span></span><span></span><span></span></span>
-              Monitoring safety status
+          </div>
+
+          <!-- Message 4 -->
+          <div class="swarm-message">
+            <div class="swarm-avatar" style="background: linear-gradient(135deg, #a78bfa, #8b5cf6);">Y</div>
+            <div class="swarm-content">
+              <div class="swarm-header">
+                <span class="swarm-name">Yaa</span>
+                <span class="swarm-role">Dispatch AI</span>
+              </div>
+              <div class="swarm-text">📨 Emergency access code sent to guest via SMS. ETA: 8 seconds.</div>
+            </div>
+          </div>
+
+          <!-- Message 5 -->
+          <div class="swarm-message">
+            <div class="swarm-avatar" style="background: linear-gradient(135deg, #34d399, #10b981);">S</div>
+            <div class="swarm-content">
+              <div class="swarm-header">
+                <span class="swarm-name">Sika</span>
+                <span class="swarm-role">Safety AI</span>
+              </div>
+              <div class="swarm-text">🛡️ Guest location confirmed safe. Weather clear. Monitoring wellbeing.</div>
+            </div>
+          </div>
+
+          <!-- Message 6 -->
+          <div class="swarm-message">
+            <div class="swarm-avatar" style="background: linear-gradient(135deg, #f472b6, #ec4899);">A</div>
+            <div class="swarm-content">
+              <div class="swarm-header">
+                <span class="swarm-name">Ama</span>
+                <span class="swarm-role">Host Relations AI</span>
+              </div>
+              <div class="swarm-text">📞 Host notified. Maintenance scheduled for tomorrow 10 AM.</div>
+            </div>
+          </div>
+
+          <!-- Message 7 -->
+          <div class="swarm-message">
+            <div class="swarm-avatar" style="background: linear-gradient(135deg, #a78bfa, #8b5cf6);">Y</div>
+            <div class="swarm-content">
+              <div class="swarm-header">
+                <span class="swarm-name">Yaa</span>
+                <span class="swarm-role">Dispatch AI</span>
+              </div>
+              <div class="swarm-text">✨ Guest confirmed entry successful. Access restored.</div>
+            </div>
+          </div>
+
+          <!-- Message 8 -->
+          <div class="swarm-message">
+            <div class="swarm-avatar" style="background: linear-gradient(135deg, #ffd700, #d4af37);">K</div>
+            <div class="swarm-content">
+              <div class="swarm-header">
+                <span class="swarm-name">Kojo</span>
+                <span class="swarm-role">Resolution AI</span>
+              </div>
+              <div class="swarm-text">📊 Incident #4821 resolved in 47 seconds. Logging resolution for ML training.</div>
+            </div>
+          </div>
+
+          <!-- Message 9 -->
+          <div class="swarm-message">
+            <div class="swarm-avatar" style="background: linear-gradient(135deg, #34d399, #10b981);">S</div>
+            <div class="swarm-content">
+              <div class="swarm-header">
+                <span class="swarm-name">Sika</span>
+                <span class="swarm-role">Safety AI</span>
+              </div>
+              <div class="swarm-text">
+                ✓ Post-incident report complete. Guest satisfaction maintained.
+                <span class="typing-dots" aria-hidden="true"><span></span><span></span><span></span></span>
+              </div>
             </div>
           </div>
         </div>
 
         <div class="ai-stream" aria-hidden="true">
-          <div class="ai-chip">Signal sync · 0.8s</div>
-          <div class="ai-chip">Host response incoming</div>
-          <div class="ai-chip">Fallback code delivered</div>
-          <div class="ai-chip">Issue resolved</div>
+          <div class="ai-chip">5 agents deployed</div>
+          <div class="ai-chip">9 messages exchanged</div>
+          <div class="ai-chip">47s resolution time</div>
+          <div class="ai-chip">100% guest satisfaction</div>
         </div>
       </section>
 
